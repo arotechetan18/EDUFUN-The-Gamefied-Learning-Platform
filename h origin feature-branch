@@ -1,0 +1,383 @@
+* [33m116424b[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m Current time added
+[31m|[m * [33m729d07c[m[33m ([m[1;31morigin/main[m[33m)[m emoji added to all list contain in edu cards
+[31m|[m * [33m29e293c[m higher educcation list added
+[31m|[m * [33me425073[m list adde to secondary edcucation card
+[31m|[m * [33mee1f25a[m visit  button added to kiderngfarden
+[31m|[m * [33m93a971c[m Kidergarder list added
+[31m|[m * [33m3b03536[m list og cources added"
+[31m|[m * [33mc089453[m backgroun color added to carss
+[31m|[m * [33m7449262[m edu card 3 image added
+[31m|[m * [33m82105d2[m edu card 2 image added
+[31m|[m * [33m5ff72f8[m edu card 1 image added
+[31m|[m * [33m04cb6c1[m inner box structure added in edu-cards
+[31m|[m * [33mfb515c5[m primary secondary and higher education card structure added to desktop
+[31m|[m *   [33m5e8ec19[m Merge pull request #20 from sakshilimbhore/main
+[31m|[m [33m|[m[34m\[m  
+[31m|[m [33m|[m * [33m8dc98ad[m footer added
+[31m|[m [33m|[m *   [33m2396f50[m Merge branch 'satyamrk18:main' into main
+[31m|[m [33m|[m [35m|[m[36m\[m  
+[31m|[m [33m|[m * [36m|[m [33mbc4c54c[m image inserted
+[31m|[m [33m|[m * [36m|[m [33me5195ff[m image inserted
+[31m|[m [33m|[m * [36m|[m [33md6831bd[m javascript added
+[31m|[m [33m|[m * [36m|[m [33me4316a3[m images added
+[31m|[m [33m|[m * [36m|[m [33mf434c6d[m button added
+[31m|[m [33m|[m * [36m|[m [33m9d3079b[m image added
+[31m|[m [33m|[m * [36m|[m [33m6cb5f06[m image added
+[31m|[m [33m|[m * [36m|[m [33m8df623f[m cointainer added
+[31m|[m [33m|[m * [36m|[m [33m28d6b34[m logo added
+[31m|[m [33m|[m * [36m|[m [33m275b324[m background color added
+[31m|[m [33m|[m * [36m|[m [33m806a284[m css added
+[31m|[m [33m|[m * [36m|[m [33mc92efd1[m navbar added
+[31m|[m [33m|[m * [36m|[m [33mae65449[m image added
+[31m|[m * [36m|[m [36m|[m   [33m4eb8256[m Merge pull request #19 from SamarthKawane/main
+[31m|[m [1;31m|[m[31m\[m [36m\[m [36m\[m  
+[31m|[m [1;31m|[m[31m/[m [36m/[m [36m/[m  
+[31m|[m[31m/[m[1;31m|[m [36m|[m [36m|[m   
+* [1;31m|[m [36m|[m [36m|[m [33m86ec7e5[m started
+[36m|[m [1;31m|[m[36m_[m[36m|[m[36m/[m  
+[36m|[m[36m/[m[1;31m|[m [36m|[m   
+[36m|[m * [36m|[m [33m3f75223[m pharma related question added
+[36m|[m * [36m|[m [33m1e93bc2[m civil services related question added
+[36m|[m * [36m|[m [33m6eae2ed[m law relatwd questions aded
+[36m|[m * [36m|[m [33m5c35c41[m finance questions added
+[36m|[m[36m/[m [36m/[m  
+* [36m|[m [33m21d7cc7[m footer added to higher education page
+* [36m|[m [33m10fa067[m home.css file added
+* [36m|[m [33m55ff2d0[m container name cahnged
+* [36m|[m   [33m0f10ba7[m Merge pull request #14 from TanishkaShivarkar/main
+[1;33m|[m[1;34m\[m [36m\[m  
+[1;33m|[m * [36m\[m   [33m76812a1[m Merge branch 'main' into main
+[1;33m|[m [1;35m|[m[1;33m\[m [36m\[m  
+[1;33m|[m [1;35m|[m[1;33m/[m [36m/[m  
+[1;33m|[m[1;33m/[m[1;35m|[m [36m|[m   
+* [1;35m|[m [36m|[m   [33m06fa389[m Merge pull request #16 from vaishubhambare/main
+[31m|[m[32m\[m [1;35m\[m [36m\[m  
+[31m|[m * [1;35m|[m [36m|[m [33maacbf69[m added new code
+[31m|[m * [1;35m|[m [36m|[m [33me423647[m change file name
+* [32m|[m [1;35m|[m [36m|[m   [33m612a752[m Merge pull request #17 from Laxmi2003-Code/main
+[33m|[m[34m\[m [32m\[m [1;35m\[m [36m\[m  
+[33m|[m * [32m|[m [1;35m|[m [36m|[m [33m7cb863b[m update the exit img
+[33m|[m * [32m|[m [1;35m|[m [36m|[m [33m68419de[m information added
+[33m|[m * [32m|[m [1;35m|[m [36m|[m   [33m1d7156d[m navbar updated
+[33m|[m [35m|[m[36m\[m [32m\[m [1;35m\[m [36m\[m  
+[33m|[m * [36m|[m [32m|[m [1;35m|[m [36m|[m [33m9c0b1f9[m navbar modified
+* [36m|[m [36m|[m [32m|[m [1;35m|[m [36m|[m   [33m654f8fe[m Merge pull request #18 from ANSHUMANMOREY7/main
+[1;31m|[m[1;32m\[m [36m\[m [36m\[m [32m\[m [1;35m\[m [36m\[m  
+[1;31m|[m * [36m|[m [36m|[m [32m|[m [1;35m|[m [36m|[m [33m0b4f4db[m function named submit() created in js file
+[1;31m|[m * [36m|[m [36m|[m [32m|[m [1;35m|[m [36m|[m [33mc49d001[m ids given to input boxes and on click function assigned to button
+[1;31m|[m * [36m|[m [36m|[m [32m|[m [1;35m|[m [36m|[m [33m5ec3f26[m input box number given type tel
+[1;31m|[m * [36m|[m [36m|[m [32m|[m [1;35m|[m [36m|[m [33md3d862f[m modified social icons default colour into black
+[1;31m|[m * [36m|[m [36m|[m [32m|[m [1;35m|[m [36m|[m [33m65772b1[m all the social icons made redirectable
+[1;31m|[m * [36m|[m [36m|[m [32m|[m [1;35m|[m [36m|[m [33m49490c0[m cursor pointers added
+[1;31m|[m * [36m|[m [36m|[m [32m|[m [1;35m|[m [36m|[m [33m7c9eb30[m socisl icons given hover and colour
+[1;31m|[m * [36m|[m [36m|[m [32m|[m [1;35m|[m [36m|[m [33m6fe5d21[m paragraph main image alignd
+[1;31m|[m * [36m|[m [36m|[m [32m|[m [1;35m|[m [36m|[m   [33m0a28b2b[m Merge branch 'satyamrk18:main' into main
+[1;31m|[m [1;33m|[m[36m\[m [36m\[m [36m\[m [32m\[m [1;35m\[m [36m\[m  
+[1;31m|[m [1;33m|[m [36m|[m [36m|[m[36m/[m [32m/[m [1;35m/[m [36m/[m  
+[1;31m|[m [1;33m|[m [36m|[m[36m/[m[36m|[m [32m|[m [1;35m|[m [36m|[m   
+[1;31m|[m * [36m|[m [36m|[m [32m|[m [1;35m|[m [36m|[m [33m2fd1631[m main para placed and given font style according to page
+[1;31m|[m * [36m|[m [36m|[m [32m|[m [1;35m|[m [36m|[m [33md4de9e2[m a paragraph added in left page below main image
+[1;31m|[m * [36m|[m [36m|[m [32m|[m [1;35m|[m [36m|[m [33mc30e011[m social icons placed in their positions
+[1;31m|[m * [36m|[m [36m|[m [32m|[m [1;35m|[m [36m|[m [33m8868061[m social icons given spaces in between
+[1;31m|[m * [36m|[m [36m|[m [32m|[m [1;35m|[m [36m|[m [33m58c68be[m main image re-modified
+[1;31m|[m * [36m|[m [36m|[m [32m|[m [1;35m|[m [36m|[m [33m27733ae[m social media icons added using font awesome
+[1;31m|[m * [36m|[m [36m|[m [32m|[m [1;35m|[m [36m|[m [33m40add88[m hamburger menu icon added
+[1;31m|[m * [36m|[m [36m|[m [32m|[m [1;35m|[m [36m|[m [33mbb7927e[m border radius of main card modified
+[1;31m|[m * [36m|[m [36m|[m [32m|[m [1;35m|[m [36m|[m [33mc3bc3d2[m main image aligned at center
+[1;31m|[m * [36m|[m [36m|[m [32m|[m [1;35m|[m [36m|[m [33m5ba672d[m navbar added
+[1;31m|[m * [36m|[m [36m|[m [32m|[m [1;35m|[m [36m|[m [33m0f0f828[m padding added to both main headings
+[1;31m|[m * [36m|[m [36m|[m [32m|[m [1;35m|[m [36m|[m   [33maf2615a[m colour added
+[1;31m|[m [1;35m|[m[1;36m\[m [36m\[m [36m\[m [32m\[m [1;35m\[m [36m\[m  
+[1;31m|[m [1;35m|[m * [36m\[m [36m\[m [32m\[m [1;35m\[m [36m\[m   [33mdf0230e[m Merge branch 'satyamrk18:main' into main
+[1;31m|[m [1;35m|[m [31m|[m[32m\[m [36m\[m [36m\[m [32m\[m [1;35m\[m [36m\[m  
+[1;31m|[m [1;35m|[m [31m|[m [32m|[m [36m|[m[32m_[m[36m|[m[32m/[m [1;35m/[m [36m/[m  
+[1;31m|[m [1;35m|[m [31m|[m [32m|[m[32m/[m[36m|[m [36m|[m [1;35m|[m [36m|[m   
+[1;31m|[m * [31m|[m [32m/[m [36m|[m [36m|[m [1;35m|[m [36m|[m [33m46f09a9[m colour added
+[1;31m|[m [31m|[m[31m/[m [32m/[m [36m/[m [36m/[m [1;35m/[m [36m/[m  
+[1;31m|[m * [32m|[m [36m|[m [36m|[m [1;35m|[m [36m|[m [33ma28ca65[m box shadow added
+[1;31m|[m * [32m|[m [36m|[m [36m|[m [1;35m|[m [36m|[m [33m2c381e3[m image positioned
+[1;31m|[m * [32m|[m [36m|[m [36m|[m [1;35m|[m [36m|[m [33mc171f0f[m image added
+[1;31m|[m * [32m|[m [36m|[m [36m|[m [1;35m|[m [36m|[m [33m3fea193[m image added
+[1;31m|[m * [32m|[m [36m|[m [36m|[m [1;35m|[m [36m|[m [33m72f9f36[m button designed
+[1;31m|[m * [32m|[m [36m|[m [36m|[m [1;35m|[m [36m|[m [33m49f6eb9[m button added
+[1;31m|[m * [32m|[m [36m|[m [36m|[m [1;35m|[m [36m|[m [33mc49725f[m message box resised
+[1;31m|[m * [32m|[m [36m|[m [36m|[m [1;35m|[m [36m|[m [33m2c68e30[m font style added in input boxes
+[1;31m|[m * [32m|[m [36m|[m [36m|[m [1;35m|[m [36m|[m [33m8a9ca1f[m input box head midified
+[1;31m|[m * [32m|[m [36m|[m [36m|[m [1;35m|[m [36m|[m [33m65b2fc7[m input box heading placed
+[1;31m|[m * [32m|[m [36m|[m [36m|[m [1;35m|[m [36m|[m [33m9d7f228[m input boxes aligned with specific madding and margin
+[1;31m|[m * [32m|[m [36m|[m [36m|[m [1;35m|[m [36m|[m [33m9bb822a[m input boxes added
+[1;31m|[m * [32m|[m [36m|[m [36m|[m [1;35m|[m [36m|[m [33md94ee45[m container added with fonts and partitions
+[1;31m|[m * [32m|[m [36m|[m [36m|[m [1;35m|[m [36m|[m [33mff0fec0[m contact.ss page added and linked
+* [32m|[m [32m|[m [36m|[m [36m|[m [1;35m|[m [36m|[m [33m7fc1cb0[m scalability added to footer
+* [32m|[m [32m|[m [36m|[m [36m|[m [1;35m|[m [36m|[m [33m7ab9b05[m footer icon path change
+* [32m|[m [32m|[m [36m|[m [36m|[m [1;35m|[m [36m|[m [33m0b5734e[m home page structure added
+* [32m|[m [32m|[m [36m|[m [36m|[m [1;35m|[m [36m|[m [33me6a1fe2[m  internal css and js are converted into seperate files
+[36m|[m [32m|[m[36m_[m[32m|[m[36m/[m [36m/[m [1;35m/[m [36m/[m  
+[36m|[m[36m/[m[32m|[m [32m|[m [36m|[m [1;35m|[m [36m|[m   
+* [32m|[m [32m|[m [36m|[m [1;35m|[m [36m|[m [33m268d35a[m uneceesory code remove
+* [32m|[m [32m|[m [36m|[m [1;35m|[m [36m|[m [33m417eab4[m iog in and sign in script link to higher education page
+* [32m|[m [32m|[m [36m|[m [1;35m|[m [36m|[m [33m0a5602f[m responsiveness added to higher education cards for all screen types
+* [32m|[m [32m|[m [36m|[m [1;35m|[m [36m|[m [33md15b4d5[m z-index:1; added to ham nav
+* [32m|[m [32m|[m [36m|[m [1;35m|[m [36m|[m [33mfd4f1fb[m links added to all butons in higher education cards
+[32m|[m [32m|[m[32m/[m [36m/[m [1;35m/[m [36m/[m  
+[32m|[m[32m/[m[32m|[m [36m|[m [1;35m|[m [36m|[m   
+* [32m|[m [36m|[m [1;35m|[m [36m|[m [33mbef6d89[m all cards done to centralize
+* [32m|[m [36m|[m [1;35m|[m [36m|[m [33mb19f808[m phone navbar position fixed
+* [32m|[m [36m|[m [1;35m|[m [36m|[m [33md66cca7[m satic and gif image added to small cards
+* [32m|[m [36m|[m [1;35m|[m [36m|[m [33m9f96587[m books jpg and image
+* [32m|[m [36m|[m [1;35m|[m [36m|[m [33mf25d1d9[m static and gif brain images added
+* [32m|[m [36m|[m [1;35m|[m [36m|[m [33ma6a5d62[m in card boxes small boxi structure added for holding a information
+* [32m|[m [36m|[m [1;35m|[m [36m|[m [33m8295c2f[m small cards structure added
+* [32m|[m [36m|[m [1;35m|[m [36m|[m [33me241c95[m Merge pull request #15 from ANSHUMANMOREY7/main
+[33m|[m[32m\[m[32m|[m [36m|[m [1;35m|[m [36m|[m 
+[33m|[m * [36m|[m [1;35m|[m [36m|[m [33mb2216d2[m scratch code added and contact_us.html page deleted
+[33m|[m * [36m|[m [1;35m|[m [36m|[m   [33m1e5592e[m Merge branch 'satyamrk18:main' into main
+[33m|[m [35m|[m[36m\[m [36m\[m [1;35m\[m [36m\[m  
+[33m|[m * [36m|[m [36m|[m [1;35m|[m [36m|[m [33m6e518b1[m scratch code added
+* [36m|[m [36m|[m [36m|[m [1;35m|[m [36m|[m   [33mee30955[m Merge pull request #13 from vaishubhambare/main
+[36m|[m[1;32m\[m [36m\[m [36m\[m [36m\[m [1;35m\[m [36m\[m  
+[36m|[m [1;32m|[m[36m_[m[36m|[m[36m/[m [36m/[m [1;35m/[m [36m/[m  
+[36m|[m[36m/[m[1;32m|[m [36m|[m [36m|[m [1;35m|[m [36m|[m   
+[36m|[m * [36m|[m [36m|[m [1;35m|[m [36m|[m [33m8c6154c[m new images added
+[36m|[m * [36m|[m [36m|[m [1;35m|[m [36m|[m [33me8da377[m structure change
+[36m|[m [1;32m|[m [36m|[m [36m|[m * [36m|[m [33md3f9600[m card css changed
+[36m|[m [1;32m|[m [36m|[m [36m|[m * [36m|[m [33m7c3f0b0[m javascript added to cards
+[36m|[m [1;32m|[m [36m|[m [36m|[m * [36m|[m [33mc861544[m icon css added
+[36m|[m [1;32m|[m [36m|[m [36m|[m * [36m|[m [33mf59fd1d[m quiz icon added
+[36m|[m [1;32m|[m [36m|[m [36m|[m * [36m|[m [33mbde7d0b[m cards css added
+[36m|[m [1;32m|[m [36m|[m [36m|[m * [36m|[m [33m8a0ae71[m buttons added
+[36m|[m [1;32m|[m [36m|[m [36m|[m * [36m|[m [33ma2e6e3d[m english quiz heading added
+[36m|[m [1;32m|[m [36m|[m [36m|[m * [36m|[m [33m764bf50[m english quiz page added
+[36m|[m [1;32m|[m [36m|[m [36m|[m * [36m|[m [33m94878c2[m change in icons path
+[36m|[m [1;32m|[m [36m|[m [36m|[m * [36m|[m [33m30d272b[m javascript added to cards
+[36m|[m [1;32m|[m [36m|[m [36m|[m * [36m|[m [33m2e6cd8d[m icon css added
+[36m|[m [1;32m|[m [36m|[m [36m|[m * [36m|[m [33m3dd4ec6[m gk icon added
+[36m|[m [1;32m|[m [36m|[m [36m|[m * [36m|[m [33ma4549f4[m card css added
+[36m|[m [1;32m|[m [36m|[m [36m|[m * [36m|[m [33mcf84419[m options & buttons added
+[36m|[m [1;32m|[m [36m|[m [36m|[m * [36m|[m [33m5156de3[m gk quiz-container added
+[36m|[m [1;32m|[m [36m|[m [36m|[m * [36m|[m   [33m07f73ec[m icon path changed
+[36m|[m [1;32m|[m [36m|[m [36m|[m [1;33m|[m[1;34m\[m [36m\[m  
+[36m|[m [1;32m|[m [36m|[m [36m|[m [1;33m|[m * [36m\[m   [33m83c80ec[m Merge branch 'satyamrk18:main' into main
+[36m|[m [1;32m|[m [36m|[m [36m|[m [1;33m|[m [1;35m|[m[36m\[m [36m\[m  
+[36m|[m [1;32m|[m[36m_[m[36m|[m[36m_[m[36m|[m[36m_[m[1;33m|[m[36m_[m[1;35m|[m[36m/[m [36m/[m  
+[36m|[m[36m/[m[1;32m|[m [36m|[m [36m|[m [1;33m|[m [1;35m|[m [36m|[m   
+* [1;32m|[m [36m|[m [36m|[m [1;33m|[m [1;35m|[m [36m|[m [33m1f148e6[m basic structure added for home page
+* [1;32m|[m [36m|[m [36m|[m [1;33m|[m [1;35m|[m [36m|[m [33m4858a8c[m home path change
+[31m|[m[1;32m\[m[1;32m|[m [36m|[m [36m|[m [1;33m|[m [1;35m|[m [36m|[m 
+* [1;32m|[m [36m|[m [36m|[m [1;33m|[m [1;35m|[m [36m|[m [33m916320e[m username is shown in mobile section
+* [1;32m|[m [36m|[m [36m|[m [1;33m|[m [1;35m|[m [36m|[m [33maf7ac47[m username is added to navbar
+[32m|[m [1;32m|[m [36m|[m [36m|[m * [1;35m|[m [36m|[m [33mfe168dd[m gk quiz page added
+[32m|[m [1;32m|[m [36m|[m [36m|[m [1;35m|[m[1;35m/[m [36m/[m  
+[32m|[m [1;32m|[m [36m|[m [36m|[m * [36m|[m [33m31e03f4[m icons path added
+[32m|[m [1;32m|[m [36m|[m [36m|[m * [36m|[m [33m1f5d02d[m exit icon css added
+[32m|[m [1;32m|[m [36m|[m [36m|[m * [36m|[m [33m13db540[m heading icon css added
+[32m|[m [1;32m|[m [36m|[m [36m|[m * [36m|[m [33m9ca662c[m exit function added
+[32m|[m [1;32m|[m [36m|[m [36m|[m * [36m|[m [33m84bfa11[m restart function added
+[32m|[m [1;32m|[m [36m|[m [36m|[m * [36m|[m [33m6fd1946[m submit quiz js added
+[32m|[m [1;32m|[m [36m|[m [36m|[m * [36m|[m [33m7a9f223[m quiz questions added
+[32m|[m [1;32m|[m [36m|[m [36m|[m * [36m|[m [33me535c33[m exit icon added
+[32m|[m [1;32m|[m [36m|[m [36m|[m * [36m|[m [33m53d1c67[m calculator icon added
+[32m|[m [1;32m|[m [36m|[m [36m|[m * [36m|[m [33mfee0d60[m button css added
+[32m|[m [1;32m|[m [36m|[m [36m|[m * [36m|[m [33m5029b44[m options css added
+[32m|[m [1;32m|[m [36m|[m [36m|[m * [36m|[m [33maa2c80b[m heading css added
+[32m|[m [1;32m|[m [36m|[m [36m|[m * [36m|[m [33mdddd855[m horizontal line added
+[32m|[m [1;32m|[m [36m|[m [36m|[m * [36m|[m [33mce455b1[m heading added
+[32m|[m [1;32m|[m [36m|[m [36m|[m * [36m|[m [33mdb40f21[m maths quiz button added
+[32m|[m [1;32m|[m [36m|[m [36m|[m * [36m|[m [33m55629bf[m Fixed folder name and added missing files
+[32m|[m [1;32m|[m [36m|[m[1;32m_[m[36m|[m[1;32m/[m [36m/[m  
+[32m|[m [1;32m|[m[1;32m/[m[36m|[m [36m|[m [36m|[m   
+[32m|[m * [36m|[m [36m|[m [36m|[m   [33mc9dca56[m Merge pull request #10 from Laxmi2003-Code/main
+[32m|[m [33m|[m[36m\[m [36m\[m [36m\[m [36m\[m  
+[32m|[m [33m|[m [36m|[m [36m|[m[36m/[m [36m/[m  
+[32m|[m [33m|[m [36m|[m[36m/[m[36m|[m [36m|[m   
+[32m|[m [33m|[m * [36m|[m [36m|[m [33mef13697[m confirmation added
+[32m|[m [33m|[m * [36m|[m [36m|[m [33m498c5fb[m getInfo of animals
+[32m|[m [33m|[m * [36m|[m [36m|[m [33mdfa2290[m colour recognition game created
+[32m|[m [33m|[m * [36m|[m [36m|[m [33ma780cfb[m added styling to page
+[32m|[m [33m|[m * [36m|[m [36m|[m [33m7f0cf7c[m html content added
+[32m|[m [33m|[m * [36m|[m [36m|[m [33maceb0ea[m basic page added
+[32m|[m [33m|[m * [36m|[m [36m|[m   [33m43dc5ad[m Merge branch 'satyamrk18:main' into main
+[32m|[m [33m|[m [35m|[m[36m\[m [36m\[m [36m\[m  
+[32m|[m [33m|[m * [36m|[m [36m|[m [36m|[m [33mcf3235e[m alphabets game created
+[32m|[m [33m|[m * [36m|[m [36m|[m [36m|[m [33med031a5[m grid buttons created
+[32m|[m [33m|[m * [36m|[m [36m|[m [36m|[m [33m5b3f693[m basic structure created
+[32m|[m [33m|[m * [36m|[m [36m|[m [36m|[m [33m8161341[m exit button added
+[32m|[m [33m|[m * [36m|[m [36m|[m [36m|[m [33m53d5d69[m basic structure of quiz created
+[32m|[m [33m|[m * [36m|[m [36m|[m [36m|[m [33me138405[m basic code added
+[32m|[m [33m|[m * [36m|[m [36m|[m [36m|[m [33mf3ba191[m primary page added
+[32m|[m [33m|[m * [36m|[m [36m|[m [36m|[m   [33m8f10a43[m Merge branch 'satyamrk18:main' into main
+[32m|[m [33m|[m [1;31m|[m[1;32m\[m [36m\[m [36m\[m [36m\[m  
+[32m|[m [33m|[m * [1;32m|[m [36m|[m [36m|[m [36m|[m [33me89453d[m product preview design
+[32m|[m [33m|[m * [1;32m|[m [36m|[m [36m|[m [36m|[m [33m43fdade[m games logo added
+[32m|[m * [1;32m|[m [1;32m|[m [36m|[m [36m|[m [36m|[m   [33m1a61b0c[m Merge pull request #11 from vaishubhambare/main
+[32m|[m [1;33m|[m[1;34m\[m [1;32m\[m [1;32m\[m [36m\[m [36m\[m [36m\[m  
+[32m|[m [1;33m|[m * [1;32m\[m [1;32m\[m [36m\[m [36m\[m [36m\[m   [33m6859f21[m added formulas section
+[32m|[m [1;33m|[m [1;35m|[m[36m\[m [1;32m\[m [1;32m\[m [36m\[m [36m\[m [36m\[m  
+[32m|[m [1;33m|[m [1;35m|[m [36m|[m [1;32m|[m[36m_[m[1;32m|[m[36m/[m [36m/[m [36m/[m  
+[32m|[m [1;33m|[m [1;35m|[m [36m|[m[36m/[m[1;32m|[m [1;32m|[m [36m|[m [36m|[m   
+[32m|[m [1;33m|[m * [36m|[m [1;32m|[m [1;32m|[m [36m|[m [36m|[m [33mdd48cc3[m add formulas
+[32m|[m [1;33m|[m * [36m|[m [1;32m|[m [1;32m|[m [36m|[m [36m|[m [33mc092f72[m file name chnage
+[32m|[m * [1;36m|[m [36m|[m [1;32m|[m [1;32m|[m [36m|[m [36m|[m   [33mbc53a47[m Merge pull request #12 from TanishkaShivarkar/main
+[32m|[m [36m|[m[32m\[m [1;36m\[m [36m\[m [1;32m\[m [1;32m\[m [36m\[m [36m\[m  
+[32m|[m [36m|[m [32m|[m[36m_[m[1;36m|[m[36m/[m [1;32m/[m [1;32m/[m [36m/[m [36m/[m  
+[32m|[m [36m|[m[36m/[m[32m|[m [1;36m|[m [1;32m|[m [1;32m|[m [36m|[m [36m|[m   
+[32m|[m [36m|[m * [1;36m|[m [1;32m|[m [1;32m|[m [36m|[m [36m|[m   [33m6077167[m Merge branch 'satyamrk18:main' into main
+[32m|[m [36m|[m [33m|[m[36m\[m [1;36m\[m [1;32m\[m [1;32m\[m [36m\[m [36m\[m  
+[32m|[m [36m|[m [33m|[m[36m/[m [1;36m/[m [1;32m/[m [1;32m/[m [36m/[m [36m/[m  
+[32m|[m [36m|[m[36m/[m[33m|[m [1;36m|[m [1;32m|[m [1;32m|[m [36m|[m [36m|[m   
+[32m|[m * [33m|[m [1;36m|[m [1;32m|[m [1;32m|[m [36m|[m [36m|[m [33m6e0c969[m Merge pull request #9 from vaishubhambare/main
+[32m|[m[32m/[m[36m|[m [33m|[m [1;36m|[m [1;32m|[m [1;32m|[m [36m|[m [36m|[m 
+[32m|[m * [33m|[m [1;36m|[m [1;32m|[m [1;32m|[m [36m|[m [36m|[m   [33ma5e84f3[m Merge branch 'satyamrk18:main' into main
+[32m|[m [1;36m|[m[1;32m\[m [33m\[m [1;36m\[m [1;32m\[m [1;32m\[m [36m\[m [36m\[m  
+[32m|[m [1;36m|[m [1;32m|[m[1;36m_[m[33m|[m[1;36m/[m [1;32m/[m [1;32m/[m [36m/[m [36m/[m  
+[32m|[m [1;36m|[m[1;36m/[m[1;32m|[m [33m|[m [1;32m|[m [1;32m/[m [36m/[m [36m/[m   
+[32m|[m [1;36m|[m [1;32m|[m [33m|[m[1;32m_[m[1;32m|[m[1;32m/[m [36m/[m [36m/[m    
+[32m|[m [1;36m|[m [1;32m|[m[1;32m/[m[33m|[m [1;32m|[m [36m|[m [36m|[m     
+[32m|[m * [1;32m|[m [33m|[m [1;32m|[m [36m|[m [36m|[m [33m0acf374[m funny game added
+[32m|[m * [1;32m|[m [33m|[m [1;32m|[m [36m|[m [36m|[m [33mee776ac[m General Knowledge Quiz add
+[32m|[m * [1;32m|[m [33m|[m [1;32m|[m [36m|[m [36m|[m [33m7c9df4f[m science quiz added
+* [1;32m|[m [1;32m|[m [33m|[m [1;32m|[m [36m|[m [36m|[m [33m6a416b1[m image path cahge for head image
+[1;32m|[m [1;32m|[m [1;32m|[m * [1;32m|[m [36m|[m [36m|[m   [33mc4cd0a4[m Merge branch 'satyamrk18:main' into main
+[1;32m|[m [1;32m|[m [1;32m|[m [1;33m|[m[1;32m\[m [1;32m\[m [36m\[m [36m\[m  
+[1;32m|[m [1;32m|[m[1;32m_[m[1;32m|[m[1;32m_[m[1;33m|[m[1;32m/[m [1;32m/[m [36m/[m [36m/[m  
+[1;32m|[m[1;32m/[m[1;32m|[m [1;32m|[m [1;33m|[m [1;32m|[m [36m|[m [36m|[m   
+* [1;32m|[m [1;32m|[m [1;33m|[m [1;32m|[m [36m|[m [36m|[m [33md4fc847[m text decoration property added to navbar
+* [1;32m|[m [1;32m|[m [1;33m|[m [1;32m|[m [36m|[m [36m|[m [33m6c7d0b1[m time over alert message added to all pages
+* [1;32m|[m [1;32m|[m [1;33m|[m [1;32m|[m [36m|[m [36m|[m [33m7aeb093[m timing information added to all cards in
+[1;32m|[m [1;32m|[m[1;32m/[m [1;33m/[m [1;32m/[m [36m/[m [36m/[m  
+[1;32m|[m[1;32m/[m[1;32m|[m [1;33m|[m [1;32m|[m [36m|[m [36m|[m   
+[1;32m|[m [1;32m|[m * [1;32m|[m [36m|[m [36m|[m [33m65a5b9e[m path added to img
+[1;32m|[m [1;32m|[m * [1;32m|[m [36m|[m [36m|[m [33mc25cc5b[m media querie for mobile applied
+[1;32m|[m [1;32m|[m * [1;32m|[m [36m|[m [36m|[m [33m1a06df1[m basic education page created
+[1;32m|[m [1;32m|[m * [1;32m|[m [36m|[m [36m|[m [33mb8ce2ab[m new path added
+[1;32m|[m [1;32m|[m * [1;32m|[m [36m|[m [36m|[m [33m6ebbac0[m Deleted secondary_education.html
+[1;32m|[m [1;32m|[m * [1;32m|[m [36m|[m [36m|[m [33m94f68f7[m basic equcation folder added
+[1;32m|[m [1;32m|[m * [1;32m|[m [36m|[m [36m|[m [33m7ea0f42[m new folder created
+[1;32m|[m [1;32m|[m * [1;32m|[m [36m|[m [36m|[m [33mf8f66bd[m page rename
+[1;32m|[m [1;32m|[m * [1;32m|[m [36m|[m [36m|[m [33m266bb59[m heading path changed
+[1;32m|[m [1;32m|[m * [1;32m|[m [36m|[m [36m|[m [33m7072f49[m heading & cards css changed
+[1;32m|[m [1;32m|[m * [1;32m|[m [36m|[m [36m|[m [33m29f0098[m icon css added
+[1;32m|[m [1;32m|[m * [1;32m|[m [36m|[m [36m|[m [33m61b9621[m all css added
+[1;32m|[m [1;32m|[m * [1;32m|[m [36m|[m [36m|[m [33mda2e05c[m secondary education css page added
+[1;32m|[m [1;32m|[m * [1;32m|[m [36m|[m [36m|[m [33me571a59[m puzzle icon added
+[1;32m|[m [1;32m|[m * [1;32m|[m [36m|[m [36m|[m [33m8cdfe2b[m secondary education icon added
+[1;32m|[m [1;32m|[m * [1;32m|[m [36m|[m [36m|[m [33mdca2c9a[m heading css changed
+[1;32m|[m [1;32m|[m[1;32m/[m [1;32m/[m [36m/[m [36m/[m  
+[1;32m|[m[1;32m/[m[1;32m|[m [1;32m|[m [36m|[m [36m|[m   
+* [1;32m|[m [1;32m|[m [36m|[m [36m|[m [33m7590bfa[m timer added to all
+* [1;32m|[m [1;32m|[m [36m|[m [36m|[m [33mde4f48e[m timer logic added fully functional timer
+* [1;32m|[m [1;32m|[m [36m|[m [36m|[m [33mfc7440d[m timer added to pharma question page
+[1;32m|[m[1;32m/[m [1;32m/[m [36m/[m [36m/[m  
+* [1;32m|[m [36m|[m [36m|[m [33m959441c[m other domains quiz structure added
+* [1;32m|[m [36m|[m [36m|[m   [33m55b3d5a[m Merge pull request #7 from vaishubhambare/main
+[1;35m|[m[1;36m\[m [1;32m\[m [36m\[m [36m\[m  
+[1;35m|[m * [1;32m|[m [36m|[m [36m|[m [33m0690769[m added new card design
+[1;35m|[m * [1;32m|[m [36m|[m [36m|[m [33m93a873b[m multiple cards added
+[1;35m|[m * [1;32m|[m [36m|[m [36m|[m [33m3f87786[m navbar added
+[1;35m|[m * [1;32m|[m [36m|[m [36m|[m [33m5a6d7dd[m added basic code
+[1;35m|[m [36m|[m [1;32m|[m[36m/[m [36m/[m  
+[1;35m|[m [36m|[m[36m/[m[1;32m|[m [36m|[m   
+* [36m|[m [1;32m|[m [36m|[m   [33m88b7de3[m Merge pull request #8 from TanishkaShivarkar/main
+[31m|[m[32m\[m [36m\[m [1;32m\[m [36m\[m  
+[31m|[m * [36m\[m [1;32m\[m [36m\[m   [33mb9018c1[m Merge branch 'satyamrk18:main' into main
+[31m|[m [33m|[m[34m\[m [36m\[m [1;32m\[m [36m\[m  
+[31m|[m * [34m|[m [36m|[m [1;32m|[m [36m|[m [33m7ce86a1[m hamburger js added
+[31m|[m * [34m|[m [36m|[m [1;32m|[m [36m|[m [33m1fde69b[m alert mode on btn added
+[31m|[m * [34m|[m [36m|[m [1;32m|[m [36m|[m [33m42e3e43[m navbar icons path added
+[31m|[m * [34m|[m [36m|[m [1;32m|[m [36m|[m [33m0523d1e[m navbar styling added
+[31m|[m * [34m|[m [36m|[m [1;32m|[m [36m|[m [33m43fa7b4[m navbar added
+[31m|[m * [34m|[m [36m|[m [1;32m|[m [36m|[m [33m35df72c[m cards background colour added
+[31m|[m * [34m|[m [36m|[m [1;32m|[m [36m|[m [33m98f87e8[m hover added to btn
+[31m|[m * [34m|[m [36m|[m [1;32m|[m [36m|[m [33m4635f6e[m btn css added
+[31m|[m * [34m|[m [36m|[m [1;32m|[m [36m|[m [33m64e9188[m card img css added
+[31m|[m * [34m|[m [36m|[m [1;32m|[m [36m|[m [33m4ba50fb[m explore button added
+[31m|[m * [34m|[m [36m|[m [1;32m|[m [36m|[m [33m32995cb[m img path added
+[31m|[m * [34m|[m [36m|[m [1;32m|[m [36m|[m [33m44784d7[m hover effect for cards added
+[31m|[m * [34m|[m [36m|[m [1;32m|[m [36m|[m [33m0573d1a[m  img added to cards
+[31m|[m * [34m|[m [36m|[m [1;32m|[m [36m|[m [33m1c400b1[m heading css added
+[31m|[m * [34m|[m [36m|[m [1;32m|[m [36m|[m [33m994bb8a[m cards css added
+[31m|[m * [34m|[m [36m|[m [1;32m|[m [36m|[m [33m870f9ad[m body css added
+[31m|[m * [34m|[m [36m|[m [1;32m|[m [36m|[m [33m7b66b1f[m three diff grades added
+[31m|[m * [34m|[m [36m|[m [1;32m|[m [36m|[m [33m054f57a[m  secondary education heading added
+* [34m|[m [34m|[m [36m|[m [1;32m|[m [36m|[m [33m8efcb3b[m exit button added to quiz questions
+* [34m|[m [34m|[m [36m|[m [1;32m|[m [36m|[m [33m480f5b0[m quiz logic added in js
+* [34m|[m [34m|[m [36m|[m [1;32m|[m [36m|[m [33mc846f4c[m quize structure added
+* [34m|[m [34m|[m [36m|[m [1;32m|[m [36m|[m [33m8ffb908[m all image path change
+* [34m|[m [34m|[m [36m|[m [1;32m|[m [36m|[m [33md46152a[m rename the folder
+* [34m|[m [34m|[m [36m|[m [1;32m|[m [36m|[m [33mcd53d22[m folder created as higher education quize for better folder structure
+* [34m|[m [34m|[m [36m|[m [1;32m|[m [36m|[m [33mc8ff1ce[m topic content chage for each card
+* [34m|[m [34m|[m [36m|[m [1;32m|[m [36m|[m [33mdfbdaf1[m heading images added
+[34m|[m [34m|[m[34m/[m [36m/[m [1;32m/[m [36m/[m  
+[34m|[m[34m/[m[34m|[m [36m|[m [1;32m|[m [36m|[m   
+* [34m|[m [36m|[m [1;32m|[m [36m|[m [33m7d9099c[m java script complete for higher education cards
+[34m|[m[34m/[m [36m/[m [1;32m/[m [36m/[m  
+* [36m|[m [1;32m|[m [36m|[m [33m6af2a6d[m animation added into pharma card using javascript
+* [36m|[m [1;32m|[m [36m|[m [33mc3eb846[m higher education cards topics are added
+[36m|[m[36m/[m [1;32m/[m [36m/[m  
+* [1;32m|[m [36m|[m [33m5e0a4f4[m hover effect added to buttons
+* [1;32m|[m [36m|[m [33mf754895[m notes and get started buttons are added to higher education cards
+* [1;32m|[m [36m|[m   [33m68fa569[m Merge pull request #4 from vaishnavikhatale/main
+[35m|[m[36m\[m [1;32m\[m [36m\[m  
+[35m|[m * [1;32m\[m [36m\[m   [33mdc6b541[m Merge branch 'satyamrk18:main' into main
+[35m|[m [1;31m|[m[1;32m\[m [1;32m\[m [36m\[m  
+[35m|[m * [1;32m|[m [1;32m|[m [36m|[m [33m8e6e4c7[m notes page added
+* [1;32m|[m [1;32m|[m [1;32m|[m [36m|[m   [33m4b52c7e[m Merge pull request #5 from Laxmi2003-Code/main
+[1;33m|[m[1;32m\[m [1;32m\[m [1;32m\[m [1;32m\[m [36m\[m  
+[1;33m|[m [1;32m|[m [1;32m|[m[1;32m_[m[1;32m|[m[1;32m/[m [36m/[m  
+[1;33m|[m [1;32m|[m[1;32m/[m[1;32m|[m [1;32m|[m [36m|[m   
+[1;33m|[m * [1;32m|[m [1;32m|[m [36m|[m [33m48e106a[m Heading added
+[1;33m|[m * [1;32m|[m [1;32m|[m [36m|[m   [33m8d98315[m navbar added
+[1;33m|[m [1;35m|[m[1;36m\[m [1;32m\[m [1;32m\[m [36m\[m  
+[1;33m|[m * [1;36m|[m [1;32m|[m [1;32m|[m [36m|[m [33mcb82690[m cards added
+* [1;36m|[m [1;36m|[m [1;32m|[m [1;32m|[m [36m|[m [33ma3f5b4e[m background color change
+* [1;36m|[m [1;36m|[m [1;32m|[m [1;32m|[m [36m|[m [33mbddf1c0[m images added to cards of higher education
+* [1;36m|[m [1;36m|[m [1;32m|[m [1;32m|[m [36m|[m [33mbbc85da[m basic card structure added to higher edcucation section
+* [1;36m|[m [1;36m|[m [1;32m|[m [1;32m|[m [36m|[m [33m2d895e6[m hamburger menu position changed
+[1;36m|[m [1;36m|[m[1;36m/[m [1;32m/[m [1;32m/[m [36m/[m  
+[1;36m|[m[1;36m/[m[1;36m|[m [1;32m|[m [1;32m|[m [36m|[m   
+* [1;36m|[m [1;32m|[m [1;32m|[m [36m|[m [33m19afbc3[m log in and sign in functionality complete
+* [1;36m|[m [1;32m|[m [1;32m|[m [36m|[m [33m303da61[m log in functionality added to log in page from local stotage
+[1;32m|[m [1;36m|[m[1;32m_[m[1;32m|[m[1;32m/[m [36m/[m  
+[1;32m|[m[1;32m/[m[1;36m|[m [1;32m|[m [36m|[m   
+* [1;36m|[m [1;32m|[m [36m|[m [33mcd660b4[m navbar positioning adjust to fixed on top
+* [1;36m|[m [1;32m|[m [36m|[m [33m9b6785d[m local storage added to sign in page for store the user data
+[1;36m|[m[1;36m/[m [1;32m/[m [36m/[m  
+* [1;32m|[m [36m|[m [33mff07830[m log in page added
+* [1;32m|[m [36m|[m   [33md6b9d06[m Merge pull request #3 from sakshilimbhore/main
+[31m|[m[36m\[m [1;32m\[m [36m\[m  
+[31m|[m [36m|[m [1;32m|[m[36m/[m  
+[31m|[m [36m|[m[36m/[m[1;32m|[m   
+[31m|[m * [1;32m|[m [33m10c150f[m basic code
+* [32m|[m [1;32m|[m [33m6d46c57[m document level css and javascript is divided by respected file
+* [32m|[m [1;32m|[m [33maeb3d5b[m unwantwd code remove
+* [32m|[m [1;32m|[m [33me039f9a[m gray color added to phone navbar
+* [32m|[m [1;32m|[m [33mc41557c[m styling and hover effect added to phone navbar
+* [32m|[m [1;32m|[m [33mdbefe8d[m box shadow added to phone navbar bottom
+* [32m|[m [1;32m|[m [33m0862dd1[m scalability added to phone navbar
+* [32m|[m [1;32m|[m [33m2685fc6[m phone navbar added
+* [32m|[m [1;32m|[m [33m9cd716e[m hamburger image added to shmall screen
+[32m|[m[32m/[m [1;32m/[m  
+* [1;32m|[m [33m2815c82[m spacesheep position change
+* [1;32m|[m [33m98055a5[m hover added to navbar
+* [1;32m|[m [33md7458bb[m secondary and primary page move to pages folder
+* [1;32m|[m [33m3c9fdb4[m quize change to about page in navbar
+* [1;32m|[m   [33m854ed76[m navbar styling added
+[33m|[m[34m\[m [1;32m\[m  
+[33m|[m * [1;32m\[m   [33mfb1c044[m Merge pull request #2 from TanishkaShivarkar/main
+[33m|[m [35m|[m[36m\[m [1;32m\[m  
+[33m|[m [35m|[m * [1;32m|[m [33m7490b58[m basic code added
+[33m|[m [35m|[m[35m/[m [1;32m/[m  
+* [35m|[m [1;32m|[m [33mfc8319f[m navbar added
+[1;31m|[m[35m\[m[35m|[m [1;32m|[m 
+[1;31m|[m * [1;32m|[m   [33m999d34f[m Merge pull request #1 from Laxmi2003-Code/main
+[1;31m|[m [1;32m|[m[1;34m\[m [1;32m\[m  
+[1;31m|[m [1;32m|[m [1;34m|[m[1;32m/[m  
+[1;31m|[m [1;32m|[m[1;32m/[m[1;34m|[m   
+[1;31m|[m [1;32m|[m * [33mb55d9db[m basic code added
+[1;31m|[m [1;32m|[m[1;32m/[m  
+* [1;32m/[m [33m711911e[m navbar content added
+[1;32m|[m[1;32m/[m  
+* [33m24e6413[m scratch pages code and images added
+* [33m45d8766[m log in page scratch code added
+* [33m36b1503[m first commit
+* [33md4fda70[m Initial commit

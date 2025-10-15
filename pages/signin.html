@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Log In</title>
+    <!-- Poppins Font from User's provided file -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS (replacing Tailwind) -->
+    <style>
+        /* 💜 Log In Page Purple Theme */
+        :root {
+            --primary-purple: #6a11cb;    /* Deep Purple */
+            --light-purple: #b491f9;     /* Lavender Accent */
+            --text-dark: #3d0066;        /* Dark Purple Text */
+            --bg-light: #f0e6ff;         /* Lightest Lavender Background */
+            --card-bg: #ffffff;
+            --shadow-color: rgba(106, 17, 203, 0.4);
+            --input-border: #d4c0ff;
+
+            /* Message Box Colors */
+            --error-bg: #ffe5e5;
+            --error-text: #e53935;
+            --success-bg: #e6ffe6;
+            --success-text: #388e3c;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            /* Added for consistent display of message box at the top */
+            flex-direction: column;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 400px; /* Standard form width */
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px var(--shadow-color);
+            text-align: center;
+            border-top: 5px solid var(--primary-purple);
+            transition: transform 0.3s ease-out;
+            box-sizing: border-box; /* Include padding in width calculation */
+        }
+
+        /* Optional: Subtle card lift on hover for animation */
+        .container:hover {
+            transform: translateY(-5px);
+        }
+
+        h1 {
+            color: var(--primary-purple);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        input[type="email"], /* Changed type="text" to type="email" for best practice with Firebase */
+        input[type="password"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--input-border);
+            border-radius: 10px;
+            font-size: 1rem;
+            color: var(--text-dark);
+            background-color: #fcfaff;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            box-sizing: border-box;
+        }
+
+        input[type="email"]::placeholder,
+        input[type="password"]::placeholder {
+            color: #af9ecc;
+        }
+
+        input:focus {
+            border-color: var(--primary-purple);
+            outline: none;
+            box-shadow: 0 0 8px rgba(106, 17, 203, 0.4);
+        }
+
+        /* Reusing the message box but styling it with custom CSS */
+        #message-box {
+            display: none;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            font-weight: 500;
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        #current-user-status {
+             text-align: center;
+             margin-top: 15px;
+             font-size: 0.9rem;
+             color: var(--text-dark);
+        }
+
+        #passwordError {
+            color: var(--error-text);
+            font-size: 0.9rem;
+            min-height: 1.2em; /* Reserve space to prevent layout shift */
+            display: block;
+            text-align: left;
+            margin-top: -5px;
+        }
+
+        #login-btn {
+            padding: 12px;
+            background-color: var(--primary-purple);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            transition: background-color 0.3s, transform 0.2s;
+            margin-top: 10px;
+        }
+
+        #login-btn:hover {
+            background-color: var(--text-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        h4 {
+            font-size: 0.95rem;
+            font-weight: 400;
+            margin-top: 20px;
+            color: #6c757d;
+        }
+
+        h4 a {
+            color: var(--primary-purple);
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        h4 a:hover {
+            color: var(--text-dark);
+            text-decoration: underline;
+        }
+
+        /* Media Query for smaller screens */
+        @media (max-width: 450px) {
+            .container, #message-box {
+                padding: 30px 20px;
+                margin: 15px;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+            input {
+                padding: 10px 12px;
+            }
+            #login-btn {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Message Box (placed above the form for better visibility) -->
+    <div id="message-box" role="alert">
+        <!-- Message content will be injected here -->
+    </div>
+
+    <div class="container">
+        <h1>Log In</h1>
+        <form id="login-form" onsubmit="event.preventDefault(); login();">
+            <!-- Email Input (Using 'email' type for Firebase Auth) -->
+            <div>
+                <input
+                    type="email"
+                    id="log-in-email"
+                    placeholder="Email Address"
+                    required
+                />
+            </div>
+
+            <!-- Password Input -->
+            <div>
+                <input
+                    type="password"
+                    id="log-in-password"
+                    placeholder="Password"
+                    required
+                />
+            </div>
+
+            <!-- Error Span (Used for displaying specific input validation errors) -->
+            <span id="passwordError"></span>
+
+            <!-- Log In Button -->
+            <button type="submit" id="login-btn">
+                Log In
+            </button>
+        </form>
+
+        <h4 id="current-user-status">
+            <!-- User status and Log Out button will be displayed here -->
+        </h4>
+
+        <h4 class="mt-8 text-center text-sm text-gray-600">
+            You don't have an account? Please
+            <a href="#" onclick="showMessage('Please navigate to the sign-up page manually.', 'error');" class="font-medium text-indigo-600 hover:text-indigo-500 transition duration-150">
+                Sign In
+            </a>
+        </h4>
+    </div>
+
+    <!-- Firebase SDK Imports and Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInWithCustomToken, signInAnonymously, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // IMPORTANT: Use Debug logging for console visibility
+        setLogLevel('Debug');
+
+        // Global Firebase variables provided by the environment
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initialAuthToken : null;
+
+        // Initialize Firebase
+        let app, db, auth;
+        try {
+            app = initializeApp(firebaseConfig);
+            auth = getAuth(app);
+            db = getFirestore(app);
+            console.log("Firebase initialized successfully.");
+
+            // Initial authentication check and setup
+            if (initialAuthToken) {
+                signInWithCustomToken(auth, initialAuthToken)
+                    .then(() => console.log("Signed in with custom token."))
+                    .catch(error => {
+                        console.error("Custom token sign-in failed:", error);
+                        signInAnonymously(auth).then(() => console.log("Signed in anonymously.")).catch(e => console.error("Anonymous sign-in failed:", e));
+                    });
+            } else {
+                signInAnonymously(auth).then(() => console.log("Signed in anonymously.")).catch(e => console.error("Anonymous sign-in failed:", e));
+            }
+
+        } catch (error) {
+            console.error("Firebase Initialization Error:", error);
+            window.showMessage(`Error: Firebase initialization failed. Check console for details.`, 'error');
+        }
+
+        // --- Utility Functions ---
+
+        /**
+         * Utility function to show a custom message box instead of using alert().
+         * @param {string} message The message to display.
+         * @param {'success'|'error'|'warning'} type The type of message.
+         */
+        window.showMessage = (message, type) => {
+            const msgBox = document.getElementById('message-box');
+            msgBox.textContent = message;
+
+            let bgColor, textColor;
+            if (type === 'success') {
+                bgColor = 'var(--success-bg)';
+                textColor = 'var(--success-text)';
+            } else if (type === 'error') {
+                bgColor = 'var(--error-bg)';
+                textColor = 'var(--error-text)';
+            } else { // warning or default
+                bgColor = 'var(--bg-light)';
+                textColor = 'var(--text-dark)';
+            }
+
+            msgBox.style.backgroundColor = bgColor;
+            msgBox.style.color = textColor;
+            msgBox.style.display = 'block';
+
+            setTimeout(() => {
+                msgBox.style.display = 'none';
+            }, 5000); // Hide after 5 seconds
+        };
+
+        // --- Core Logic ---
+
+        /**
+         * Handles the user sign-in (Log In) process using email and password.
+         */
+        window.login = async () => {
+            const emailInput = document.getElementById('log-in-email');
+            const passwordInput = document.getElementById('log-in-password');
+            const email = emailInput.value;
+            const password = passwordInput.value;
+            const errorSpan = document.getElementById('passwordError');
+
+            errorSpan.textContent = '';
+
+            if (!email || !password) {
+                errorSpan.textContent = 'Please enter both email and password.';
+                return;
+            }
+
+            // Disable button during process
+            const loginButton = document.getElementById('login-btn');
+            loginButton.disabled = true;
+            loginButton.textContent = 'Logging In...';
+
+            try {
+                // Use Firebase Auth to sign in the user
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                console.log("User logged in successfully:", userCredential.user.uid);
+
+                // Show success message
+                window.showMessage(`Welcome back, ${email}!`, 'success');
+
+                // Clear the form
+                emailInput.value = '';
+                passwordInput.value = '';
+
+            } catch (error) {
+                let errorMessage = 'Login failed. Please check your credentials.';
+                console.error("Login failed:", error);
+
+                // Map common Firebase auth errors to user-friendly messages
+                switch (error.code) {
+                    case 'auth/invalid-credential':
+                    case 'auth/wrong-password':
+                    case 'auth/user-not-found':
+                    case 'auth/invalid-email':
+                        errorMessage = 'Invalid email or password.';
+                        break;
+                    case 'auth/user-disabled':
+                        errorMessage = 'This account has been disabled.';
+                        break;
+                    default:
+                        // Use a generic failure message
+                        break;
+                }
+
+                // Show error message
+                errorSpan.textContent = errorMessage;
+                window.showMessage(errorMessage, 'error');
+
+            } finally {
+                // Re-enable button
+                loginButton.disabled = false;
+                loginButton.textContent = 'Log In';
+            }
+        };
+
+        /**
+         * Set up a listener to display the current authentication status.
+         */
+        onAuthStateChanged(auth, (user) => {
+            const statusElement = document.getElementById('current-user-status');
+            if (user) {
+                // User is signed in. Check if it's an anonymous user.
+                if (user.isAnonymous) {
+                    statusElement.innerHTML = `Currently signed in as: **Guest User**`;
+                } else {
+                    // User is signed in with email/password
+                    statusElement.innerHTML = `Signed in: **${user.email}** (UID: ${user.uid})`;
+
+                    // Add a log out button
+                    let logoutBtn = document.getElementById('logout-btn');
+                    if (!logoutBtn) {
+                        logoutBtn = document.createElement('button');
+                        logoutBtn.id = 'logout-btn';
+                        logoutBtn.textContent = 'Log Out';
+                        logoutBtn.style.cssText = `
+                            margin-top: 10px;
+                            padding: 8px 15px;
+                            border: 1px solid var(--primary-purple);
+                            background-color: transparent;
+                            color: var(--primary-purple);
+                            border-radius: 8px;
+                            cursor: pointer;
+                            font-size: 0.9rem;
+                            font-weight: 500;
+                            transition: all 0.2s;
+                        `;
+                        logoutBtn.onmouseover = () => logoutBtn.style.backgroundColor = 'var(--input-border)';
+                        logoutBtn.onmouseout = () => logoutBtn.style.backgroundColor = 'transparent';
+                        logoutBtn.onclick = async () => {
+                            await signOut(auth);
+                            window.showMessage('Signed out successfully.', 'warning');
+                        };
+                        statusElement.appendChild(document.createElement('br'));
+                        statusElement.appendChild(logoutBtn);
+                    }
+                }
+            } else {
+                // User is signed out.
+                statusElement.innerHTML = 'Status: **Signed Out** (Please log in or sign up)';
+                // Remove the logout button if it exists
+                const logoutBtn = document.getElementById('logout-btn');
+                if (logoutBtn) {
+                    logoutBtn.remove();
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOTES - Spaceship Categories</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="./../js/notes.js"></script>
+
+    <style>
+        /* 💜 Global & Notes Page Purple Theme */
+        :root {
+            --primary-purple: #6a11cb;    /* Deep Purple */
+            --light-purple: #b491f9;     /* Lavender Accent */
+            --text-dark: #3d0066;        /* Dark Purple Text */
+            --bg-light: #f0e6ff;         /* Lightest Lavender Background */
+            --card-bg: #ffffff;
+            --shadow-color: rgba(106, 17, 203, 0.4);
+            --card-gradient: linear-gradient(135deg, #e3d2ff, #cbb2ff); /* Light card background */
+            --group-btn-color: #6a11cb;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            text-decoration: none;
+        }
+
+        body {
+            /* Light Lavender Gradient Background */
+            background: linear-gradient(135deg, var(--bg-light), #d6c0ff);
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding-top: 80px; /* Space for fixed navbar */
+        }
+        
+        /* Navbar & Footer Glow Animation */
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 8px rgba(255, 255, 255, 0.6); }
+            50% { text-shadow: 0 0 15px rgba(255, 255, 255, 0.9); }
+        }
+
+        /* 🌟 Navbar Style (Adopted from previous pages) */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 60px;
+            background: linear-gradient(90deg, var(--primary-purple), var(--light-purple));
+            box-shadow: 0 4px 15px var(--shadow-color);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            border-bottom: 3px solid #ffffff33;
+        }
+
+        .edufun-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .edufun-logo img {
+            height: 50px;
+            filter: drop-shadow(0 2px 5px rgba(255,255,255,0.4));
+        }
+
+        #logo-heading {
+            height: 50px;
+            animation: glow 3s ease-in-out infinite;
+        }
+        
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        .navbar ul a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: 600;
+            font-size: 1rem;
+            border: 2px solid transparent;
+            padding: 8px 18px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .navbar ul a:hover {
+            background: #fff;
+            color: var(--primary-purple);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+            transform: scale(1.08);
+        }
+
+        .hamburger {
+            display: none; 
+        }
+        .hamburger button {
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        .hamburger img {
+            height: 30px;
+            filter: invert(1);
+        }
+
+        /* Mobile Nav Menu */
+        .ham-nav {
+            display: none; 
+            background: var(--light-purple);
+            position: fixed;
+            top: 80px; 
+            width: 100%;
+            z-index: 99;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 10px 0;
+        }
+        .ham-nav ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+        .ham-nav ul a {
+            padding: 10px 20px;
+            border-radius: 0;
+            text-align: center;
+            background: none;
+            color: white;
+            font-weight: 600;
+        }
+        .ham-nav ul a:hover {
+            background: var(--primary-purple);
+            transform: none;
+        }
+
+        /* --- Primary Content Styles --- */
+        .btn {
+            display: block;
+            width: 90%;
+            max-width: 1200px;
+            margin: 40px auto 20px auto;
+            padding: 15px 30px;
+            background-color: var(--group-btn-color);
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            border-radius: 15px;
+            text-align: left;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            cursor: default;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+
+        .container {
+            padding: 0 20px;
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .notes1 {
+            width: 300px;
+            background: var(--card-gradient);
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(106, 17, 203, 0.2);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .notes1:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(106, 17, 203, 0.4);
+        }
+
+        .img1 {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border: 3px solid #fff;
+        }
+
+        .notes1 h1 {
+            color: var(--primary-purple);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .notes1 hr {
+            border: 0;
+            height: 2px;
+            background: var(--primary-purple);
+            width: 80%;
+            margin: 0 auto 15px auto;
+        }
+
+        .descript1 {
+            flex-grow: 1; /* Allows the content area to expand */
+            text-align: left;
+            padding: 0 10px;
+        }
+
+        .descript1 h3 {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            line-height: 1.8;
+            border-bottom: 1px dashed rgba(61, 0, 102, 0.1);
+            padding: 5px 0;
+        }
+        
+        /* Button style */
+        .button {
+            margin-top: 20px;
+        }
+        
+        .button a {
+            display: inline-block;
+            padding: 10px 25px;
+            background-color: var(--primary-purple);
+            color: white;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .button a:hover {
+            background-color: var(--text-dark);
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* 📱 Responsive */
+        @media (max-width: 768px) {
+            .navbar ul {
+                display: none; 
+            }
+            .hamburger {
+                display: block; 
+            }
+            .navbar {
+                padding: 10px 20px;
+            }
+            
+            .btn {
+                font-size: 1.2rem;
+                padding: 12px 20px;
+                width: 95%;
+                margin: 30px auto 15px auto;
+            }
+
+            .container {
+                gap: 20px;
+                padding: 0 10px;
+            }
+            
+            .notes1 {
+                width: 95%; 
+            }
+            
+            body {
+                padding-top: 70px; /* Adjusted padding */
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="edufun-logo">
+            <img src="./../icons/head-logo.png" alt="edufun-logo" />
+            <img
+                src="./../icons/nav-heading.png"
+                id="logo-heading"
+                alt="logo-heading"
+            />
+        </div>
+        <ul>
+            <a href="./../index.html"><li>Home</li></a>
+            <a href="./../pages/notes.html"><li>Spaceship</li></a>
+            <a href="./../pages/about_us.html"><li>About</li></a>
+            <a href="./../pages/contact.html"><li>contact</li></a>
+            <a href="./../pages/login.html"><li id="UserlogIn">Log In</li></a>
+        </ul>
+        <div class="hamburger">
+            <button type="button" id="hamburger-btn" onclick="hamburgerMenu()">
+                <img src="./../icons/hamburger-menu.png" />
+            </button>
+        </div>
+    </nav>
+    <nav class="ham-nav" id="ham-nav">
+        <ul>
+            <a href="./../index.html"><li>Home</li></a>
+            <a href="./../pages/notes.html"><li>Spaceship</li></a>
+            <a href="./../pages/about_us.html"><li>About</li></a>
+            <a href="./../pages/contact.html"><li>contact</li></a>
+            <a href="./../pages/login.html"><li id="UserlogIn">Log In</li></a>
+        </ul>
+    </nav>
+        
+    <div class = "btn"> 💻 IT INDUSTRY 👨🏻‍💻</div>
+    <div class = "container">
+        <div class = "notes1">
+            <img src ="./../images/code.jpg" class="img1" alt="Code Languages"/>
+            <h1>CODING</h1>
+            <hr/>
+            <p class="descript1">
+                <br> <h3>Artificial Intelligence</h3><br>
+                <h3> C, C++ language</h3><br>
+                <h3> Java language</h3><br>
+                <h3> Python language</h3><br>
+            </p> <br>
+            <div class = "button" >
+                <a href="pages\notes\code.html">More Info</a>
+            </div>
+        </div>
+
+        <div class = "notes1">
+            <img src ="./../images/os.avif" class="img1" alt="Operating System"/>
+            <h1>OS</h1>
+            <hr/>
+            <p class="descript1">
+                <br>
+                <h3>Types</h3> <br>
+                <h3>Process</h3><br>
+                <h3>Memory</h3> <br>
+                <h3>Functions</h3><br>
+            </p> <br>
+            <div class = "button" >
+                <a href="pages\notes\os.html">More Info</a>
+            </div>
+        </div>
+        <div class = "notes1">
+            <img src ="./../images/database.jpg" class="img1" alt="Database Management"/>
+            <h1>DataBase</h1>
+            <hr/>
+            <p class="descript1">
+                <br>
+                <h3>SQL</h3><br>
+                <h3>DBMS</h3><br>
+                <h3>Key Fetures</h3><br>
+                <h3>Components</h3><br>
+            </p> <br>
+            <div class = "button" >
+                <a href="pages\notes\database.html">More Info</a>
+            </div>
+        </div>
+        <div class = "notes1">
+            <img src ="./../images/dsa.jpg" class="img1" alt="Data Structures"/>
+            <h1>DSA</h1>
+            <hr/>
+            <p class="descript1">
+                <br>
+                <h3>Sorting</h3> <br>
+                <h3>Stack, Queue</h3><br>
+                <h3>Tree, Graph</h3> <br>
+                <h3>Array, Linked list</h3><br>
+            </p><br>
+            <div class = "button" >
+                <a href="pages\notes\dsa.html">More Info</a>
+            </div>
+        </div>
+        <div class = "notes1">
+            <img src ="./../images/com_net.jpg" class="img1" alt="Computer Networks"/>
+            <h1>COM - NET</h1>
+            <hr/>
+            <p class="descript1">
+                <br>
+                <h3>Define</h3><br>
+                <h3>Types</h3><br>
+                <h3>Network</h3><br>
+                <h3>Topologies</h3><br>
+            </p><br>
+            <div class = "button" >
+                <a href="pages\notes\com_net.html">More Info</a>
+            </div>
+        </div>
+    </div>
+
+    <div class = "btn"> 📈 Finance 💸</div>
+    <div class = "container">
+        <div class = "notes1">
+            <img src ="./../images/market.jpg" class="img1" alt="Stock Market"/>
+            <h1> Market</h1>
+            <hr/>
+            <p class="descript1"><br>
+                <h3>Price</h3><br>
+                <h3>Types</h3><br>
+                <h3>Liquidity</h3><br>
+                <h3>Efficiency</h3><br>
+            </p><br>
+            <div class = "button" >
+                <a href="pages\notes\market.html">More Info</a>
+            </div>
+        </div>
+        <div class = "notes1">
+            <img src ="./../images/corporate.jpg" class="img1" alt="Corporate Finance"/>
+            <h1>Corporate</h1>
+            <hr/>
+            <p class="descript1">
+                <br>
+                <h3>Types</h3><br>
+                <h3>Policy</h3><br>
+                <h3>Working</h3><br>
+                <h3>Budgeting</h3><br>
+            </p> <br>
+            <div class = "button" >
+                <a href="pages\notes\corporate.html">More Info</a>
+            </div>
+        </div>
+        <div class = "notes1">
+            <img src ="./../images/investment.jpg" class="img1" alt="Investment Strategies"/>
+            <h1>Investment</h1>
+            <hr/>
+            <p class="descript1">
+                <br>
+                <h3>Asset</h3><br>
+                <h3>Risk-Return</h3><br>
+                <h3>Performance</h3><br>
+                <h3>Diversification</h3><br>
+            </p> <br>
+            <div class = "button" >
+                <a href="pages\notes\investment.html">More Info</a>
+            </div>
+        </div>
+        <div class = "notes1">
+            <img src ="./../images/management.jpg" class="img1" alt="Risk Management"/>
+            <h1>Management</h1>
+            <hr/>
+            <p class="descript1">
+                <br>
+                <h3>Risk</h3><br>
+                <h3>Types</h3><br>
+                <h3>Assessement</h3><br>
+                <h3>Compliance & Regulation</h3><br>
+            </p>
+            <div class = "button" >
+                <a href="pages\notes\management.html">More Info</a>
+            </div>
+        </div>
+        <div class = "notes1">
+            <img src ="./../images/banking.jpg" class="img1" alt="Banking Operations"/>
+            <h1>Banking</h1>
+            <hr/>
+            <p class="descript1"><br>
+                <h3>Types</h3><br>
+                <h3>Policy</h3>  <br>
+                <h3>Credit</h3><br>
+                <h3>Regulation</h3><br>
+            </p><br>
+            <div class = "button" >
+                <a href="pages\notes\banking.html">More Info</a>
+            </div>
+        </div>
+    </div>
+
+    <div class = "btn">⚖️ Law 👩🏻‍⚖️</div>
+    <div class = "container">
+        <div class = "notes1">
+            <img src ="./../images/constitutional.jpg" class="img1" alt="Constitutional Law"/>
+            <h1>Constitutional</h1>
+            <hr/>
+            <p class="descript1">
+                <br>
+                <h3>Review</h3><br>
+                <h3>powers</h3><br>
+                <h3>Supremacy</h3><br>
+                <h3>Fundamentals</h3><br>
+            </p><br>
+            <div class = "button" >
+                <a href="pages\notes\constitutional.html">More Info</a>
+            </div>
+        </div>
+        <div class = "notes1">
+            <img src ="./../images/contract.jpg" class="img1" alt="Contract Law Basics"/>
+            <h1>Contract Law</h1>
+            <hr/>
+            <p class="descript1"><br>
+                <h3>Review</h3><br>
+                <h3>powers</h3><br>
+                <h3>Consideration</h3><br>
+                <h3>Capacity & Legality</h3><br>
+            </p><br>
+            <div class = "button" >
+                <a href="pages\notes\contractlaw.html">More Info</a>
+            </div>
+        </div>
+        <div class = "notes1">
+            <img src ="./../images/criminal.jpg" class="img1" alt="Criminal Law Justice"/>
+            <h1>Criminal Law</h1>
+            <hr/>
+            <p class="descript1"><br>
+                <h3>Define</h3><br>
+                <h3>Mens & Actus </h3><br>
+                <h3>Punishment</h3><br>
+                <h3>Presumption</h3><br>
+            </p><br>
+            <div class = "button" >
+                <a href="pages\notes\criminallaw.html">More Info</a>
+            </div>
+        </div>
+        <div class = "notes1">
+            <img src ="./../images/tort.jpg" class="img1" alt="Tort Law Remedies"/>
+            <h1>Tort Law</h1>
+            <hr/>
+            <p class="descript1"><br>
+                <h3>Duty</h3><br>
+                <h3>Remedies</h3><br>
+                <h3>Negligence</h3><br>
+                <h3>Strict Liability</h3><br>
+            </p><br>
+            <div class = "button" >
+                <a href="pages\notes\tort.html">More Info</a>
+            </div>
+        </div>
+        <div class = "notes1">
+            <img src ="./../images/interpretation.jpg" class="img1" alt="Legal Interpretation"/>
+            <h1> Interpretation</h1>
+            <hr/>
+            <p class="descript1"><br>
+                <h3>Define</h3><br>
+                <h3>Types</h3><br>
+                <h3>Precedent</h3><br>
+                <h3>Statutory Interpretation</h3><br>
+            </p><br>
+            <div class = "button" >
+                <a href="pages\notes\interpretation.html">More Info</a>
+            </div>
+        </div>
+    </div>
+
+    <div class = "btn"> 📚 Civil Services 👮🏻</div>
+    <div class = "container">
+        <div class = "notes1">
+            <img src ="./../images/h&d.jpg" class="img1" alt="History and Freedom"/>
+            <h1>History & Freedom</h1>
+            <hr/>
+            <p class="descript1"><br>
+                <h3> Types</h3><br>
+                <h3>Define</h3><br>
+                <h3>Key Fetures</h3><br>
+            </p><br>
+            <div class = "button" >
+                <a href="pages\notes\h&f.html">More Info</a>
+            </div>
+        </div>
+        <div class = "notes1">
+            <img src ="./../images/g&e.jpg" class="img1" alt="Geography and Environment"/>
+            <h1>Geography & Environment</h1>
+            <hr/>
+            <p class="descript1"><br>
+                <h3>Types</h3><br>
+                <h3>Define</h3><br>
+                <h3>Key Fetures</h3><br>
+            </p><br>
+            <div class = "button" >
+                <a href="pages\notes\g&e.html">More Info</a>
+            </div>
+        </div>
+        <div class = "notes1">
+            <img src ="./../images/e&ds.jpg" class="img1" alt="Economy and Development"/>
+            <h1>Economy & Development</h1>
+            <hr/>
+            <p class="descript1"><br>
+                <h3>Types</h3><br>
+                <h3>Define</h3><br>
+                <h3>Key Fetures</h3><br>
+            </p><br>
+            <div class = "button" >
+                <a href="pages\notes\e&d.html">More Info</a>
+            </div>
+        </div>
+        <div class = "notes1">
+            <img src ="./../images/c&k.jpg" class="img1" alt="Current Affairs and Knowledge"/>
+            <h1>Current Affairs & Knowledge</h1>
+            <hr/>
+            <p class="descript1"><br>
+                <h3>Types</h3><br>
+                <h3>Define</h3><br>
+                <h3>Key Fetures</h3><br>
+            </p><br>
+            <div class = "button" >
+                <a href="pages\notes\c&k.html">More Info</a>
+            </div>
+        </div>
+        <div class = "notes1">
+            <img src ="./../images/p&g.jpg" class="img1" alt="Polity and Governance"/>
+            <h1>Polity And Governance</h1>
+            <hr/>
+            <p class="descript1"><br>
+                <h3>Types</h3><br>
+                <h3>Define</h3><br>
+                <h3>Key Fetures</h3><br>
+            </p><br>
+            <div class = "button" >
+                <a href="pages\notes\p&g.html">More Info</a>
+            </div>
+        </div>
+    </div>
+
+    <div class = "btn"> 💊 Pharma 👨🏻‍⚕️</div>
+    <div class = "container">
+        <div class="notes1">
+            <img src ="./../images/pharma1.jpg" class="img1" alt="Pharmacology Science"/>
+            <h1>Pharmacology</h1>
+            <hr/>
+            <p class="descript1"><br>
+                <h3>Types</h3><br>
+                <h3>Define</h3><br>
+                <h3>Key Fetures</h3><br>
+                <h3>Language</h3><br>
+            </p><br>
+            <div class = "button" >
+                <a href="pages\notes\pharmacology.html">More Info</a>
+            </div>
+        </div>
+        <div class = "notes1">
+            <img src ="./../images/pharma2.jpg" class="img1" alt="Pharmaceutics Science"/>
+            <h1>Pharmaceutics</h1>
+            <hr/>
+            <p class="descript1"><br>
+                <h3>Types</h3><br>
+                <h3>Define</h3><br>
+                <h3>Key Fetures</h3><br>
+                <h3>Language</h3><br>
+            </p><br>
+            <div class = "button" >
+                <a href="pages\notes\pharmaceutics.html">More Info</a>
+            </div>
+        </div>
+        <div class = "notes1">
+            <img src ="./../images/chemistry.jpg" class="img1" alt="Pharmaceutical Chemistry"/>
+            <h1>Chemistry</h1>
+            <hr/>
+            <p class="descript1"><br>
+                <h3>Types</h3><br>
+                <h3>Define</h3><br>
+                <h3>Key Fetures</h3><br>
+                <h3>Language</h3><br>
+            </p><br>
+            <div class = "button" >
+                <a href="pages\notes\chemistry.html">More Info</a>
+            </div>
+        </div>
+        <div class = "notes1">
+            <img src ="./../images/pharma3.jpg" class="img1" alt="Pharmacognosy Science"/>
+            <h1>Pharmacognsy</h1>
+            <hr/>
+            <p class="descript1"><br>
+                <h3>Types</h3><br>
+                <h3>Define</h3><br>
+                <h3>Key Fetures</h3><br>
+                <h3>Language</h3><br>
+            </p><br>
+            <div class="button">
+                <a href="pages\notes\pharmacognsy.html">More Info</a>
+            </div>
+        </div>
+        <div class = "notes1">
+            <img src ="./../images/pharma.jpg" class="img1" alt="Clinical Pharmacy"/>
+            <h1>Clinical Pharma</h1>
+            <hr/>
+            <p class="descript1"><br>
+                <h3>Types</h3><br>
+                <h3>Define</h3><br>
+                <h3>Key Fetures</h3><br>
+                <h3>Language</h3><br>
+            </p><br>
+            <div class = "button" >
+                <a href="pages\notes\clinical.html">More Info</a>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Dummy function for hamburger menu (assuming it's needed)
+        function hamburgerMenu() {
+            const hamNav = document.getElementById('ham-nav');
+            if (hamNav) {
+                // Toggle the display of the mobile menu
+                hamNav.style.display = hamNav.style.display === 'flex' ? 'none' : 'flex';
+                // Note: In a real application, you might use classes (e.g., .classList.toggle('active')) for better transitions.
+            }
+        }
+    </script>
+</body>
+</html>

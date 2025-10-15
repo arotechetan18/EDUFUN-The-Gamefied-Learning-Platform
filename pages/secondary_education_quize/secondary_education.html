@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secondary Education - Purple Theme</title>
+    <!-- Poppins Font for the academic theme -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 🌈 Global Style (Based on Higher Education Theme) */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            /* Light Lavender Gradient Background */
+            background: linear-gradient(135deg, #f0e6ff, #d6c0ff, #e9ddff);
+            color: #3d0066; /* Deep Purple text color */
+            display: flex;
+            flex-direction: column; 
+            align-items: center;
+            min-height: 100vh;
+            padding: 0; /* Remove padding from body since we have a full-width nav/footer */
+        }
+        
+        /* Heading Styles */
+        h1, h2, h3 {
+            font-family: "Poppins", sans-serif;
+            color: #4b0082; /* Deep Purple heading */
+            font-weight: 700;
+            text-shadow: 0px 2px 5px rgba(106, 17, 203, 0.1);
+        }
+
+        /* --- Navbar Styles --- */
+        .navbar {
+            width: 100%;
+            background-color: #6a11cb; /* Theme's main purple color */
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            transition: background-color 0.3s, border-radius 0.3s;
+            font-weight: 600;
+        }
+        
+        .navbar a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+        }
+        
+        /* Simulating the external logo images with placeholders for portability */
+        .edufun-logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white;
+        }
+        .edufun-logo img {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+            /* Placeholder for the logo image */
+            background-color: white;
+            border-radius: 5px;
+        }
+        #logo-heading {
+            width: 80px;
+            height: 18px;
+            /* Placeholder for the heading image */
+            background-color: transparent;
+        }
+        
+        /* Hamburger Menu (Hidden on Desktop) */
+        .hamburger, .ham-nav {
+            display: none;
+        }
+
+        /* --- Main Content Area --- */
+        .heading-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 40px 0 30px;
+            padding: 0 10px;
+        }
+
+        .heading {
+            font-size: 2.5rem;
+            margin: 0 15px;
+        }
+
+        .icon {
+            width: 40px;
+            height: 40px;
+            /* Placeholder styling for external icons */
+            background-color: #6a11cb;
+            border-radius: 50%;
+            padding: 5px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+            max-width: 1000px;
+            width: 95%;
+        }
+
+        /* --- Card Styles (Reused from Quiz Page) --- */
+        .card {
+            width: 300px;
+            padding: 20px;
+            /* Light Purple background for cards */
+            background: linear-gradient(135deg, #e3d2ff, #cbb2ff);
+            border-radius: 20px; 
+            text-align: center;
+            color: #2f004f;
+            /* Purple Shadow */
+            box-shadow: 0 6px 20px rgba(106, 17, 203, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover{
+            transform: translateY(-10px); /* Lift up effect */
+            box-shadow: 0 12px 30px rgba(106, 17, 203, 0.5);
+        }
+
+        .card img {
+            width: 100%;
+            height: 180px; 
+            object-fit: cover;
+            border-radius: 10px;
+            margin: 15px 0;
+            border: 3px solid #fff; 
+        }
+
+        .card p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: #3d0066;
+        }
+        
+        /* Themed button styles (Reused from Quiz Page) */
+        .btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #6a11cb; /* Theme's main purple color */
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 30px; /* Pill shape */
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #b491f9; /* Lighter purple on hover */
+            color: #3d0066;
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* --- Footer Styles --- */
+        .footer {
+            width: 100%;
+            background-color: #4b0082; /* Darker Purple for Footer */
+            color: white;
+            padding-top: 40px;
+            margin-top: auto; /* Pushes the footer to the bottom */
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-section {
+            padding: 20px;
+            width: 250px;
+        }
+
+        .footer-section h3 {
+            color: #cbb2ff; /* Light purple headings */
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-section a {
+            color: #e9ddff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #ffffff;
+        }
+
+        .social-media-logo img {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+            /* Placeholder styling for social icons */
+            background-color: white;
+            border-radius: 50%;
+            padding: 3px;
+            cursor: pointer;
+        }
+        
+        #f-head {
+             /* Placeholder for the footer heading image */
+             width: 100px;
+             height: 25px;
+             align-self: center;
+             margin-top: 20px;
+             margin-bottom: 20px;
+             background-color: transparent;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 15px 0;
+            border-top: 1px solid #6a11cb;
+            background-color: #3d0066;
+            font-size: 0.9rem;
+        }
+        
+        /* --- Responsive Styles --- */
+        @media (max-width: 768px) {
+            .navbar ul {
+                display: none;
+            }
+            .hamburger {
+                display: block;
+            }
+            .ham-nav {
+                position: absolute;
+                top: 60px; /* Adjust based on navbar height */
+                right: 0;
+                width: 100%;
+                background-color: #6a11cb;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+                z-index: 10;
+                display: none;
+            }
+            .ham-nav.open {
+                display: block;
+            }
+            .ham-nav ul {
+                flex-direction: column;
+                padding: 10px 0;
+            }
+            .ham-nav li {
+                padding: 10px 20px;
+                cursor: pointer;
+                color: white;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            .ham-nav li:last-child {
+                border-bottom: none;
+            }
+            
+            .container {
+                gap: 20px;
+            }
+            .card {
+                width: 90%;
+            }
+            .heading {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+             .footer-container {
+                flex-direction: column;
+                align-items: center;
+            }
+             .footer-section {
+                width: 90%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="edufun-logo">
+             <!-- Simplified image placeholders -->
+            <img src="https://placehold.co/30x30/ffffff/000000?text=L" alt="edufun-logo" />
+            <span id="logo-heading">EduFun</span>
+        </div>
+        <ul>
+            <a href="./../../index.html"><li>Home</li></a>
+            <a href="./../../pages/notes.html"><li>Spaceship</li></a>
+            <a href="./../../pages/about_us.html"><li>About</li></a>
+            <a href="./../../pages/contact.html"><li>Contact</li></a>
+            <a href="./../../pages/login.html"><li id="UserlogIn">Log In</li></a>
+        </ul>
+        <div class="hamburger">
+            <button type="button" id="hamburger-btn" onclick="hamburgerMenu()">
+                <!-- SVG for hamburger icon (3 white lines) -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+                </svg>
+            </button>
+        </div>
+    </nav>
+    <nav class="ham-nav" id="ham-nav">
+        <ul>
+            <a href="./../../index.html"><li>Home</li></a>
+            <a href="./../../pages/notes.html"><li>Spaceship</li></a>
+            <a href="./../../pages/about_us.html"><li>About</li></a>
+            <a href="./../../pages/contact.html"><li>Contact</li></a>
+            <a href="./../../pages/login.html"><li>Log In</li></a>
+        </ul>
+    </nav>
+    
+    <div class="heading-container">
+        <!-- Placeholder icons -->
+        <div class="icon"></div>
+        <h1 class="heading">Secondary Education</h1> 
+        <div class="icon"></div>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <h2>6th-8th</h2>
+            <p>Basic Education</p>
+            <!-- Placeholder Image -->
+            <img src="https://placehold.co/300x180/b491f9/4b0082?text=6th-8th+Grade" alt="6th-8th grade quiz">
+            <a href="./basic_education/basic_education.html"> <button class="btn" >Explore</button></a>
+        </div>
+        <div class="card">
+            <h2>9th-10th</h2>
+            <p>Junior Secondary Studies</p>
+            <!-- Placeholder Image -->
+            <img src="https://placehold.co/300x180/b491f9/4b0082?text=9th-10th+Grade" alt="9th-10th grade quiz">
+            <a href="./junior_secondary_studies/junior_secondary_studies.html"><button class="btn">Explore</button></a>
+        </div>
+        <div class="card">
+            <h2>11th-12th</h2>
+            <p>Advanced Studies</p>
+            <!-- Placeholder Image -->
+            <img src="https://placehold.co/300x180/b491f9/4b0082?text=11th-12th+Grade" alt="11th-12th grade quiz">
+            <a href="./advanced_studies/advanced_studies.html"><button class="btn">Explore</button></a>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <div class="footer-container">
+            <!-- About EduFun -->
+            <div class="footer-section about">
+                <h3>About EduFun</h3>
+                <p>
+                    EduFun is an interactive learning platform that offers quizzes,
+                    notes, and engaging games to make learning fun and effective.
+                    Explore various subjects and enhance your knowledge with our dynamic
+                    content.
+                </p>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="footer-section links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="./../../index.html">Home</a></li>
+                    <li><a href="./../../pages/higher-education-quize/">Quizzes</a></li>
+                    <li><a href="./../../pages/notes/">Notes</a></li>
+                    <li><a href="./../../pages/contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="footer-section contact">
+                <h3>Contact Us</h3>
+                <p>
+                    Email: <a href="mailto:support@edufun.com">support@edufun.com</a>
+                </p>
+                <p>Phone: +91 98765 43210</p>
+                <p>Location: Pune, India</p>
+            </div>
+
+            <!-- Social Media -->
+            <div class="footer-section social">
+                <h3>Follow Us</h3>
+                <div class="social-media-logo">
+                    <!-- Simplified image placeholders -->
+                    <div class="icon"></div>
+                    <div class="icon"></div>
+                    <div class="icon"></div>
+                    <div class="icon"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Simplified footer logo placeholder -->
+        <h4 id="f-head" style="text-align: center; color: white;">EduFun</h4>
+
+        <!-- Footer Copyright -->
+        <div class="footer-bottom">
+            <p>© 2025 EduFun. All Rights Reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        // Simple JavaScript function to toggle the hamburger menu
+        function hamburgerMenu() {
+            const nav = document.getElementById("ham-nav");
+            if (nav) {
+                nav.classList.toggle("open");
+            }
+        }
+        
+        // Placeholder for the external image change function (not needed with placeholders, but kept for context)
+        function mainImgChange(element, newSrc) {
+            // This function would normally change the image source on hover
+            // We use CSS for hover effects in the current implementation.
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibrant Learn & Play Store</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-purple': '#8B5CF6', // Violet-500
+                        'accent-pink': '#EC4899', // Pink-500
+                        'accent-saffron': '#F59E0B', // Amber-500
+                        'dark-bg': '#1F2937',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom styles for image hover effect, since transform cannot be used directly on link/div with class */
+        .quiz-item-img:hover {
+            transform: scale(1.05);
+        }
+        .product-img {
+            transition: transform 0.3s ease-in-out;
+        }
+        .product-img:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="min-h-screen font-sans text-gray-800 bg-gradient-to-br from-purple-100 via-pink-100 to-teal-100 p-4">
+
+    <!-- Exit Button -->
+    <a href="./../secondary_education.html" class="absolute top-4 left-4 sm:top-6 sm:left-6 z-10">
+        <button class="exit-btn flex items-center justify-center space-x-1 px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg shadow-lg border-2 border-white transition duration-300 transform hover:scale-105">
+            Exit
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM6.707 6.707a1 1 0 00-1.414 1.414L8.586 10l-3.293 3.293a1 1 0 101.414 1.414L10 11.414l3.293 3.293a1 1 0 001.414-1.414L11.414 10l3.293-3.293a1 1 0 00-1.414-1.414L10 8.586 6.707 5.293z" clip-rule="evenodd" />
+            </svg>
+        </button>
+    </a>
+
+    <header class="pt-16 pb-8">
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-primary-purple mb-2 drop-shadow-md">
+            Learn and Play Quizzes! ✨
+        </h1>
+        <p class="text-lg text-gray-600">Sharpen your mind with fun challenges.</p>
+    </header>
+
+    <!-- Quiz Section -->
+    <section class="mb-16">
+        <div class="flex flex-wrap justify-center gap-6 p-4 max-w-6xl mx-auto">
+            
+            <!-- Math Quiz Card -->
+            <div class="w-full sm:w-60 p-4 bg-white rounded-xl shadow-2xl hover:shadow-primary-purple/50 transition duration-500 ease-in-out">
+                <a href="../junior_secondary_studies/math/math_game.html" class="block overflow-hidden rounded-lg">
+                    <img src="../../../images/math2.jpg" alt="Math Quiz" class="quiz-item-img w-full h-auto rounded-lg transition duration-300 ease-in-out">
+                </a>
+                <a class="mt-4 block w-full text-center py-3 bg-primary-purple hover:bg-purple-700 text-white font-bold rounded-lg shadow-md transition duration-300 transform hover:scale-[1.02]" href="../junior_secondary_studies/math/math_game.html">Play Math Quiz</a>
+            </div>
+
+            <!-- Science Quiz Card -->
+            <div class="w-full sm:w-60 p-4 bg-white rounded-xl shadow-2xl hover:shadow-primary-purple/50 transition duration-500 ease-in-out">
+                <a href="../junior_secondary_studies/science/science_quiz.html" class="block overflow-hidden rounded-lg">
+                    <img src="../../../images/sci.jpg" alt="Science Quiz" class="quiz-item-img w-full h-auto rounded-lg transition duration-300 ease-in-out">
+                </a>
+                <a class="mt-4 block w-full text-center py-3 bg-accent-pink hover:bg-pink-700 text-white font-bold rounded-lg shadow-md transition duration-300 transform hover:scale-[1.02]" href="../junior_secondary_studies/science/science_quiz.html">Play Science Quiz</a>
+            </div>
+
+            <!-- General Knowledge Quiz Card -->
+            <div class="w-full sm:w-60 p-4 bg-white rounded-xl shadow-2xl hover:shadow-primary-purple/50 transition duration-500 ease-in-out">
+                <a href="../junior_secondary_studies/general-knowledge/GK.html" class="block overflow-hidden rounded-lg">
+                    <img src="../../../images/gk.jpg" alt="General Knowledge Quiz" class="quiz-item-img w-full h-auto rounded-lg transition duration-300 ease-in-out">
+                </a>
+                <a class="mt-4 block w-full text-center py-3 bg-accent-saffron hover:bg-amber-600 text-gray-900 font-bold rounded-lg shadow-md transition duration-300 transform hover:scale-[1.02]" href="../junior_secondary_studies/general-knowledge/GK.html">Play GK Quiz</a>
+            </div>
+            
+            <!-- Funny Game Card -->
+            <div class="w-full sm:w-60 p-4 bg-white rounded-xl shadow-2xl hover:shadow-primary-purple/50 transition duration-500 ease-in-out">
+                <a href="../junior_secondary_studies/funny-game/funny_game.html" class="block overflow-hidden rounded-lg">
+                    <img src="../../../images/dice.jpg" alt="Dice Roller Game" class="quiz-item-img w-full h-auto rounded-lg transition duration-300 ease-in-out">
+                </a>
+                <a class="mt-4 block w-full text-center py-3 bg-teal-500 hover:bg-teal-600 text-white font-bold rounded-lg shadow-md transition duration-300 transform hover:scale-[1.02]" href="../junior_secondary_studies/funny-game/funny_game.html">Play Fun Game</a>
+            </div>
+
+        </div>
+    </section>
+
+    <h2 class="text-3xl sm:text-4xl font-extrabold text-accent-pink mb-8 drop-shadow-md">
+        Buy Learning & Gaming Materials 🛍️
+    </h2>
+
+    <!-- Product Section -->
+    <section class="mb-16">
+        <div class="flex flex-wrap justify-center gap-8 p-4 max-w-7xl mx-auto">
+            
+            <!-- Product 1: Math Learning Kit -->
+            <div class="product-card w-full sm:w-72 lg:w-64 p-6 bg-white rounded-2xl shadow-xl border-t-4 border-primary-purple flex flex-col items-center">
+                <img src="../../../images/box.jpg" alt="Math Material" class="product-img w-full max-h-40 object-cover rounded-lg mb-4">
+                <h3 class="text-xl font-bold text-primary-purple mb-1">Math Learning Kit</h3>
+                <p class="text-lg font-semibold text-gray-700 mb-4">Price: <span class="text-accent-pink font-extrabold">₹200</span></p>
+                <button class="cart-btn w-full py-3 bg-primary-purple hover:bg-purple-700 text-white font-semibold rounded-lg shadow-md transition duration-300 transform hover:-translate-y-0.5" 
+                        onclick="addToCart('Math Learning Kit', 200)">Add to Cart</button>
+            </div>
+
+            <!-- Product 2: Science Explorer Kit -->
+            <div class="product-card w-full sm:w-72 lg:w-64 p-6 bg-white rounded-2xl shadow-xl border-t-4 border-accent-pink flex flex-col items-center">
+                <img src="../../../images/sbox.jpg" alt="Science Material" class="product-img w-full max-h-40 object-cover rounded-lg mb-4">
+                <h3 class="text-xl font-bold text-accent-pink mb-1">Science Explorer Kit</h3>
+                <p class="text-lg font-semibold text-gray-700 mb-4">Price: <span class="text-accent-pink font-extrabold">₹100</span></p>
+                <button class="cart-btn w-full py-3 bg-accent-pink hover:bg-pink-700 text-white font-semibold rounded-lg shadow-md transition duration-300 transform hover:-translate-y-0.5" 
+                        onclick="addToCart('Science Explorer Kit', 100)">Add to Cart</button>
+            </div>
+
+            <!-- Product 3: General Knowledge Guide -->
+            <div class="product-card w-full sm:w-72 lg:w-64 p-6 bg-white rounded-2xl shadow-xl border-t-4 border-accent-saffron flex flex-col items-center">
+                <img src="../../../images/gkbox.jpg" alt="General Knowledge Material" class="product-img w-full max-h-40 object-cover rounded-lg mb-4">
+                <h3 class="text-xl font-bold text-accent-saffron mb-1">General Knowledge Guide</h3>
+                <p class="text-lg font-semibold text-gray-700 mb-4">Price: <span class="text-accent-pink font-extrabold">₹400</span></p>
+                <button class="cart-btn w-full py-3 bg-accent-saffron hover:bg-amber-600 text-gray-900 font-semibold rounded-lg shadow-md transition duration-300 transform hover:-translate-y-0.5" 
+                        onclick="addToCart('General Knowledge Guide', 400)">Add to Cart</button>
+            </div>
+
+            <!-- Product 4: Dice Roller Set -->
+            <div class="product-card w-full sm:w-72 lg:w-64 p-6 bg-white rounded-2xl shadow-xl border-t-4 border-teal-500 flex flex-col items-center">
+                <img src="../../../images/dbox.jpg" alt="Dice Roller Game" class="product-img w-full max-h-40 object-cover rounded-lg mb-4">
+                <h3 class="text-xl font-bold text-teal-600 mb-1">Dice Roller Set</h3>
+                <p class="text-lg font-semibold text-gray-700 mb-4">Price: <span class="text-accent-pink font-extrabold">₹300</span></p>
+                <button class="cart-btn w-full py-3 bg-teal-500 hover:bg-teal-600 text-white font-semibold rounded-lg shadow-md transition duration-300 transform hover:-translate-y-0.5" 
+                        onclick="addToCart('Dice Roller Set', 300)">Add to Cart</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Information Section -->
+    <h2 class="text-3xl sm:text-4xl font-extrabold text-primary-purple mb-6 drop-shadow-md">
+        Your Cart 🛒
+    </h2>
+    <div class="cart-info max-w-xl mx-auto p-6 bg-white rounded-3xl shadow-2xl border-2 border-primary-purple/50">
+        <div id="cart-info" class="text-left text-lg">
+            <p class="text-gray-500 italic">No items in cart.</p>
+        </div>
+    </div>
+    
+    <footer class="mt-16 pb-8 text-gray-600 text-sm">
+        <p>&copy; 2024 Learn and Play. All rights reserved.</p>
+    </footer>
+
+    <script>
+        let cart = [];
+        
+        // Custom modal function to replace alert() and confirm()
+        function showMessage(message) {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+                background: rgba(0, 0, 0, 0.6); display: flex; 
+                justify-content: center; align-items: center; z-index: 1000;
+            `;
+            const content = document.createElement('div');
+            content.className = 'bg-white p-6 rounded-xl shadow-2xl max-w-sm text-center transform transition duration-300 scale-100';
+            content.innerHTML = `
+                <p class="text-xl font-semibold mb-4 text-primary-purple">${message}</p>
+                <button id="close-modal" class="px-4 py-2 bg-primary-purple text-white rounded-lg hover:bg-purple-700 transition duration-200">Got It</button>
+            `;
+            
+            modal.appendChild(content);
+            document.body.appendChild(modal);
+
+            document.getElementById('close-modal').onclick = () => {
+                document.body.removeChild(modal);
+            };
+        }
+
+        function addToCart(item, price) {
+            cart.push({ item, price });
+            updateCartDisplay();
+            showMessage(`${item} added to cart!`);
+        }
+        
+        function updateCartDisplay() {
+            let cartInfo = document.getElementById("cart-info");
+            
+            if (cart.length === 0) {
+                cartInfo.innerHTML = "<p class='text-gray-500 italic'>No items in cart.</p>";
+            } else {
+                let cartHTML = "<ul class='list-disc pl-5 space-y-1 mb-4'>";
+                let total = 0;
+                
+                cart.forEach(product => {
+                    cartHTML += `<li class="text-gray-700">${product.item} - <span class="font-bold text-accent-pink">₹${product.price}</span></li>`;
+                    total += product.price;
+                });
+                
+                cartHTML += `</ul>
+                             <hr class="border-t border-purple-200 my-3">
+                             <p class="text-xl font-extrabold flex justify-between">
+                                <span>Total:</span> 
+                                <span class="text-primary-purple">₹${total}</span>
+                             </p>
+                             <button onclick="clearCart()" class="w-full mt-4 py-2 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg transition duration-300">
+                                Clear Cart
+                             </button>
+                             `;
+                cartInfo.innerHTML = cartHTML;
+            }
+        }
+
+        function clearCart() {
+            cart = [];
+            updateCartDisplay();
+            showMessage("Your cart has been cleared!");
+        }
+
+        // Initialize cart display on load
+        document.addEventListener('DOMContentLoaded', updateCartDisplay);
+    </script>
+</body>
+</html>

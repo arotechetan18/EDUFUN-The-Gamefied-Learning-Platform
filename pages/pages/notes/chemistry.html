@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHEMISTRY NOTES - Simple and Readable</title>
+    <link href="https://fonts.googleapis.com/css2?family=Georgia&family=Verdana&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 📜 Theme: Warm Brown and Cream (Vintage Paper Theme) */
+        :root {
+            --primary-color: #5d4037; /* Warm Brown/Coffee */
+            --secondary-color: #a1887f; /* Lighter Tan/Taupe */
+            --background-light: #f5f5dc; /* Beige/Cream Paper */
+            --text-dark: #2c2c2c; /* Dark Grey/Ink */
+            --note-bg: #fffdd0; /* Pale Yellow/Paper */
+        }
+
+        body {
+            background-color: var(--background-light);
+            font-family: 'Verdana', sans-serif;
+            color: var(--text-dark);
+            margin: 0;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center all content */
+        }
+        
+        /* Main Headings */
+        h1 {
+            color: var(--primary-color);
+            font-family: 'Georgia', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            padding-bottom: 5px;
+            /* Simple solid line border */
+            border-bottom: 3px solid var(--secondary-color);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 1.6rem;
+            font-weight: 400;
+            margin: 30px 0 15px 0;
+            text-align: center;
+            /* Simple underline effect */
+            text-decoration: underline 2px;
+            text-decoration-color: var(--secondary-color);
+        }
+
+        /* Image Styling */
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            /* Simple frame border */
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+            display: block;
+        }
+
+        /* Content Text (Chemistry Description) */
+        .content-box {
+            max-width: 850px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff; /* Clean White box */
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: 'Georgia', serif; /* Serif font for long text reading */
+            font-size: 1.05rem;
+            line-height: 1.7;
+            text-align: justify;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05); /* Subtle inner shadow */
+        }
+
+        .content-box b {
+            color: var(--primary-color);
+            font-weight: 700;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* Horizontal Rule - Simple divider */
+        hr {
+            width: 80%;
+            margin: 30px auto;
+            border: 0;
+            height: 1px;
+            background-color: #ccc;
+        }
+
+        /* 📝 NOTES Section Styles */
+        #notes-added-heading {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-top: 50px;
+            margin-bottom: 20px;
+            padding: 8px 20px;
+            border: 1px solid var(--secondary-color);
+            background-color: #fff;
+            border-radius: 5px;
+            text-shadow: none;
+        }
+
+        .btn {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 90%;
+            max-width: 850px;
+            margin-bottom: 20px;
+            padding: 10px 0;
+            border-bottom: 1px dashed #ccc;
+        }
+
+        .btn .heading h1 {
+            border-bottom: none;
+            margin: 0;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        #addBtn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 700;
+            transition: background-color 0.3s, transform 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        #addBtn:hover {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            transform: translateY(-1px);
+        }
+
+        /* 📌 Styling for individual Note Cards (Simple Sticky Note) */
+        #main {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px;
+        }
+
+        .note {
+            width: 300px;
+            height: 300px;
+            background-color: var(--note-bg); 
+            padding: 15px;
+            border-radius: 5px; 
+            /* Simple shadow to look like a piece of paper */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+            position: relative;
+            transition: transform 0.2s;
+            border: 1px solid #ddd;
+        }
+        
+        .note:hover {
+            transform: rotate(-0.5deg) scale(1.02); /* Slight movement for interaction */
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .note .delete-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #cc0000; /* Red for delete */
+            color: white;
+            border: none;
+            border-radius: 3px;
+            padding: 4px 8px;
+            cursor: pointer;
+            font-size: 0.7rem;
+        }
+        
+        .note textarea {
+            width: 100%;
+            height: 100%;
+            border: none;
+            resize: none;
+            outline: none;
+            background: transparent;
+            font-family: 'Verdana', sans-serif;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: var(--text-dark); /* Ink color */
+        }
+
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            .content-box {
+                max-width: 95%;
+                font-size: 0.9rem;
+            }
+            .btn {
+                width: 95%;
+            }
+            .note {
+                width: 90%;
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <h1>🧪 CHEMISTRY NOTES 📖</h1>
+    
+    <img src="./../../../images/che1.jpg" height="300" width="500" alt="Chemistry Laboratory Setup">
+
+    <h2>What You Know About Chemistry?</h2>
+    <div class="content-box">
+        <b>The Central Science</b>
+        <p>
+            Chemistry is the branch of science that studies the **composition, structure, properties, and reactions of matter**, particularly at the atomic and molecular levels. It explores how different elements and compounds interact, form bonds, and undergo **chemical reactions**. Chemistry is often referred to as the **central science** because it connects and overlaps with various scientific disciplines, including biology, physics, medicine, and environmental science.
+        </p>
+        <p>
+            The study involves understanding the behavior of atoms and molecules. This includes learning about the **periodic table**, which organizes elements based on their properties. Chemical reactions are governed by the principles of **thermodynamics, kinetics, and equilibrium**.
+        </p>
+        <p>
+            Chemistry is divided into subfields such as **organic chemistry** (carbon compounds), **inorganic chemistry** (metals, minerals), **physical chemistry** (physics principles), and **analytical chemistry** (detection and quantification). The field is fundamental to many industries, playing a crucial role in developing new materials, drugs, and sustainable energy solutions.
+        </p>
+        <p>
+            An extended **reaction stoichiometry roadmap** is a diagram which shows the steps needed to convert between units of reactant and units of product in a reaction.
+        </p>
+    </div>
+    
+    <hr>
+    
+    <h2>Road Map For Chemistry 🗺️</h2>
+    
+    <img src="./../../../images/che2.jpg" height="300" width="500" alt="Chemistry Study Roadmap">
+
+    <div class="content-box">
+        <b>Strategic Planning in Science</b>
+        <p>
+            Simply put, a roadmap is a strategic planning technique that places a project's goals and major deliverables (tasks, milestones) on a timeline, all grouped in a single visual representation or graphic. This is essential for tackling complex chemical research or study plans.
+        </p>
+    </div>
+    
+    <hr> 
+    
+    <h1 id="notes-added-heading">📝 Log Your Notes</h1>
+    
+    <div class="btn">
+        <div class="heading">
+            <h1>Capture Key Observations</h1>
+        </div>
+        <button id="addBtn">
+            <i class="fas fa-plus"></i>
+            Add Note
+        </button>
+    </div>
+    
+    <div id="main">
+        </div>
+    
+    <script src= "https://kit.fontawesome.com/bf520e6492.js" 
+        crossorigin="anonymous">
+    </script>
+    
+    <script src="./../../../js/code.js"></script>
+</body>
+</html>

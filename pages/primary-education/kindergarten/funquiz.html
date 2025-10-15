@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fruit or Vegetable Quiz</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Chewy&family=Inter:wght@400;700;900&display=swap"
+        rel="stylesheet"
+    />
+    <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <style>
+        /* --- General Styles and Animations --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif; /* Set default font */
+        }
+
+        body {
+            /* Purple and Green Gradient Background */
+            background: linear-gradient(135deg, #a18cd1 0%, #84fab0 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #333;
+            text-align: center;
+        }
+
+        /* --- Exit Button --- */
+        .exit {
+            background-color: #ff5e5e; 
+            border: 2px solid #fff;
+            height: 45px;
+            width: 50px;
+            font-size: 0; 
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            z-index: 10; 
+        }
+
+        .exit:hover {
+            background-color: #cc0052;
+            transform: scale(1.1) translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .exit .material-symbols-outlined {
+            font-size: 24px;
+            color: white;
+        }
+
+        /* --- Quiz Container (Card Animation) --- */
+        .quiz-container {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 450px; /* Slightly wider container */
+            animation: popIn 0.6s ease-out;
+        }
+        
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.9) translateY(20px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        h2 {
+            font-family: 'Chewy', cursive; /* Playful Title Font */
+            color: #6a11cb; 
+            margin-bottom: 15px;
+            font-size: 32px; /* Bigger Title */
+            text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.05);
+        }
+
+        /* --- Progress Bar --- */
+        .progress-bar {
+            height: 14px; /* Even Thicker bar */
+            width: 100%;
+            background: #e0e0e0;
+            border-radius: 7px;
+            margin-bottom: 25px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        #progress {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(to right, #6a11cb, #2ecc71); 
+            border-radius: 7px;
+            transition: width 0.5s ease-in-out;
+        }
+        
+        /* --- Question Text --- */
+        #question-number {
+            font-size: 18px;
+            font-weight: 700;
+            color: #888;
+            margin-bottom: 10px;
+        }
+
+        #question-text {
+            font-family: 'Chewy', cursive; /* Playful Question Font */
+            font-size: 38px; 
+            margin-bottom: 40px;
+            color: #333;
+            animation: textPop 0.3s ease-out;
+        }
+        
+        @keyframes textPop {
+            0% { transform: scale(0.9); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* --- Buttons --- */
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px; /* Increased gap */
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 15px 30px; /* Increased padding */
+            border: none;
+            cursor: pointer;
+            font-size: 20px; /* Bigger font */
+            font-weight: 700;
+            border-radius: 12px; /* Rounded corners */
+            color: white;
+            width: 150px; /* Fixed wider width */
+            transition: transform 0.1s, box-shadow 0.1s, background-color 0.1s;
+            box-shadow: 0 6px 0 rgba(0, 0, 0, 0.3); /* Stronger initial shadow */
+        }
+
+        .fruit {
+            background-color: #ff3366; /* Vibrant Pink/Red */
+        }
+
+        .vegetable {
+            background-color: #2ecc71; /* Vibrant Green */
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 0 rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn:active {
+            transform: translateY(4px); /* Stronger press effect */
+            box-shadow: 0 2px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        /* --- Result Feedback (Dynamically added classes) --- */
+        .correct-feedback {
+            background-color: #0c9c45 !important; /* DARKER Green Flash */
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 8px 0 #075f29 !important; /* Match shadow to the flash */
+        }
+        
+        .incorrect-feedback {
+            background-color: #c0392b !important; /* DARKER Red Flash */
+            transform: scale(0.95) translateY(2px);
+            box-shadow: 0 4px 0 #8d281e !important; /* Match shadow to the flash */
+        }
+
+        /* --- Score and End Screen --- */
+        #score {
+            font-size: 24px;
+            font-weight: 900;
+            margin-top: 25px;
+            color: #6a11cb;
+        }
+        
+        .play-again-btn {
+            background-color: #ff9800;
+            color: white;
+            font-size: 18px;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.2s, transform 0.2s;
+        }
+
+        .play-again-btn:hover {
+            background-color: #e68900;
+            transform: scale(1.05);
+        }
+
+        /* --- Responsive Design --- */
+        @media screen and (max-width: 480px) {
+            .quiz-container { padding: 20px; max-width: 320px; }
+            h2 { font-size: 28px; }
+            #question-text { font-size: 32px; margin-bottom: 30px;}
+            .btn { padding: 12px 20px; font-size: 18px; width: 120px; }
+            .buttons { gap: 15px; }
+            .exit { height: 35px; width: 38px; left: 10px; top: 10px; }
+            .exit .material-symbols-outlined { font-size: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <a href="./../.././primary-education/kindergarten/kindergarden.html">
+        <button class="exit" onclick="return confirmExit()">
+            <span class="material-symbols-outlined"> logout </span>
+        </button>
+    </a>
+    
+    <div class="quiz-container" id="quizContainer">
+        <h2>Fruit or Vegetable? 🍓🥦</h2>
+        <div class="progress-bar">
+            <div id="progress"></div>
+        </div>
+        <p id="question-number"></p>
+        <h3 id="question-text"></h3>
+        <div class="buttons">
+            <button class="btn fruit" id="fruitBtn" onclick="checkAnswer('Fruit', this)">Fruit</button>
+            <button class="btn vegetable" id="vegetableBtn" onclick="checkAnswer('Vegetable', this)">
+                Vegetable
+            </button>
+        </div>
+        <p id="score">Score: 0</p>
+    </div>
+    
+    <script>
+        const questions = [
+            { item: "Apple 🍎", type: "Fruit" },
+            { item: "Carrot 🥕", type: "Vegetable" },
+            { item: "Banana 🍌", type: "Fruit" },
+            { item: "Potato 🥔", type: "Vegetable" },
+            { item: "Tomato 🍅", type: "Fruit" },
+            { item: "Spinach 🥬", type: "Vegetable" },
+            { item: "Grapes 🍇", type: "Fruit" },
+            { item: "Broccoli 🥦", type: "Vegetable" },
+            { item: "Pineapple 🍍", type: "Fruit" },
+            { item: "Lettuce 🥗", type: "Vegetable" },
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        const totalQuestions = questions.length;
+        const quizContainer = document.getElementById("quizContainer");
+        const questionText = document.getElementById("question-text");
+        const progressElement = document.getElementById("progress");
+        const scoreDisplay = document.getElementById("score");
+        const questionNumberDisplay = document.getElementById("question-number");
+        
+
+        function loadQuestion() {
+            if (currentQuestion < totalQuestions) {
+                // Apply Text Pop animation
+                questionText.style.animation = 'none';
+                questionText.offsetHeight; // Trigger reflow
+                questionText.style.animation = 'textPop 0.3s ease-out';
+                
+                // Update text and progress
+                questionNumberDisplay.textContent = `Question ${currentQuestion + 1} of ${totalQuestions}`;
+                questionText.textContent = questions[currentQuestion].item;
+                progressElement.style.width = `${(currentQuestion / totalQuestions) * 100}%`;
+                
+                // Ensure buttons are active and not styled by feedback
+                document.getElementById("fruitBtn").disabled = false;
+                document.getElementById("vegetableBtn").disabled = false;
+                document.getElementById("fruitBtn").classList.remove('correct-feedback', 'incorrect-feedback');
+                document.getElementById("vegetableBtn").classList.remove('correct-feedback', 'incorrect-feedback');
+            } else {
+                // Quiz end screen
+                progressElement.style.width = '100%';
+                quizContainer.innerHTML = `
+                    <h2>Quiz Completed! 🎉</h2>
+                    <p>Your final score is <strong>${score} out of ${totalQuestions}</strong>.</p>
+                    <p style="font-size: 18px; color: #6a11cb; font-weight: 700;">Great job on sorting your food!</p>
+                    <button class="play-again-btn" onclick="restartQuiz()">Play Again</button>`;
+            }
+        }
+
+        function checkAnswer(answer, clickedButton) {
+            // Disable buttons temporarily
+            document.getElementById("fruitBtn").disabled = true;
+            document.getElementById("vegetableBtn").disabled = true;
+
+            const isCorrect = answer === questions[currentQuestion].type;
+            
+            // Visual Feedback
+            if (isCorrect) {
+                score++;
+                clickedButton.classList.add('correct-feedback');
+            } else {
+                clickedButton.classList.add('incorrect-feedback');
+                // Briefly highlight the correct answer
+                const correctButtonId = questions[currentQuestion].type === 'Fruit' ? 'fruitBtn' : 'vegetableBtn';
+                document.getElementById(correctButtonId).classList.add('correct-feedback');
+            }
+            
+            // Update score
+            scoreDisplay.textContent = `Score: ${score}`;
+            
+            // Move to next question after a brief delay for feedback
+            setTimeout(() => {
+                // Remove feedback classes and styles
+                const allButtons = document.querySelectorAll('.btn');
+                allButtons.forEach(btn => {
+                    btn.classList.remove('correct-feedback', 'incorrect-feedback');
+                });
+                
+                currentQuestion++;
+                loadQuestion();
+            }, 700);
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            // Rebuild the quiz structure
+            quizContainer.innerHTML = `
+                <h2>Fruit or Vegetable? 🍓🥦</h2>
+                <div class="progress-bar"><div id="progress"></div></div>
+                <p id="question-number"></p>
+                <h3 id="question-text"></h3>
+                <div class="buttons">
+                    <button class="btn fruit" id="fruitBtn" onclick="checkAnswer('Fruit', this)">Fruit</button>
+                    <button class="btn vegetable" id="vegetableBtn" onclick="checkAnswer('Vegetable', this)">Vegetable</button>
+                </div>
+                <p id="score">Score: 0</p>`;
+            loadQuestion();
+        }
+
+        function confirmExit() {
+            let exitConfirm = confirm("Are you sure you want to exit the quiz?");
+            return exitConfirm; 
+        }
+
+        // Initialize the quiz on load
+        window.onload = loadQuestion;
+    </script>
+</body>
+</html>

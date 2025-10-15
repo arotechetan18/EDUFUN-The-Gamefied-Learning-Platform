@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CURRENT AFFAIRS & GK NOTES</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 🎨 Theme: Teal/Aqua and White - Dynamic Knowledge */
+        :root {
+            --primary-color: #008080; /* Teal - Vibrant and Knowledgeable */
+            --secondary-color: #40e0d0; /* Turquoise/Aqua */
+            --background-light: #f0ffff; /* Azure/Light Cyan */
+            --text-dark: #2c3e50; /* Dark Blue-Grey for contrast */
+        }
+
+        body {
+            background-color: var(--background-light);
+            font-family: 'Roboto', sans-serif;
+            color: var(--text-dark);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center all content */
+        }
+        
+        /* Main Headings */
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.8rem;
+            font-weight: 900;
+            margin-bottom: 30px;
+            padding-bottom: 5px;
+            border-bottom: 5px solid var(--secondary-color);
+            text-shadow: 2px 2px 5px rgba(0, 128, 128, 0.2);
+            text-align: center;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 30px 0 15px 0;
+            text-align: center;
+        }
+
+        /* Image Styling */
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            /* Border with a subtle inner glow effect */
+            border: 4px solid var(--secondary-color);
+            box-shadow: 0 8px 20px rgba(0, 128, 128, 0.3);
+            margin: 25px 0;
+            display: block;
+        }
+
+        /* Content Text (Summary/Article) */
+        .content-box {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 25px;
+            background-color: #ffffff; /* White Paper feel */
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 1.15rem;
+            line-height: 1.7;
+            font-weight: 400;
+            text-align: justify;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .content-box b {
+            color: var(--primary-color);
+            font-weight: 700;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* Horizontal Rule */
+        hr {
+            width: 90%;
+            margin: 40px auto;
+            border: 0;
+            height: 2px;
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0), var(--primary-color), rgba(0, 0, 0, 0));
+        }
+
+        /* 📝 NOTES Section Styles */
+        #notes-added-heading {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-top: 50px;
+            margin-bottom: 20px;
+            padding: 10px 30px;
+            border: 3px solid var(--secondary-color);
+            background-color: #fff;
+            border-radius: 15px;
+        }
+
+        .btn {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 90%;
+            max-width: 900px;
+            margin-bottom: 20px;
+            padding: 10px 0;
+        }
+
+        .btn .heading h1 {
+            border-bottom: none;
+            margin: 0;
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+
+        #addBtn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 30px; /* Pill shape */
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 700;
+            transition: background-color 0.3s, transform 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        #addBtn:hover {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* 📌 Styling for individual Note Cards */
+        #main {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            justify-content: center;
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px;
+        }
+
+        .note {
+            width: 320px;
+            height: 320px;
+            background-color: #e0ffff; /* Light Aqua for a fresh look */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 5px 5px 15px rgba(0, 128, 128, 0.4);
+            position: relative;
+            transition: transform 0.3s;
+            border-left: 5px solid var(--primary-color);
+        }
+        
+        .note:hover {
+            transform: rotate(-1deg) scale(1.02); /* Slight tilt for fun */
+        }
+        
+        .note .delete-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ff6347; /* Tomato Red for delete */
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .note textarea {
+            width: 100%;
+            height: 100%;
+            border: none;
+            resize: none;
+            outline: none;
+            background: transparent;
+            font-family: 'Roboto', sans-serif;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-dark);
+        }
+
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            .content-box {
+                max-width: 95%;
+                font-size: 1rem;
+            }
+            .btn {
+                width: 95%;
+            }
+            #main {
+                gap: 15px;
+            }
+            .note {
+                width: 90%;
+                height: 280px;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <h1>CURRENT AFFAIRS AND GENERAL KNOWLEDGE 🌍</h1>
+    
+    <img src="./../../../images/c1.jpg" height="300" width="500" alt="Current Affairs concept image">
+
+    <div class="content-box">
+        <b>Current Affairs Snapshot: Global Overview</b>
+        <p>
+            The current global landscape is marked by significant **geopolitical tensions**, economic uncertainty, and environmental crises. The ongoing Russia-Ukraine war continues to disrupt global energy and food supplies, while escalating tensions between the U.S. and China over Taiwan and technology trade restrictions threaten to reshape international alliances.
+        </p>
+        <p>
+            Economies worldwide face **inflationary pressures** and potential recession risks as central banks aggressively raise interest rates, with developing nations particularly vulnerable to debt crises. **Climate change** manifests through extreme weather events, from devastating floods in Pakistan to record heatwaves across Europe, intensifying calls for urgent decarbonization.
+        </p>
+        <p>
+            Technological advancements in **AI**, particularly generative models like ChatGPT, are revolutionizing industries while raising ethical concerns about job displacement and misinformation. Meanwhile, global health systems remain strained by COVID-19 aftershocks and new outbreaks like mpox, even as **space exploration** reaches new milestones with NASA's Artemis program and private space ventures. Social movements continue to challenge systemic inequalities, with protests erupting from Iran to France over human rights and economic policies, as the world grapples with interconnected challenges that demand unprecedented international cooperation and innovative solutions.
+        </p>
+    </div>
+    
+    <hr>
+    
+    <h2>Road Map For Current Affairs 🗺️</h2>
+    
+    <img src="./../../../images/c2.jpg" height="300" width="500" alt="Current Affairs learning roadmap">
+    <img src="./../../../images/c3.jpg" height="300" width="500" alt="General knowledge map">
+
+    <div class="content-box">
+        <b>Current Affairs PDF (Digital Resource)</b>
+        <p>
+            A current affairs **PDF** is a downloadable, often free, document that compiles **recent news and events of importance**, often used for exam preparation or staying informed about current happenings. It's a structured way to cover the vast global landscape efficiently.
+        </p>
+    </div>
+    
+    <hr> 
+    
+    <h1 id="notes-added-heading">✏️ YOUR NOTES</h1>
+    
+    <div class="btn">
+        <div class="heading">
+            <h1>Capture Your Key Points</h1>
+        </div>
+        <button id="addBtn">
+            <i class="fas fa-plus"></i>
+            Add Note
+        </button>
+    </div>
+    
+    <div id="main">
+        </div>
+    
+    <script src= "https://kit.fontawesome.com/bf520e6492.js" 
+        crossorigin="anonymous">
+    </script>
+    
+    <script src="./../../../js/code.js"></script>
+</body>
+</html>

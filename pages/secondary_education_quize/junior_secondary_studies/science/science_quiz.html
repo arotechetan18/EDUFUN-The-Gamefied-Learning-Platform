@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Science Quiz</title>
+    <!-- Use Inter font for a modern look -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #4f46e5; /* Indigo 600 */
+            --primary-purple: #7c3aed; /* Violet 600 */
+            --accent-pink: #ec4899; /* Pink 500 */
+            --bg-light: #f3f4f6;
+            --text-dark: #1f2937;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-purple));
+            min-height: 100vh;
+            padding: 20px;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .exit {
+            background-color: var(--accent-pink);
+            border: none;
+            height: 40px;
+            width: 80px;
+            font-size: 16px;
+            font-weight: 600;
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .exit:hover {
+            background-color: #d946ef; /* Fuchsia 500 */
+            transform: translateY(-2px);
+        }
+
+        .quiz-container {
+            max-width: 90%;
+            width: 550px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 20px 25px rgba(0, 0, 0, 0.2), 0 0 5px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+            color: var(--text-dark);
+        }
+
+        h2 {
+            color: var(--primary-purple);
+            font-weight: 800;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        #timer, #score {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--accent-pink);
+        }
+
+        .question {
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            font-weight: 700;
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+
+        .options {
+            display: grid;
+            gap: 12px;
+            text-align: left;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            padding: 15px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            font-weight: 500;
+            border: 2px solid transparent;
+        }
+        
+        /* Remove the radio button visual */
+        .option input {
+            display: none; 
+        }
+
+        .option:hover {
+            background: #e0f2fe; /* Light Blue 100 */
+            border-color: var(--primary-blue);
+            transform: translateY(-2px);
+        }
+
+        /* State colors for selected options */
+        .option.correct {
+            background-color: #34d399; /* Emerald 400 */
+            color: white;
+            border-color: #065f46;
+        }
+
+        .option.wrong {
+            background-color: #f87171; /* Red 400 */
+            color: white;
+            border-color: #b91c1c;
+        }
+
+        #next-btn {
+            display: none;
+            width: 100%;
+            background: linear-gradient(90deg, var(--primary-blue), var(--primary-purple));
+            color: white;
+            padding: 15px;
+            border: none;
+            cursor: pointer;
+            margin-top: 25px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        #next-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        /* Custom Modal for alerts */
+        #custom-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            transform: scale(0.9);
+            animation: pop-in 0.2s forwards;
+        }
+
+        @keyframes pop-in {
+            to { transform: scale(1); }
+        }
+
+        .modal-btn {
+            background: var(--primary-purple);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .modal-btn:hover {
+            background: var(--primary-blue);
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 600px) {
+            .quiz-container {
+                padding: 20px;
+            }
+            .question {
+                font-size: 1.2rem;
+            }
+            .option {
+                font-size: 1rem;
+                padding: 12px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Modal Structure -->
+    <div id="custom-modal">
+        <div class="modal-content">
+            <p id="modal-message" class="text-xl font-semibold mb-4 text-primary-purple"></p>
+            <button id="modal-close" class="modal-btn">Got It</button>
+        </div>
+    </div>
+
+    <!-- Exit Button -->
+    <a href="./../index.html">
+        <button class="exit">Exit</button>
+    </a>
+    
+    <!-- Quiz Container -->
+    <div class="quiz-container">
+        <h2>🔬 Science Challenge 🚀</h2>
+        <p id="timer">Time Left: 60s</p>
+        <p id="score">Score: 0</p>
+        <p class="question" id="question">Loading...</p>
+        <div class="options" id="options"></div>
+        <button id="next-btn">Next Question →</button>
+    </div>
+
+    <script>
+        // Quiz Data
+        const questions = [
+            { question: "What is the chemical symbol for water?", options: ["H2O", "O2", "CO2", "NaCl"], answer: "H2O" },
+            { question: "Which planet is known as the Red Planet?", options: ["Mars", "Venus", "Jupiter", "Saturn"], answer: "Mars" },
+            { question: "What gas do plants absorb from the atmosphere?", options: ["Oxygen", "Carbon Dioxide", "Nitrogen", "Hydrogen"], answer: "Carbon Dioxide" },
+            { question: "What is the powerhouse of the cell?", options: ["Nucleus", "Mitochondria", "Ribosome", "Chloroplast"], answer: "Mitochondria" },
+            { question: "How many bones are there in the adult human body?", options: ["206", "300", "180", "250"], answer: "206" }
+        ];
+
+        let currentQuestionIndex = 0;
+        let timeLeft = 60;
+        let score = 0;
+        let timerInterval;
+
+        const questionElement = document.getElementById("question");
+        const optionsContainer = document.getElementById("options");
+        const nextButton = document.getElementById("next-btn");
+        const timerElement = document.getElementById("timer");
+        const scoreElement = document.getElementById("score");
+        const modal = document.getElementById("custom-modal");
+        const modalMessage = document.getElementById("modal-message");
+        const modalCloseBtn = document.getElementById("modal-close");
+
+        // FIX: Getting the accent-pink color value correctly from CSS variables for JavaScript use.
+        const accentPinkColor = getComputedStyle(document.documentElement).getPropertyValue('--accent-pink').trim() || '#ec4899';
+
+
+        // --- Custom Modal Functionality (Replacing alert()) ---
+        function showMessage(message, callback) {
+            modalMessage.textContent = message;
+            modal.style.display = 'flex';
+            modalCloseBtn.onclick = () => {
+                modal.style.display = 'none';
+                if (callback) callback();
+            };
+        }
+        // --------------------------------------------------------
+        
+        function startTimer() {
+            // Clear any existing timer
+            if (timerInterval) clearInterval(timerInterval);
+
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                timerElement.textContent = `Time Left: ${timeLeft}s`;
+                
+                if (timeLeft <= 10) {
+                    timerElement.style.color = 'red';
+                } else {
+                    // FIXED: Using the fetched JS variable instead of var(...) syntax
+                    timerElement.style.color = accentPinkColor; 
+                }
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    handleQuizEnd(`Time's up! Your final score is ${score}/${questions.length}`);
+                }
+            }, 1000);
+        }
+        
+        function loadQuestion() {
+            // Re-enable options
+            optionsContainer.querySelectorAll('.option').forEach(label => label.onclick = null);
+
+            let currentQuestion = questions[currentQuestionIndex];
+            questionElement.textContent = currentQuestion.question;
+            optionsContainer.innerHTML = "";
+            
+            // Hide next button until answer is chosen
+            nextButton.style.display = "none";
+
+            currentQuestion.options.forEach(option => {
+                const label = document.createElement("label");
+                label.classList.add("option");
+                
+                // Add an empty input element for structure, but handle click on the label
+                const input = document.createElement("input");
+                input.type = "radio";
+                input.name = "quiz-option";
+                input.value = option;
+                
+                label.appendChild(input);
+                label.appendChild(document.createTextNode(option));
+
+                // Attach event listener for the answer check
+                label.addEventListener("click", () => {
+                    checkAnswer(label, option);
+                }, { once: true }); // Ensure option can only be clicked once per question
+
+                optionsContainer.appendChild(label);
+            });
+        }
+
+        function checkAnswer(selectedLabel, selectedAnswer) {
+            // Disable all other options after a choice is made
+            optionsContainer.querySelectorAll('.option').forEach(label => {
+                label.onclick = null; // Remove event listeners
+            });
+
+            let correctAnswer = questions[currentQuestionIndex].answer;
+            
+            if (selectedAnswer === correctAnswer) {
+                selectedLabel.classList.add('correct');
+                score++;
+                scoreElement.textContent = `Score: ${score}`;
+                showMessage("✅ Correct! Great job!", null);
+            } else {
+                selectedLabel.classList.add('wrong');
+                // Highlight the correct answer
+                optionsContainer.querySelectorAll('.option').forEach(label => {
+                    if (label.textContent.trim() === correctAnswer) {
+                        label.classList.add('correct');
+                    }
+                });
+                showMessage(`❌ Wrong! The correct answer was: ${correctAnswer}`, null);
+            }
+
+            nextButton.style.display = "block";
+        }
+
+        function handleQuizEnd(message) {
+            clearInterval(timerInterval);
+            // Show end result and give option to restart
+            showMessage(message + ". Try again to beat your score!", () => {
+                // Restart logic
+                currentQuestionIndex = 0;
+                score = 0;
+                timeLeft = 60;
+                scoreElement.textContent = `Score: ${score}`;
+                timerElement.textContent = `Time Left: ${timeLeft}s`;
+                loadQuestion();
+                startTimer();
+                // FIXED: Using the fetched JS variable instead of var(...) syntax
+                timerElement.style.color = accentPinkColor; 
+            });
+        }
+
+        nextButton.addEventListener("click", () => {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                loadQuestion();
+            } else {
+                handleQuizEnd(`Quiz Completed! Your final score is ${score}/${questions.length}`);
+            }
+        });
+
+        // Initialize the quiz
+        loadQuestion();
+        startTimer();
+    </script>
+</body>
+</html>

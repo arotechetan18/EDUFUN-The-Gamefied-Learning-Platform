@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Math Quiz & Toolkit</title>
+    <!-- Load Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load KaTeX for beautiful math rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css" xintegrity="sha384-zT1I3/lTfK00yQ5K/yX6V1V2O8F2A/F+XwL0R8R8WlG6Fp+R5P0W6/b9E+N1h" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.js" xintegrity="sha384-zT1I3/lTfK00yQ5K/yX6V1V2O8F2A/F+XwL0R8R8WlG6Fp+R5P0W6/b9E+N1h" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/contrib/auto-render.min.js" xintegrity="sha384-o683xH+m8+zH6FhJz5+Q/zY5F2N4L5K8bJ3gQ/8I5R5P0W6/b9E+N1h" crossorigin="anonymous"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-purple': '#6a11cb',
+                        'secondary-blue': '#2575fc',
+                        'card-bg': 'rgba(255, 255, 255, 0.95)',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom styles to keep the user's requested background and apply complex KaTeX styles */
+        body {
+            /* User's requested background: texture + gradient */
+            background: url('https://www.transparenttextures.com/patterns/math-formulas.png'), linear-gradient(to right, #6a11cb, #2575fc);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            color: white;
+            padding: 20px;
+        }
+
+        .exit-btn {
+            background-color: #ef4444; /* red-500 */
+            border: 2px solid white;
+            transition: all 0.3s;
+        }
+        .exit-btn:hover {
+            background-color: #dc2626; /* red-700 */
+        }
+        
+        .question-text .katex {
+            font-size: 1.25rem; /* xl */
+        }
+
+        .formula-box p {
+            background-color: rgba(0, 0, 0, 0.05);
+            padding: 8px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            border-left: 4px solid #8b5cf6; /* violet-500 */
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center">
+
+    <!-- Exit Button (Stylized and positioned using Tailwind) -->
+    <a href="./../secondary_education.html" class="absolute top-4 left-4">
+        <button class="exit-btn px-4 py-2 text-white font-semibold rounded-lg shadow-xl hover:shadow-2xl">
+            Exit
+        </button>
+    </a>
+    
+    <!-- Notification/Feedback Area -->
+    <div id="feedback-message" class="fixed top-20 z-50 p-4 rounded-lg text-white font-bold shadow-2xl transition-opacity duration-300 opacity-0 pointer-events-none"></div>
+
+    <div class="w-full max-w-lg space-y-8 mt-20 md:mt-10">
+
+        <!-- Advanced Math Quiz Card -->
+        <div class="bg-card-bg text-gray-800 p-8 rounded-xl shadow-2xl w-full">
+            <h1 class="text-3xl font-extrabold text-primary-purple mb-6 border-b-2 border-primary-purple pb-3">
+                Advanced Math Quiz
+            </h1>
+
+            <h3 class="text-xl font-semibold mb-4">Score: <span id="score" class="text-primary-purple">0</span></h3>
+            
+            <p id="question" class="text-xl font-medium mb-6 question-text text-left min-h-[50px]">
+                Loading...
+            </p>
+            
+            <div id="options" class="options space-y-3">
+                <!-- Options will be dynamically inserted here -->
+            </div>
+            
+            <!-- Next Button -->
+            <button id="next-quiz-btn" onclick="nextQuestion()" class="mt-6 w-full px-8 py-3 bg-secondary-blue text-white font-bold rounded-full hover:bg-blue-700 transition shadow-lg">
+                Next Question
+            </button>
+        </div>
+
+        <!-- Calculator Card -->
+        <div class="bg-card-bg text-gray-800 p-8 rounded-xl shadow-2xl w-full">
+            <h3 class="text-2xl font-bold text-primary-purple mb-4 border-b pb-2">Calculator</h3>
+            <input type="text" id="calc-display" disabled class="w-full p-4 mb-4 text-right text-2xl font-mono border-2 border-purple-300 rounded-lg bg-gray-100 shadow-inner">
+            <div class="grid grid-cols-4 gap-3">
+                <button onclick="calcInput('1')" class="bg-purple-600 hover:bg-purple-700 text-white p-4 text-xl rounded-lg shadow-md transition">1</button>
+                <button onclick="calcInput('2')" class="bg-purple-600 hover:bg-purple-700 text-white p-4 text-xl rounded-lg shadow-md transition">2</button>
+                <button onclick="calcInput('3')" class="bg-purple-600 hover:bg-purple-700 text-white p-4 text-xl rounded-lg shadow-md transition">3</button>
+                <button onclick="calcInput('+')" class="bg-violet-400 hover:bg-violet-500 text-white p-4 text-xl rounded-lg shadow-md transition">+</button>
+
+                <button onclick="calcInput('4')" class="bg-purple-600 hover:bg-purple-700 text-white p-4 text-xl rounded-lg shadow-md transition">4</button>
+                <button onclick="calcInput('5')" class="bg-purple-600 hover:bg-purple-700 text-white p-4 text-xl rounded-lg shadow-md transition">5</button>
+                <button onclick="calcInput('6')" class="bg-purple-600 hover:bg-purple-700 text-white p-4 text-xl rounded-lg shadow-md transition">6</button>
+                <button onclick="calcInput('-')" class="bg-violet-400 hover:bg-violet-500 text-white p-4 text-xl rounded-lg shadow-md transition">-</button>
+
+                <button onclick="calcInput('7')" class="bg-purple-600 hover:bg-purple-700 text-white p-4 text-xl rounded-lg shadow-md transition">7</button>
+                <button onclick="calcInput('8')" class="bg-purple-600 hover:bg-purple-700 text-white p-4 text-xl rounded-lg shadow-md transition">8</button>
+                <button onclick="calcInput('9')" class="bg-purple-600 hover:bg-purple-700 text-white p-4 text-xl rounded-lg shadow-md transition">9</button>
+                <button onclick="calcInput('*')" class="bg-violet-400 hover:bg-violet-500 text-white p-4 text-xl rounded-lg shadow-md transition">*</button>
+                
+                <button onclick="calcInput('0')" class="bg-purple-600 hover:bg-purple-700 text-white p-4 text-xl rounded-lg shadow-md transition col-span-1">0</button>
+                <button onclick="calcInput('.')">.</button>
+                <button onclick="calculateResult()" class="bg-secondary-blue hover:bg-blue-700 text-white p-4 text-xl rounded-lg shadow-md transition">=</button>
+                <button onclick="clearCalc()" class="bg-rose-500 hover:bg-rose-600 text-white p-4 text-xl rounded-lg shadow-md transition">C</button>
+            </div>
+        </div>
+
+        <!-- Formula List Card -->
+        <div class="bg-card-bg text-gray-800 p-8 rounded-xl shadow-2xl w-full">
+            <h1 class="text-2xl font-bold text-primary-purple mb-4 border-b pb-2">Math Formulas</h1>
+            <div class="flex flex-wrap justify-center gap-2 mb-4">
+                <button onclick="showFormulas('algebra')" class="px-4 py-2 bg-purple-100 text-purple-700 font-medium rounded-full hover:bg-purple-700 hover:text-white transition">Algebra</button>
+                <button onclick="showFormulas('geometry')" class="px-4 py-2 bg-purple-100 text-purple-700 font-medium rounded-full hover:bg-purple-700 hover:text-white transition">Geometry</button>
+                <button onclick="showFormulas('trigonometry')" class="px-4 py-2 bg-purple-100 text-purple-700 font-medium rounded-full hover:bg-purple-700 hover:text-white transition">Trigonometry</button>
+            </div>
+            <div id="formula-box" class="formula-box bg-gray-100 text-gray-800 p-4 rounded-lg mt-4 shadow-inner">
+                <h2 class="text-lg font-semibold text-gray-600">Select a category to view formulas</h2>
+            </div>
+        </div>
+
+    </div>
+    
+    <script>
+        const mathQuizData = [
+            { question: "If $$\\frac{x^2}{2} = 32$$, what is x?", options: ["8", "16", "±8", "±16"], answer: "±8" },
+            { question: "If $$\\sin(\\theta) = 0.5$$, find $$\\theta$$ in degrees (first quadrant).", options: ["30°", "45°", "60°", "90°"], answer: "30°" },
+            { question: "What is the area of a circle with radius $$r=7$$?", options: ["$$14\\pi$$", "$$49\\pi$$", "$$7\\pi$$", "$$98\\pi$$"], answer: "$$49\\pi$$" },
+            { question: "What is the derivative of $$f(x) = x^3$$?", options: ["$$x^2$$", "$$3x^2$$", "$$3x$$", "$$1/4 x^4$$"], answer: "$$3x^2$$" },
+            { question: "Solve for x: $$2x + 5 = 11$$", options: ["2", "3", "4", "6"], answer: "3" }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let quizInProgress = true;
+
+        const formulas = {
+            algebra: [
+                { name: "Quadratic Formula", formula: "$$x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}$$" },
+                { name: "Sum of Arithmetic Series", formula: "$$S_n = \\frac{n}{2} (2a_1 + (n-1)d)$$" },
+                { name: "Pythagorean Theorem", formula: "$$a^2 + b^2 = c^2$$" }
+            ],
+            geometry: [
+                { name: "Area of a Circle", formula: "$$A = \\pi r^2$$" },
+                { name: "Perimeter of a Rectangle", formula: "$$P = 2(l + w)$$" },
+                { name: "Volume of a Sphere", formula: "$$V = \\frac{4}{3} \\pi r^3$$" }
+            ],
+            trigonometry: [
+                { name: "Sine Rule", formula: "$$\\frac{a}{\\sin(A)} = \\frac{b}{\\sin(B)} = \\frac{c}{\\sin(C)}$$" },
+                { name: "Cosine Rule", formula: "$$c^2 = a^2 + b^2 - 2ab \\cos(C)$$" },
+                { name: "Tangent Identity", formula: "$$\\tan(\\theta) = \\frac{\\sin(\\theta)}{\\cos(\\theta)}$$" }
+            ]
+        };
+
+        /**
+         * Renders a temporary notification message on the screen.
+         * @param {string} message - The text to display.
+         * @param {string} type - 'correct' (green) or 'incorrect' (red).
+         */
+        function showFeedback(message, type) {
+            const feedbackElement = document.getElementById('feedback-message');
+            feedbackElement.innerText = message;
+            feedbackElement.classList.remove('bg-green-600', 'bg-red-600', 'opacity-0');
+            
+            if (type === 'correct') {
+                feedbackElement.classList.add('bg-green-600');
+            } else {
+                feedbackElement.classList.add('bg-red-600');
+            }
+            
+            feedbackElement.classList.add('opacity-100');
+
+            setTimeout(() => {
+                feedbackElement.classList.remove('opacity-100');
+                feedbackElement.classList.add('opacity-0');
+            }, 1500);
+        }
+
+        /**
+         * Renders math using KaTeX.
+         * Note: This function is not called directly here but the library automatically processes the loaded content.
+         */
+        function renderMath() {
+             // Use a timeout to ensure DOM updates are complete before rendering
+            setTimeout(() => {
+                if (typeof renderMathInElement !== 'undefined') {
+                    renderMathInElement(document.body, {
+                        delimiters: [
+                            { left: "$$", right: "$$", display: true },
+                            { left: "$", right: "$", display: false }
+                        ]
+                    });
+                }
+            }, 50);
+        }
+
+        /**
+         * Loads the current question and populates the options.
+         */
+        function loadQuestion() {
+            if (!quizInProgress) return;
+
+            const questionData = mathQuizData[currentQuestionIndex];
+            document.getElementById("question").innerHTML = questionData.question;
+            const optionsContainer = document.getElementById("options");
+            optionsContainer.innerHTML = "";
+            document.getElementById("next-quiz-btn").classList.add('hidden'); // Hide Next initially
+            
+            questionData.options.forEach(option => {
+                const button = document.createElement("button");
+                button.innerText = option;
+                
+                // Tailwind classes for options
+                button.className = "option block w-full text-center px-5 py-3 bg-violet-500 text-white font-semibold rounded-lg hover:bg-violet-600 focus:outline-none transition duration-150 shadow-md transform hover:scale-[1.01]";
+
+                button.onclick = () => checkAnswer(button, option);
+                optionsContainer.appendChild(button);
+            });
+            renderMath(); // Re-render math content for the new question/options
+        }
+
+        /**
+         * Checks the selected answer against the correct answer and updates the score.
+         * @param {HTMLElement} button - The button element that was clicked.
+         * @param {string} selectedOption - The text value of the selected option.
+         */
+        function checkAnswer(button, selectedOption) {
+            const correctAnswer = mathQuizData[currentQuestionIndex].answer;
+            
+            // Disable all options after selection
+            document.querySelectorAll(".option").forEach(btn => btn.disabled = true);
+            
+            if (selectedOption === correctAnswer) {
+                button.classList.remove('bg-violet-500', 'hover:bg-violet-600');
+                button.classList.add("bg-green-600", "shadow-xl");
+                score += 10;
+                showFeedback('Correct!', 'correct');
+            } else {
+                button.classList.remove('bg-violet-500', 'hover:bg-violet-600');
+                button.classList.add("bg-red-600", "shadow-xl");
+                showFeedback('Wrong answer!', 'incorrect');
+                
+                // Highlight the correct answer
+                document.querySelectorAll(".option").forEach(btn => {
+                    if (btn.innerText === correctAnswer) {
+                        btn.classList.remove('bg-violet-500', 'hover:bg-violet-600');
+                        btn.classList.add("bg-green-600");
+                    }
+                });
+            }
+            document.getElementById('score').innerText = score;
+            document.getElementById("next-quiz-btn").classList.remove('hidden'); // Show the Next button
+        }
+
+        /**
+         * Moves to the next question or finishes the quiz.
+         */
+        function nextQuestion() {
+            if (currentQuestionIndex < mathQuizData.length - 1) {
+                currentQuestionIndex++;
+                loadQuestion();
+            } else {
+                // Quiz finished - display final score
+                quizInProgress = false;
+                const questionElement = document.getElementById("question");
+                questionElement.innerHTML = `<span class="text-primary-purple font-extrabold">Quiz Over!</span> Your Final Score: ${score}/${mathQuizData.length * 10}`;
+                questionElement.classList.remove('question-text');
+                document.getElementById("options").innerHTML = "";
+                
+                const nextBtn = document.getElementById("next-quiz-btn");
+                nextBtn.innerText = "Restart Quiz";
+                nextBtn.onclick = restartQuiz;
+                nextBtn.classList.remove('hidden');
+                renderMath();
+            }
+        }
+        
+        /**
+         * Resets the quiz for a new session.
+         */
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            quizInProgress = true;
+            document.getElementById("next-quiz-btn").innerText = "Next Question";
+            document.getElementById("next-quiz-btn").onclick = nextQuestion;
+            document.getElementById("question").classList.add('question-text');
+            loadQuestion();
+        }
+
+
+        // --- Calculator Functions ---
+
+        /**
+         * Appends value to the calculator display.
+         * @param {string} value - The number or operator to add.
+         */
+        function calcInput(value) {
+            const display = document.getElementById('calc-display');
+            display.value += value;
+        }
+        
+        /**
+         * Calculates the result of the expression in the display.
+         */
+        function calculateResult() {
+            const display = document.getElementById('calc-display');
+            try {
+                // Warning: eval() is used for simplicity, but in real apps, use a safer math library.
+                let result = eval(display.value.replace(/[^-()\d/*+.]/g, ''));
+                display.value = result;
+            } catch (error) {
+                display.value = 'Error';
+                showFeedback('Invalid Calculation', 'incorrect');
+            }
+        }
+        
+        /**
+         * Clears the calculator display.
+         */
+        function clearCalc() {
+            document.getElementById('calc-display').value = '';
+        }
+
+        // --- Formula Functions ---
+
+        /**
+         * Displays the formulas for a selected category.
+         * @param {string} category - 'algebra', 'geometry', or 'trigonometry'.
+         */
+        function showFormulas(category) {
+            const formulaBox = document.getElementById("formula-box");
+            formulaBox.innerHTML = `<h2 class="text-xl font-bold text-primary-purple mb-3">${category.charAt(0).toUpperCase() + category.slice(1)} Formulas</h2>`;
+            
+            formulas[category].forEach(item => {
+                formulaBox.innerHTML += `
+                    <p>
+                        <strong class="text-purple-700">${item.name}:</strong> 
+                        ${item.formula}
+                    </p>
+                `;
+            });
+            renderMath(); // Re-render math content for the new formulas
+        }
+
+        // --- Initialization ---
+
+        // Initial call to start the quiz and render math on load
+        document.addEventListener("DOMContentLoaded", () => {
+            loadQuestion();
+            // Initial render for the formula box placeholder
+            renderMath(); 
+        });
+    </script>
+</body>
+</html>

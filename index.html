@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EduFun - Home Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <script src="./js/script.js"></script>
+    <script src="./js/login_and_signin.js"></script>
+
+    <style>
+      /* 🌈 Global Style */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      /* 💜 Background improved */
+      body {
+        background: linear-gradient(135deg, #f0e6ff, #d6c0ff, #e9ddff);
+        color: #3d0066;
+        overflow-x: hidden;
+      }
+
+      /* ✨ Floating Animation */
+      @keyframes floatText {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+      }
+
+      /* Navbar & Footer Glow Animation */
+      @keyframes glow {
+        0%, 100% { text-shadow: 0 0 8px rgba(255, 255, 255, 0.6); }
+        50% { text-shadow: 0 0 15px rgba(255, 255, 255, 0.9); }
+      }
+
+      /* 🌟 Navbar with Gradient Background */
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 60px;
+        background: linear-gradient(90deg, #6a11cb, #b491f9);
+        box-shadow: 0 4px 15px rgba(106, 17, 203, 0.4);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        border-bottom: 3px solid #ffffff33;
+      }
+
+      .edufun-logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .edufun-logo img {
+        height: 50px;
+        filter: drop-shadow(0 2px 5px rgba(255,255,255,0.4));
+      }
+
+      /* Logo Text/Image Styling */
+      .edufun-logo h2, #logo-heading {
+        font-size: 1.8rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        animation: glow 3s ease-in-out infinite;
+        /* Text styling for pure text logo, if you use #logo-heading (image) the glow will be less effective */
+        background: linear-gradient(90deg, #ffffff, #e3d2ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 2px 8px rgba(255, 255, 255, 0.5);
+      }
+
+      .navbar ul {
+        list-style: none;
+        display: flex;
+        gap: 25px;
+      }
+
+      .navbar ul a {
+        text-decoration: none;
+        color: #fff;
+        font-weight: 600;
+        font-size: 1rem;
+        border: 2px solid transparent;
+        padding: 8px 18px;
+        border-radius: 30px;
+        transition: all 0.3s ease;
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .navbar ul a:hover {
+        background: #fff;
+        color: #6a11cb;
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+        transform: scale(1.08);
+      }
+      
+      /* Hamburger Menu Styles */
+      .hamburger {
+        display: none; 
+      }
+      .hamburger button {
+        background: none;
+        border: none;
+        cursor: pointer;
+      }
+      .hamburger img {
+        height: 30px;
+        filter: invert(1);
+      }
+
+      /* Mobile Nav Menu */
+      .ham-nav {
+        display: none; 
+        background: #b491f9;
+        position: absolute;
+        top: 80px; 
+        width: 100%;
+        z-index: 99;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        padding: 10px 0;
+      }
+      .ham-nav ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .ham-nav ul a {
+        padding: 10px 20px;
+        border-radius: 0;
+        text-align: center;
+        background: none;
+      }
+      .ham-nav ul a:hover {
+        background: #6a11cb;
+        transform: none;
+      }
+
+      /* 🏫 Hero Section */
+      .main-container {
+        text-align: center;
+        padding: 100px 20px;
+        animation: floatText 3s ease-in-out infinite;
+      }
+      
+      .main-container h3, .m1-box h3 {
+        font-size: 2.5rem;
+        margin-bottom: 30px;
+        color: #4b0082;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-shadow: 0px 2px 10px rgba(106, 17, 203, 0.3);
+      }
+
+      .main-container img {
+        height: 80px;
+        margin: 10px;
+        filter: drop-shadow(0 4px 8px rgba(106, 17, 203, 0.4));
+      }
+      #main-heaidng1 {
+          height: 60px;
+      }
+
+      /* 📘 Education Cards */
+      .educational-cards {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 40px;
+        padding: 50px 20px;
+      }
+
+      .edu-cards {
+        background: linear-gradient(135deg, #cbb2ff, #e3d2ff);
+        border-radius: 20px;
+        overflow: hidden;
+        width: 320px;
+        box-shadow: 0 4px 20px rgba(106, 17, 203, 0.25);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .edu-cards:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 25px rgba(106, 17, 203, 0.4);
+      }
+
+      .edu-box-1 img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+      }
+
+      .edu-box-2 {
+        padding: 20px;
+        color: #2f004f;
+      }
+
+      .edu-box-2 h2 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+        color: #4b0082;
+        font-weight: 600;
+      }
+
+      .edu-box-2 ul {
+        margin-bottom: 20px;
+        line-height: 1.6;
+        list-style-position: inside;
+      }
+
+      .get-started {
+        background: #6a11cb;
+        color: white;
+        border: none;
+        border-radius: 30px;
+        padding: 10px 20px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .get-started:hover {
+        background: #b491f9;
+        color: #fff;
+        box-shadow: 0 4px 10px rgba(106, 17, 203, 0.4);
+        transform: scale(1.05);
+      }
+      
+      /* 📚 Mini-Cards Section */
+      .mini-cards {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+        padding: 50px 20px;
+      }
+
+      .cards {
+        display: flex;
+        align-items: center;
+        background: #fff;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        max-width: 900px;
+        width: 100%;
+        transition: box-shadow 0.3s ease;
+      }
+
+      .cards:hover {
+        box-shadow: 0 8px 25px rgba(106, 17, 203, 0.2);
+      }
+
+      .bx-1 {
+        flex: 0 0 150px; 
+        padding-right: 20px;
+      }
+
+      .bx-1 img {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+      }
+
+      .bx-2 {
+        flex-grow: 1;
+        text-align: left;
+      }
+
+      .bx-2 h1 {
+        font-size: 1.5rem;
+        color: #6a11cb;
+        margin-bottom: 10px;
+      }
+
+      .bx-2 p {
+        font-size: 1rem;
+        line-height: 1.5;
+        color: #3d0066;
+      }
+
+      .bx-2 a {
+        color: #6a11cb;
+        font-weight: 600;
+        text-decoration: none;
+      }
+      .bx-2 a:hover {
+        text-decoration: underline;
+      }
+
+      /* 💜 Footer */
+      .footer {
+        background: linear-gradient(90deg, #6a11cb, #b491f9);
+        padding: 60px 20px;
+        text-align: center;
+        color: white;
+        margin-top: 60px;
+        box-shadow: 0 -4px 15px rgba(106, 17, 203, 0.3);
+        border-top: 3px solid rgba(255, 255, 255, 0.3);
+      }
+      
+      .footer-container {
+        display: flex;
+        justify-content: space-around;
+        text-align: left;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .footer-section {
+        flex: 1;
+        padding: 0 20px;
+        min-width: 200px;
+      }
+
+      .footer h3 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        background: linear-gradient(90deg, #ffffff, #e3d2ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 2px 8px rgba(255, 255, 255, 0.5);
+        animation: glow 3s ease-in-out infinite;
+        margin-bottom: 15px;
+      }
+
+      .footer p, .footer a, .footer ul {
+        color: #fff;
+        opacity: 0.9;
+        font-size: 1rem;
+        list-style: none;
+        text-decoration: none;
+      }
+
+      .footer a:hover {
+        color: #ffe6ff;
+        text-decoration: underline;
+      }
+
+      .footer ul {
+        padding: 0;
+      }
+      .footer ul li {
+        margin-bottom: 5px;
+      }
+
+      .social-media-logo {
+        display: flex;
+        gap: 15px;
+        margin: 15px 0;
+      }
+      .social-media-logo img {
+        height: 35px;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+        filter: invert(1) brightness(0.9);
+      }
+      .social-media-logo img:hover {
+        transform: scale(1.1);
+        filter: invert(1) brightness(1.2);
+      }
+
+      #f-head {
+        height: 40px;
+        filter: drop-shadow(0 2px 5px rgba(255,255,255,0.4));
+      }
+
+      .footer-bottom {
+        margin-top: 25px;
+        font-size: 0.85rem;
+        opacity: 0.8;
+        text-align: center;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        padding-top: 20px;
+      }
+
+      /* 📱 Responsive */
+      @media (max-width: 768px) {
+        .navbar {
+          padding: 10px 20px;
+          flex-direction: row;
+          justify-content: space-between;
+        }
+        .navbar ul {
+          display: none; 
+        }
+        .hamburger {
+          display: block; 
+        }
+        
+        .main-container {
+            padding: 60px 20px;
+        }
+        .main-container h3, .m1-box h3 {
+            font-size: 1.8rem;
+        }
+
+        .educational-cards {
+          flex-direction: column;
+          align-items: center;
+        }
+        .edu-cards {
+          width: 90%; 
+          max-width: 350px;
+        }
+        
+        /* Mini-Cards Responsive */
+        .cards {
+          flex-direction: column;
+          text-align: center;
+        }
+        .bx-1 {
+          flex: none;
+          padding-right: 0;
+          margin-bottom: 15px;
+          order: -1; 
+        }
+        .bx-1 img {
+            max-width: 100px;
+        }
+        .cards:nth-child(2) .bx-1 {
+            order: 0; 
+        }
+        .bx-2 {
+          text-align: center;
+        }
+
+        .footer-container {
+          flex-direction: column;
+          text-align: center;
+        }
+        .footer-section {
+          padding: 20px 0;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .footer-section:last-child {
+          border-bottom: none;
+        }
+        .social-media-logo {
+          justify-content: center;
+        }
+      }
+      
+      @media (max-width: 480px) {
+          .edu-cards {
+              width: 100%;
+          }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar" id="navbar">
+      <div class="edufun-logo">
+        <img src="./icons/head-logo.png" alt="edufun-logo" />
+        <img
+          src="./icons/nav-heading.png"
+          id="logo-heading"
+          alt="logo-heading"
+        />
+      </div>
+      <ul>
+        <a href="./../../index.html"><li>Home</li></a>
+        <a href="./../../pages/notes.html"><li>Spaceship</li></a>
+        <a href="./../../pages/about_us.html"><li>About</li></a>
+        <a href="./../../pages/contact.html"><li>contact</li></a>
+        <a href="./../../pages/login.html" id="account-page"><li id="pn-UserlogIn">Log In</li></a>
+      </ul>
+      <div class="hamburger">
+        <button type="button" id="hamburger-btn" onclick="hamburgerMenu()">
+          <img src="./icons/hamburger-menu.png" />
+        </button>
+      </div>
+    </nav>
+    <nav class="ham-nav" id="ham-nav">
+      <ul>
+        <a href="./../../index.html"><li>Home</li></a>
+        <a href="./../../pages/notes.html"><li>Spaceship</li></a>
+        <a href="./../../pages/about_us.html"><li>About</li></a>
+        <a href="./../../pages/contact.html"><li>contact</li></a>
+        <a href="./../../pages/login.html" id="account-page-phn"><li id="UserlogIn">Log In</li></a>
+      </ul>
+    </nav>
+    <div class="main-container">
+      <div class="m1-box">
+        <span><h3>One Of The Best learning platform</h3></span>
+      </div>
+      <div class="m2-box">
+        <img src="./icons/head-logo.png" /><img
+          src="./icons/nav-heading.png"
+          id="main-heaidng1"
+        />
+      </div>
+    </div>
+    <div class="educational-cards">
+      <div class="edu-cards">
+        <div class="edu-box-1"><img src="./images/edu-card-1img.avif" /></div>
+        <div class="edu-box-2">
+          <h2>Kidergarden</h2>
+          <ul>
+            <li>Alphabets 🔠</li>
+            <li>Animal 🦁</li>
+            <li>Color 🧡🤍💚</li>
+            <li>Fun Quiz ⁉️</li>
+            <li>Kidergarder Shop 🛒</li>
+          </ul>
+          <a href="./pages/primary-education/primary.html" target="new"
+            ><button class="get-started" type="button">Visit</button></a
+          >
+        </div>
+      </div>
+      <div class="edu-cards">
+        <div class="edu-box-1"><img src="./images/edu-card-2img.jpg" /></div>
+        <div class="edu-box-2">
+          <h2>Secondary Education</h2>
+          <ul>
+            <li class="ed-p-2">
+              Basic Education [6<sup>th</sup> to 8<sup>th</sup>]👦🏻
+            </li>
+            <li class="ed-p-2">
+              Junior Secondary Studies <br />
+              [9<sup>th</sup> to 10<sup>th</sup>]👱🏻‍♂️
+            </li>
+            <li class="ed-p-2">
+              Advanced Studies [11<sup>th</sup> to 12<sup>th</sup>]🧔🏻
+            </li>
+          </ul>
+          <a
+            href="./pages/secondary_education_quize/secondary_education.html"
+            target="new"
+            ><button class="get-started" type="button">Visit</button></a
+          >
+        </div>
+      </div>
+      <div class="edu-cards">
+        <div class="edu-box-1"><img src="./images/edu-card-3img.png" /></div>
+        <div class="edu-box-2">
+          <h2>Higher Education</h2>
+          <ul>
+            <li>IT Industry👨🏻‍💻</li>
+            <li>Finance 💸</li>
+            <li>Law ⚖️</li>
+            <li>Civil Services 👮🏻</li>
+            <li>Pharma 👨🏻‍⚕️</li>
+          </ul>
+          <a
+            href="./pages/higher-education-quize/higher_education.html"
+            target="new"
+            ><button class="get-started" type="button">Visit</button></a
+          >
+        </div>
+      </div>
+    </div>
+    <div class="mini-cards">
+      <div
+        class="cards"
+        onmouseover="changeImg(`static-img-1`,`./images/brain-gif.gif`)"
+        onmouseout="changeImg(`static-img-1`,`./images/static-brain.png`)"
+      >
+        <div class="bx-1">
+          <img src="./images/static-brain.png" id="static-img-1" />
+        </div>
+        <div class="bx-2">
+          <h1>🧠 How Quizzes Improve Brain Power 🎯</h1>
+          <p>
+            Quizzes play a crucial role in enhancing cognitive abilities by
+            promoting active recall 🔄, strengthening memory 🏋️‍♂️, and improving
+            problem-solving skills 🤔. Engaging with quizzes regularly boosts
+            concentration 🎯, encourages logical thinking 🧩, and enhances
+            decision-making abilities ⚡. They make learning interactive and
+            enjoyable 🎮, reducing stress 😌 and increasing motivation 🚀 to
+            acquire new knowledge. Additionally, quizzes stimulate brain
+            activity ⚙️, reinforce information 📚, and improve long-term
+            retention 🔁.
+            <a href="https://en.wikipedia.org/wiki/Brain_training" target="new"
+              >learn More</a
+            >
+          </p>
+        </div>
+      </div>
+      <div
+        class="cards"
+        onmouseover="changeImg(`static-img-2`,`./images/book-gif.gif`)"
+        onmouseout="changeImg(`static-img-2`,`./images/static-book.png`)"
+      >
+        <div class="bx-2">
+          <h1>📖 Importance of Book Reading in Studies 🎓</h1>
+          <p>
+            Reading books plays a vital role in academic success by enhancing
+            comprehension 🧠, improving vocabulary 📚, and strengthening
+            concentration 🎯. It helps students grasp complex concepts more
+            effectively, boosting critical thinking 🤔 and analytical skills 🧩.
+            Regular reading enhances memory retention 🔁, reduces stress 😌, and
+            fosters creativity 🎨, making learning more engaging and efficient.
+            <a
+              href="https://en.wikipedia.org/wiki/Reading#:~:text=Sustained%20high%20volume%20lifetime%20reading,life%20and%20the%20senior%20years."
+              target="new"
+              >Learn More</a
+            >
+          </p>
+        </div>
+        <div class="bx-1">
+          <img src="./images/static-book.png" id="static-img-2" />
+        </div>
+      </div>
+      <div
+        class="cards"
+        onmouseover="changeImg(`static-img-3`,`./images/chess-gif.gif`)"
+        onmouseout="changeImg(`static-img-3`,`./images/static-chess.png`)"
+      >
+        <div class="bx-1">
+          <img src="./images/static-chess.png" id="static-img-3" />
+        </div>
+        <div class="bx-2">
+          <h1>🏆 Importance of Daily Tasks in Boosting Brain Power 🧠</h1>
+          <p>
+            Performing daily tasks plays a crucial role in enhancing brain
+            function ⚡, memory retention 🔁, and problem-solving skills 🤔.
+            Engaging in structured activities improves focus 🎯, boosts
+            cognitive flexibility 🔄, and enhances decision-making abilities ⚖️.
+            Routine tasks like reading 📖, solving puzzles 🧩, or learning new
+            skills 🚀 stimulate the brain, keeping it active and sharp.
+            Completing daily challenges builds discipline ⏳, reduces stress 😌,
+            and strengthens neural connections 🔗, leading to better
+            adaptability and mental agility.
+            <a
+              href="https://en.wikipedia.org/wiki/Memory_improvement"
+              target="new"
+              >Learn More</a
+            >
+          </p>
+        </div>
+      </div>
+      <div
+        class="cards"
+        onmouseover="changeImg(`static-img-4`,`./images/degree-gif.gif`)"
+        onmouseout="changeImg(`static-img-4`,`./images/static-degree.png`)"
+      >
+        <div class="bx-2">
+          <h1>🌟 Why Choose Us? 🚀</h1>
+          <p>
+            EduFun is a complete learning platform for primary 📚, secondary 🏫,
+            and higher education 🎓. We offer quizzes 🧩, notes 📖, and
+            interactive games 🎮 to make learning fun and engaging. Covering all
+            subjects 🔬💻➕, EduFun ensures easy access to quality education for
+            everyone. With a user-friendly interface 🎯, learning becomes
+            simple, effective ✅, and enjoyable 😃. Start your journey with
+            EduFun and boost your knowledge today! 🚀 EduFun is designed to make
+            education accessible anytime, anywhere 🌍, ensuring that students
+            can learn at their own pace. Whether you're revising for exams.
+          </p>
+        </div>
+
+        <div class="bx-1">
+          <img src="./images/static-degree.png" id="static-img-4" />
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-container">
+        <div class="footer-section about">
+          <h3>About EduFun</h3>
+          <p>
+            EduFun is an interactive learning platform that offers quizzes,
+            notes, and engaging games to make learning fun and effective.
+            Explore various subjects and enhance your knowledge with our dynamic
+            content.
+          </p>
+        </div>
+
+        <div class="footer-section links">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="./pages/higher-education-quize/">Quizzes</a></li>
+            <li><a href="./pages/notes.html">Notes</a></li>
+            <li><a href="./pages/contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section contact">
+          <h3>Contact Us</h3>
+          <p>
+            Email: <a href="mailto:support@edufun.com">support@edufun.com</a>
+          </p>
+          <p>Phone: +91 8010344260</p>
+          <p>Location: Pune, India</p>
+        </div>
+
+        <div class="footer-section social">
+          <h3>Follow Us</h3>
+          <div class="social-media-logo">
+            <img
+              src="./images/static-github.png"
+              id="logo1"
+              onmouseover="mainImgChange(`logo1`,`./images/github.png`)"
+              onmouseout="mainImgChange(`logo1`,`./images/static-github.png`)"
+            />
+            <img
+              src="./images/static-instagram.png"
+              id="logo2"
+              onmouseover="mainImgChange(`logo2`,`./images/instagram.png`)"
+              onmouseout="mainImgChange(`logo2`,`./images/static-instagram.png`)"
+            />
+            <img
+              src="./images/static-facebook.png"
+              id="logo3"
+              onmouseover="mainImgChange(`logo3`,`./images/facebook.png`)"
+              onmouseout="mainImgChange(`logo3`,`./images/static-facebook.png`)"
+            />
+            <img
+              src="./images/static-linkedin.png"
+              id="logo4"
+              onmouseover="mainImgChange(`logo4`,`./images/linkedin.png`)"
+              onmouseout="mainImgChange(`logo4`,`./images/static-linkedin.png`)"
+            />
+          </div>
+          <img src="./icons/nav-heading.png" id="f-head" />
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2025 EduFun. All Rights Reserved.</p>
+      </div>
+    </div>
+  </body>
+</html> 

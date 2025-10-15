@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Alphabets with Fun</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    
+    <style>
+        /* --- सामान्य स्टाईल (General Styles) --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            /* नवीन: इंद्रधनुष्यी ग्रेडियंट पार्श्वभूमी */
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+            animation: backgroundShift 15s ease infinite alternate; /* पार्श्वभूमी ॲनिमेशन */
+            text-align: center;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden; /* अनावश्यक स्क्रोल बार काढण्यासाठी */
+        }
+
+        /* पार्श्वभूमी ॲनिमेशन कीफ्रेम्स */
+        @keyframes backgroundShift {
+            0% { background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 99%); }
+            25% { background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 99%); }
+            50% { background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 99%); }
+            75% { background: linear-gradient(135deg, #ffcf6b 0%, #ff8243 99%); }
+            100% { background: linear-gradient(135deg, #fceabb 0%, #f8b500 99%); }
+        }
+
+        /* --- EXIT BUTTON (फक्त आयकॉन) --- */
+        .exit {
+            background-color: #ff3366; /* लाल/गुलाबी */
+            border: 2px solid #fff;
+            height: 45px; /* थोडे मोठे केले */
+            width: 50px; /* थोडे मोठे केले */
+            font-size: 0; 
+            position: absolute;
+            left: 20px; /* थोडी जागा वाढवली */
+            top: 20px; /* थोडी जागा वाढवली */
+            color: white;
+            border-radius: 25px; /* अधिक गोल */
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            outline: 2px solid #ff3366;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            animation: bounceIn 1s ease-out; /* नवीन: बाउंस ॲनिमेशन */
+        }
+        .exit:hover {
+            background-color: #cc0052;
+            transform: scale(1.1) translateY(-3px); /* होवर इफेक्ट वाढवला */
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+        }
+        .exit .material-symbols-outlined {
+            font-size: 24px; /* आयकॉन मोठा केला */
+            color: white;
+        }
+
+        /* बाउंस ॲनिमेशन कीफ्रेम्स */
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); opacity: 1; }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); }
+        }
+        
+        /* --- मुख्य कंटेनर (Main Container) --- */
+        .container {
+            background: #ffffff;
+            width: 95%;
+            max-width: 850px; /* रुंदी वाढवली */
+            margin: 0 auto; /* सेंटरमध्ये आणण्यासाठी */
+            padding: 35px; /* पॅडिंग वाढवले */
+            border-radius: 25px; /* कडा अधिक गोल */
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25); /* शॅडो गडद केली */
+            position: relative;
+            z-index: 1;
+            animation: fadeInScale 1.2s ease-out; /* नवीन: फेड-इन स्केल ॲनिमेशन */
+        }
+
+        /* फेड-इन स्केल ॲनिमेशन कीफ्रेम्स */
+        @keyframes fadeInScale {
+            0% { opacity: 0; transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        
+        .container h1 {
+            font-family: 'Fredoka One', cursive; /* नवीन: मजेदार फॉन्ट */
+            color: #7d2ae8; /* जांभळा रंग */
+            font-weight: 700;
+            margin-bottom: 30px;
+            font-size: 38px; /* मोठा फॉन्ट */
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1); /* टेक्स्ट शॅडो */
+        }
+
+        /* --- इनपुट बॉक्स (Input Box) --- */
+        #letterInput {
+            padding: 15px; /* पॅडिंग वाढवले */
+            font-size: 24px; /* फॉन्ट मोठा केला */
+            text-align: center;
+            width: 220px; /* रुंदी वाढवली */
+            border: 4px solid #7d2ae8; /* जाड बॉर्डर */
+            border-radius: 12px; /* गोल कडा */
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.1);
+            transition: border-color 0.3s;
+        }
+        #letterInput:focus {
+            outline: none;
+            border-color: #ff3366; /* फोकस झाल्यावर बॉर्डरचा रंग बदलला */
+        }
+
+        /* --- बटणे (Alphabet Buttons) --- */
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(60px, 1fr)); /* अधिक रिस्पॉन्सिव्ह ग्रिड */
+            gap: 10px; /* गॅप वाढवली */
+            max-width: 700px; /* रुंदी वाढवली */
+            margin: 0 auto 35px;
+        }
+
+        button {
+            padding: 16px 0; /* पॅडिंग वाढवले */
+            font-size: 22px; /* फॉन्ट मोठा केला */
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            background-color: #144fc6; /* निळा रंग */
+            color: white;
+            border-radius: 10px; /* अधिक गोल कडा */
+            transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.25);
+            animation: buttonAppear 0.5s ease-out forwards; /* बटण दिसताना ॲनिमेशन */
+            opacity: 0; /* सुरुवातीला लपलेले */
+        }
+        /* प्रत्येक बटणासाठी वेगळा ॲनिमेशन डिले */
+        .buttons button:nth-child(1) { animation-delay: 0.1s; }
+        .buttons button:nth-child(2) { animation-delay: 0.15s; }
+        .buttons button:nth-child(3) { animation-delay: 0.2s; }
+        /* ... आणि पुढे */
+
+
+        @keyframes buttonAppear {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        button:hover {
+            background-color: #001e4d;
+            transform: translateY(-4px) scale(1.03); /* होवर इफेक्ट वाढवला */
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
+        }
+        button:active { /* क्लिक इफेक्ट */
+            transform: translateY(0px) scale(0.98);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* --- डिस्प्ले एरिया (Display Area) --- */
+        .display {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 25px;
+            border-top: 2px dashed #ccc;
+        }
+
+        #letter {
+            font-family: 'Fredoka One', cursive;
+            font-size: 60px; /* अक्षर खूप मोठे केले */
+            color: #ff3366; /* गुलाबी रंग */
+            margin-bottom: 20px;
+            animation: none; /* जुने पल्स ॲनिमेशन काढले */
+            opacity: 0; /* सुरुवातीला लपलेले */
+        }
+        
+        /* नवीन: लेटर डिस्प्ले ॲनिमेशन */
+        @keyframes letterPopIn {
+            0% { opacity: 0; transform: scale(0.5) rotate(-10deg); }
+            80% { opacity: 1; transform: scale(1.1) rotate(2deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+        @keyframes letterPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+
+        #image {
+            width: 220px; /* मोठी इमेज */
+            height: 220px;
+            margin: 15px 0;
+            object-fit: cover;
+            border: 6px solid #144fc6; /* जाड बॉर्डर */
+            border-radius: 20px; /* अधिक गोल कडा */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+            display: none; /* सुरुवातीला लपलेले */
+            animation: none; /* ॲनिमेशन येथे लागू होईल */
+        }
+
+        /* नवीन: इमेज फेड-इन स्केल ॲनिमेशन */
+        @keyframes imageFadeInScale {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        #word {
+            font-family: 'Fredoka One', cursive;
+            font-size: 38px; /* शब्द मोठा केला */
+            color: #001e4d;
+            font-weight: 700;
+            margin-top: 20px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+            opacity: 0; /* सुरुवातीला लपलेले */
+            animation: none; /* ॲनिमेशन येथे लागू होईल */
+        }
+
+        /* नवीन: शब्द स्लाइड-इन ॲनिमेशन */
+        @keyframes wordSlideIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Responsive Design --- */
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 25px;
+                max-width: 90%;
+            }
+            .container h1 {
+                font-size: 32px;
+            }
+            #letterInput {
+                width: 180px;
+                font-size: 20px;
+                padding: 12px;
+            }
+            .buttons {
+                grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+                gap: 8px;
+                max-width: 100%;
+            }
+            button {
+                font-size: 18px;
+                padding: 12px 0;
+            }
+            #letter {
+                font-size: 48px;
+            }
+            #image {
+                width: 180px;
+                height: 180px;
+            }
+            #word {
+                font-size: 30px;
+            }
+            .exit {
+                height: 40px;
+                width: 45px;
+                left: 15px;
+                top: 15px;
+            }
+            .exit .material-symbols-outlined {
+                font-size: 22px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            body { padding: 10px; }
+            .container {
+                margin-top: 40px;
+                padding: 15px;
+                border-radius: 15px;
+            }
+            .container h1 {
+                font-size: 26px;
+                margin-bottom: 20px;
+            }
+            #letterInput {
+                width: 150px;
+                font-size: 18px;
+                padding: 10px;
+                margin-bottom: 20px;
+            }
+            .buttons {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 6px;
+            }
+            button {
+                font-size: 16px;
+                padding: 10px 0;
+                border-radius: 8px;
+            }
+            #letter {
+                font-size: 38px;
+                margin-bottom: 10px;
+            }
+            #image {
+                width: 140px;
+                height: 140px;
+                border-width: 4px;
+                border-radius: 12px;
+            }
+            #word {
+                font-size: 26px;
+                margin-top: 10px;
+            }
+            .exit {
+                height: 35px;
+                width: 38px;
+                left: 10px;
+                top: 10px;
+            }
+            .exit .material-symbols-outlined {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="./../.././primary-education/kindergarten/kindergarden.html">
+        <button class="exit" onclick="return confirmExit()">
+            <span class="material-symbols-outlined"> logout </span>
+        </button>
+    </a>
+
+    <div class="container">
+        <h1>😍 Alphabet Learning Fun ✨</h1>
+        <input type="text" id="letterInput" placeholder="Type a letter..." maxlength="1">
+
+        <div class="buttons">
+            <button onclick="displayLetter('A')">A</button>
+            <button onclick="displayLetter('B')">B</button>
+            <button onclick="displayLetter('C')">C</button>
+            <button onclick="displayLetter('D')">D</button>
+            <button onclick="displayLetter('E')">E</button>
+            <button onclick="displayLetter('F')">F</button>
+            <button onclick="displayLetter('G')">G</button>
+            <button onclick="displayLetter('H')">H</button>
+            <button onclick="displayLetter('I')">I</button>
+            <button onclick="displayLetter('J')">J</button>
+            <button onclick="displayLetter('K')">K</button>
+            <button onclick="displayLetter('L')">L</button>
+            <button onclick="displayLetter('M')">M</button>
+            <button onclick="displayLetter('N')">N</button>
+            <button onclick="displayLetter('O')">O</button>
+            <button onclick="displayLetter('P')">P</button>
+            <button onclick="displayLetter('Q')">Q</button>
+            <button onclick="displayLetter('R')">R</button>
+            <button onclick="displayLetter('S')">S</button>
+            <button onclick="displayLetter('T')">T</button>
+            <button onclick="displayLetter('U')">U</button>
+            <button onclick="displayLetter('V')">V</button>
+            <button onclick="displayLetter('W')">W</button>
+            <button onclick="displayLetter('X')">X</button>
+            <button onclick="displayLetter('Y')">Y</button>
+            <button onclick="displayLetter('Z')">Z</button>
+        </div>
+        <div class="display">
+            <h2 id="letter"></h2>
+            <img id="image" src="" alt="Associated image for the letter">
+            <h3 id="word"></h3>
+        </div>
+    </div>
+
+    <script>
+        const alphabet = {
+            A: { word: "Apple", img:"./../../../images/apple.jpg" },
+            B: { word: "Ball", img: "./../../../images/ball.jpg" },
+            C: { word: "Cat", img: "./../../../images/cat.jpg" },
+            D: { word: "Dog", img: "./../../../images/dog.jpg" },
+            E: { word: "Elephant", img: "./../../../images/elephant.jpg" },
+            F: { word: "Fish", img: "./../../../images/fish.jpg" },
+            G: { word: "Grapes", img: "./../../../images/grapes.jpg" },
+            H: { word: "Hat", img: "./../../../images/hat.jpg" },
+            I: { word: "Ice Cream", img: "./../../../images/ice-cream.jpg" },
+            J: { word: "Jug", img: "./../../../images/jug.jpg" },
+            K: { word: "Kite", img: "./../../../images/kite.png" },
+            L: { word: "Lion", img: "./../../../images/lion.jpeg" },
+            M: { word: "Mango", img: "./../../../images/mango.png" },
+            N: { word: "Nest", img: "./../../../images/nest.jpg" },
+            O: { word: "Orange", img: "./../../../images/orange.jpeg" },
+            P: { word: "Parrot", img: "./../../../images/parrot.webp" },
+            Q: { word: "Queen", img: "./../../../images/queen.png" },
+            R: { word: "Rabbit", img: "./../../../images/rabbit.webp" },
+            S: { word: "Sun", img: "./../../../images/sun.jpeg" },
+            T: { word: "Tiger", img: "./../../../images/tiger.png" },
+            U: { word: "Umbrella", img: "./../../../images/umbrella.png" },
+            V: { word: "Van", img: "./../../../images/van.jpg" },
+            W: { word: "Watch", img:"./../../../images/watch.jpg" },
+            X: { word: "Xylophone", img: "./../../../images/Xylophone.webp" },
+            Y: { word: "Yogurt", img: "./../../../images/yoghurt.jpg" },
+            Z: { word: "Zebra", img: "./../../../images/zebra.png" }
+        };
+
+        const letterInput = document.getElementById('letterInput');
+        const letterDisplay = document.getElementById('letter');
+        const imageDisplay = document.getElementById('image');
+        const wordDisplay = document.getElementById('word');
+
+        function displayLetter(letter) {
+            letter = letter.toUpperCase();
+            letterInput.value = letter;
+
+            // Remove existing animations to re-trigger
+            letterDisplay.style.animation = 'none';
+            imageDisplay.style.animation = 'none';
+            wordDisplay.style.animation = 'none';
+            letterDisplay.offsetHeight; // Trigger reflow
+            imageDisplay.offsetHeight;
+            wordDisplay.offsetHeight;
+
+            // Apply new animations
+            letterDisplay.textContent = "Letter: " + letter;
+            letterDisplay.style.opacity = 1;
+            letterDisplay.style.animation = 'letterPopIn 0.5s ease-out, letterPulse 1.5s infinite alternate 0.5s'; /* ॲनिमेशन एकत्र केले */
+
+            let imagePath = alphabet[letter].img; 
+            imageDisplay.src = imagePath;
+            imageDisplay.style.display = "block";
+            imageDisplay.style.opacity = 1;
+            imageDisplay.style.animation = 'imageFadeInScale 0.6s ease-out';
+
+            wordDisplay.textContent = alphabet[letter].word;
+            wordDisplay.style.opacity = 1;
+            wordDisplay.style.animation = 'wordSlideIn 0.7s ease-out';
+        }
+
+        // Add event listener for input box
+        letterInput.addEventListener('input', function() {
+            let letter = this.value.toUpperCase();
+            if (alphabet[letter]) {
+                displayLetter(letter);
+            } else {
+                // Clear display if input is invalid or empty, and reset opacity
+                letterDisplay.textContent = "";
+                letterDisplay.style.opacity = 0;
+                letterDisplay.style.animation = 'none';
+
+                imageDisplay.src = "";
+                imageDisplay.style.display = "none";
+                imageDisplay.style.opacity = 0;
+                imageDisplay.style.animation = 'none';
+
+                wordDisplay.textContent = "Click a letter or type below to learn!";
+                wordDisplay.style.opacity = 1;
+                wordDisplay.style.animation = 'none'; /* Welcome message should not animate on invalid input */
+            }
+        });
+
+        // Exit confirmation function
+        function confirmExit() {
+            let exitConfirm = confirm("Are you sure you want to exit?");
+            return exitConfirm; // Return true to allow navigation, false to cancel
+        }
+
+        // Initialize display with a welcoming message
+        document.addEventListener('DOMContentLoaded', () => {
+             letterDisplay.textContent = "🅰️🅱️🔠";
+             letterDisplay.style.opacity = 1; /* सुरुवातीला दिसावे */
+             wordDisplay.textContent = "Click a letter or type below to learn!";
+             wordDisplay.style.opacity = 1; /* सुरुवातीला दिसावे */
+        });
+    </script>
+</body>
+</html>

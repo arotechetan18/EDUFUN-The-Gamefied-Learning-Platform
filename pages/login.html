@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Log in</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 💜 Log In Page Purple Theme */
+        :root {
+            --primary-purple: #6a11cb;    /* Deep Purple */
+            --light-purple: #b491f9;     /* Lavender Accent */
+            --text-dark: #3d0066;        /* Dark Purple Text */
+            --bg-light: #f0e6ff;         /* Lightest Lavender Background */
+            --card-bg: #ffffff;
+            --shadow-color: rgba(106, 17, 203, 0.4);
+            --input-border: #d4c0ff;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 400px; /* Standard form width */
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px var(--shadow-color);
+            text-align: center;
+            border-top: 5px solid var(--primary-purple);
+            transition: transform 0.3s ease-out;
+        }
+
+        /* Optional: Subtle card lift on hover for animation */
+        .container:hover {
+            transform: translateY(-5px);
+        }
+
+        h1 {
+            color: var(--primary-purple);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--input-border);
+            border-radius: 10px;
+            font-size: 1rem;
+            color: var(--text-dark);
+            background-color: #fcfaff;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        input[type="text"]::placeholder,
+        input[type="password"]::placeholder {
+            color: #af9ecc;
+        }
+
+        input:focus {
+            border-color: var(--primary-purple);
+            outline: none;
+            box-shadow: 0 0 8px rgba(106, 17, 203, 0.4);
+        }
+
+        #passwordError {
+            color: #e53935; /* Red color for error messages */
+            font-size: 0.9rem;
+            min-height: 1.2em; /* Reserve space to prevent layout shift */
+            display: block;
+            text-align: left;
+            margin-top: -5px;
+        }
+
+        #login-btn {
+            padding: 12px;
+            background-color: var(--primary-purple);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            transition: background-color 0.3s, transform 0.2s;
+            margin-top: 10px;
+        }
+
+        #login-btn:hover {
+            background-color: var(--text-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        h4 {
+            font-size: 0.95rem;
+            font-weight: 400;
+            margin-top: 20px;
+            color: #6c757d;
+        }
+
+        h4 a {
+            color: var(--primary-purple);
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        h4 a:hover {
+            color: var(--text-dark);
+            text-decoration: underline;
+        }
+
+        /* Media Query for smaller screens */
+        @media (max-width: 450px) {
+            .container {
+                padding: 30px 20px;
+                margin: 20px;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+            input {
+                padding: 10px 12px;
+            }
+            #login-btn {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Log In</h1>
+        <form>
+            <input
+                type="text"
+                id="log-in-username"
+                placeholder="Username"
+                required
+            />
+            <input
+                type="password"
+                id="log-in-password"
+                placeholder="Password"
+                required
+            />
+            <span id="passwordError"></span>
+            <button type="button" id="login-btn" onclick="login()">Log In</button>
+            <h4>
+                You don't have an account? Please
+                <a href="./signin.html">Sign In</a>
+            </h4>
+        </form>
+    </div>
+    <script src="./../js/login_and_signin.js"></script>
+</body>
+</html>

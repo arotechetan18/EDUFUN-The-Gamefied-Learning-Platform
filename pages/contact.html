@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Edufun - Get In Touch</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a1946cd52a.js" crossorigin="anonymous"></script>
+    <script src="./../js/contact.js"></script>
+
+    <style>
+        /* 💜 Global & Contact Page Purple Theme */
+        :root {
+            --primary-purple: #6a11cb;    /* Deep Purple */
+            --light-purple: #b491f9;     /* Lavender Accent */
+            --text-dark: #3d0066;        /* Dark Purple Text */
+            --bg-light: #f0e6ff;         /* Light Lavender Background */
+            --card-bg: #ffffff;
+            --shadow-color: rgba(106, 17, 203, 0.4);
+            --input-border: #d4c0ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            text-decoration: none;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            min-height: 100vh;
+            padding-top: 80px; /* Space for fixed navbar */
+        }
+
+        /* --- Navbar Styling --- */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            background: linear-gradient(90deg, var(--primary-purple), var(--light-purple));
+            box-shadow: 0 4px 15px rgba(106, 17, 203, 0.5);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .edufun-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .edufun-logo img {
+            height: 30px;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+            margin: 0;
+        }
+
+        .navbar ul a {
+            color: white;
+            font-weight: 500;
+            padding: 5px 0;
+            transition: color 0.3s, border-bottom 0.3s;
+        }
+
+        .navbar ul a:hover {
+            color: #ffe082; /* Light yellow on hover */
+            border-bottom: 2px solid #ffe082;
+        }
+        
+        #pn-UserlogIn {
+            background-color: #f7a916;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        #pn-UserlogIn:hover {
+            background-color: #ffc107;
+            border-bottom: none;
+            color: var(--text-dark);
+        }
+
+        .hamburger {
+            display: none; /* Hidden by default on large screens */
+        }
+
+        .ham-nav {
+            display: none; /* Hidden by default */
+        }
+        /* --- End Navbar Styling --- */
+
+
+        /* --- Main Container & Layout --- */
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: stretch; /* Stretch children to fill container height */
+            gap: 30px;
+            padding: 40px;
+            max-width: 1200px;
+            margin: 30px auto;
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 10px 40px var(--shadow-color);
+        }
+
+        .left, .right {
+            padding: 20px;
+            flex: 1;
+            border-radius: 15px;
+        }
+
+        /* Left Section (Contact Info) */
+        .left {
+            background: linear-gradient(135deg, var(--light-purple), var(--primary-purple));
+            color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .left-head {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .main-img {
+            width: 90%;
+            max-width: 250px;
+            height: auto;
+            margin: 20px auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .main-para {
+            font-size: 1rem;
+            margin-bottom: 30px;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+        
+        /* Social Icons in Left Section */
+        .font-awesome {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: auto; /* Push social icons to the bottom */
+        }
+
+        .social-icons a {
+            text-decoration: none;
+            display: block;
+        }
+
+        .social-icons i {
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            border-radius: 50%;
+            background-color: white;
+            color: var(--accent-color); /* Icon color from inline style */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .social-icons i:hover {
+            transform: scale(1.15);
+            color: white;
+            background-color: var(--accent-color); /* Color fill on hover */
+        }
+
+        /* Right Section (Contact Form) */
+        .right {
+            background-color: var(--card-bg);
+            box-shadow: none; /* Shadow is on the main container */
+        }
+
+        .right-head {
+            color: var(--primary-purple);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .input-box {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        .input-head {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            text-align: left;
+        }
+
+        .input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--input-border);
+            border-radius: 10px;
+            font-size: 1rem;
+            color: var(--text-dark);
+            background-color: #fcfaff;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            resize: none; /* Prevent manual resize on textarea */
+        }
+
+        .input:focus {
+            border-color: var(--primary-purple);
+            outline: none;
+            box-shadow: 0 0 8px rgba(106, 17, 203, 0.4);
+        }
+
+        textarea.input {
+            height: 120px;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary-purple);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            transition: background-color 0.3s, transform 0.2s;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background-color: var(--text-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* --- Responsive Design --- */
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+                padding: 20px;
+                margin: 20px;
+            }
+            
+            .left {
+                min-height: 400px; /* Ensure left section has some height */
+                padding-bottom: 20px;
+            }
+
+            .main-img {
+                max-width: 200px;
+            }
+            
+            .left-head, .right-head {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .navbar ul {
+                display: none;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+
+            .hamburger-btn {
+                background: none;
+                border: none;
+                cursor: pointer;
+            }
+
+            .hamburger img {
+                height: 30px;
+                filter: invert(1);
+            }
+            
+            /* Hamburger Menu Dropdown */
+            .ham-nav {
+                display: none;
+                position: fixed;
+                top: 70px; 
+                right: 0;
+                width: 100%;
+                background-color: var(--primary-purple);
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+                z-index: 999;
+                transition: transform 0.3s ease-out;
+                transform: translateY(-100%);
+            }
+            
+            .ham-nav.active {
+                display: block;
+                transform: translateY(0);
+            }
+
+            .ham-nav ul {
+                list-style: none;
+                padding: 10px 0;
+            }
+            
+            .ham-nav ul a {
+                display: block;
+                padding: 10px 20px;
+                color: white;
+                font-weight: 500;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            }
+            
+            .ham-nav ul a:last-child {
+                border-bottom: none;
+            }
+
+            .container {
+                padding: 15px;
+            }
+            
+            .left {
+                padding: 30px 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="edufun-logo">
+            <img src="./../icons/head-logo.png" alt="edufun-logo" />
+            <img src="./../icons/nav-heading.png" id="logo-heading" alt="logo-heading" />
+        </div>
+        <ul>
+            <a href="./../../index.html">
+                <li>Home</li>
+            </a>
+            <a href="./../../pages/notes.html">
+                <li>Spaceship</li>
+            </a>
+            <a href="./../../pages/about_us.html">
+                <li>About</li>
+            </a>
+            <a href="./../../pages/contact.html">
+                <li>contact</li>
+            </a>
+            <a href="./../../pages/login.html">
+                <li id="pn-UserlogIn">Log In</li>
+            </a>
+        </ul>
+        <div class="hamburger">
+            <button type="button" id="hamburger-btn" onclick="hamburgerMenu()">
+                <img src="./../icons/hamburger-menu.png" alt="menu-icon" />
+            </button>
+        </div>
+    </nav>
+    <nav class="ham-nav" id="ham-nav">
+        <ul>
+            <a href="./../../index.html">
+                <li>Home</li>
+            </a>
+            <a href="./../../pages/notes.html">
+                <li>Spaceship</li>
+            </a>
+            <a href="./../../pages/about_us.html">
+                <li>About</li>
+            </a>
+            <a href="./../../pages/contact.html">
+                <li>contact</li>
+            </a>
+            <a href="./../../pages/login.html">
+                <li id="UserlogIn">Log In</li>
+            </a>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="left">
+
+            <h1 class="left-head">Let's Get In Touch</h1>
+
+            <img src="./../images/contact.jpg" alt="Contact Illustration" class="main-img">
+            <h5 class="main-para">Have questions or just want to say hello? We'd love to hear from you!</h5>
+
+            <div class="font-awesome">
+
+                <div class="social-icons">
+                    <a href="https://www.instagram.com/anshumxnn_27/">
+                        <i class="fa-brands fa-instagram" style="--accent-color:#E1306C ;"></i>
+                    </a>
+                </div>
+                <div class="social-icons">
+                    <a href="">
+                        <i class="fa-brands fa-facebook" style="--accent-color:#4267B2" ;></i>
+                    </a>
+                </div>
+                <div class="social-icons">
+                    <a href="">
+                        <i class="fa-brands fa-x-twitter" style="--accent-color:black"></i>
+                    </a>
+                </div>
+                <div class="social-icons">
+                    <a href="">
+                        <i class="fa-brands fa-whatsapp" style="--accent-color:#25D366"></i>
+                    </a>
+                </div>
+                <div class="social-icons">
+                    <a href="">
+                        <i class="fa-brands fa-youtube" style="--accent-color:#FF0000"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="right">
+
+            <h1 class="right-head">Send Us A Message 🚀</h1>
+            
+            <form id="contactForm">
+                <h4 class="input-box">
+                    <label for="input-box-1" class="input-head">Name</label>
+                    <input type="text" class="input" id="input-box-1" required>
+                </h4>
+                <h4 class="input-box">
+                    <label for="input-box-2" class="input-head">Email</label>
+                    <input type="email" class="input" id="input-box-2" required>
+                </h4>
+                <h4 class="input-box">
+                    <label for="input-box-3" class="input-head">Phone (Optional)</label>
+                    <input type="tel" class="input" id="input-box-3">
+                </h4>
+                <h4 class="input-box">
+                    <label for="input-box-4" class="input-head">Message</label>
+                    <textarea class="input" id="input-box-4" required></textarea>
+                </h4>
+
+                <button type="submit" class="btn" onclick="submitform()">Submit</button>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        // Placeholder for the hamburgerMenu function defined in './../js/contact.js'
+        // If you don't have the external file, you can define it here:
+        function hamburgerMenu() {
+            const hamNav = document.getElementById('ham-nav');
+            hamNav.classList.toggle('active');
+        }
+        
+        // Placeholder for the submitform function defined in './../js/contact.js'
+        // function submitform() { /* ... form submission logic ... */ }
+    </script>
+</body>
+
+</html>

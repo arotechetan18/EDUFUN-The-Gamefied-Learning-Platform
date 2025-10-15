@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brain Boosters - Basic Education</title>
+    <!-- Tailwind CSS लोड करा -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind ला नवीन रंगांसाठी कॉन्फिगर करा -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // जांभळ्या रंगाची मुख्य छटा (Primary Purple Shade)
+                        'primary-purple': '#6366F1', // Indigo-500
+                        // जांभळ्या रंगाची ॲक्सेंट छटा (Accent Pink/Fuchsia Shade)
+                        'accent-pink': '#EC4899', // Fuchsia-500
+                        'bg-light': '#F9FAFB',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        /* इमेज योग्यरित्या दिसण्यासाठी कस्टम स्टाईल */
+        .product-card-img {
+            aspect-ratio: 4/3;
+            object-fit: cover;
+            width: 85%;
+            height: auto;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50 min-h-screen p-4 sm:p-8 relative">
+
+    <!-- बाहेर पडण्याचे बटण (Exit Button) -->
+    <a href="javascript:void(0);" onclick="history.back()"
+        class="absolute top-4 left-4 sm:top-8 sm:left-8">
+        <button class="flex items-center justify-center bg-red-600 text-white font-semibold py-2 px-4 rounded-xl shadow-md transition duration-300 hover:bg-red-700 hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-red-300">
+            Exit
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+        </button>
+    </a>
+    
+    <!-- मुख्य हेडिंग (Main Heading) -->
+    <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-800 tracking-wider mt-12 mb-10 text-center">
+        Brain Boosters..🧠
+    </h1>
+
+    <!-- विषय कार्ड्स विभाग (Course Cards Section) -->
+    <section class="w-full max-w-6xl mx-auto mb-16">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8">
+            <!-- कार्ड 1: Maths -->
+            <div class="card bg-white p-2 rounded-2xl shadow-xl transition duration-300 hover:shadow-2xl hover:scale-[1.03] transform">
+                <!-- इमेज पाथ मूळ कोडप्रमाणे ठेवला आहे -->
+                <a href="./../../../pages/secondary_education_quize/basic_education/maths_quiz/maths_quiz.html" class="block">
+                    <img src="./../../../images/maths.jpg" alt="Maths" class="w-full h-auto rounded-xl object-cover aspect-[4/3]" onerror="this.onerror=null; this.src='https://placehold.co/280x270/2563EB/FFFFFF?text=MATHS+Image+Load+Error'">
+                </a>
+            </div>
+        
+            <!-- कार्ड 2: GK -->
+            <div class="card bg-white p-2 rounded-2xl shadow-xl transition duration-300 hover:shadow-2xl hover:scale-[1.03] transform">
+                 <!-- इमेज पाथ मूळ कोडप्रमाणे ठेवला आहे -->
+                <a href="./../../../pages/secondary_education_quize/basic_education/gk_quiz/gk.html" class="block">
+                    <img src="./../../../images/gk.jpg" alt="GK" class="w-full h-auto rounded-xl object-cover aspect-[4/3]" onerror="this.onerror=null; this.src='https://placehold.co/280x270/D97706/FFFFFF?text=GK+Image+Load+Error'">
+                </a>
+            </div>
+        
+            <!-- कार्ड 3: English -->
+            <div class="card bg-white p-2 rounded-2xl shadow-xl transition duration-300 hover:shadow-2xl hover:scale-[1.03] transform">
+                 <!-- इमेज पाथ मूळ कोडप्रमाणे ठेवला आहे -->
+                <a href="./../../../pages/secondary_education_quize/basic_education/english_quiz/english.html" class="block">
+                    <img src="./../../../images/english.jpg" alt="English" class="w-full h-auto rounded-xl object-cover aspect-[4/3]" onerror="this.onerror=null; this.src='https://placehold.co/280x270/10B981/FFFFFF?text=ENGLISH+Image+Load+Error'">
+                </a>
+            </div>
+        
+            <!-- कार्ड 4: Science -->
+            <div class="card bg-white p-2 rounded-2xl shadow-xl transition duration-300 hover:shadow-2xl hover:scale-[1.03] transform">
+                 <!-- इमेज पाथ मूळ कोडप्रमाणे ठेवला आहे -->
+                <a href="./../../../pages/secondary_education_quize/basic_education/science_quiz/science.html" class="block">
+                    <img src="./../../../images/science1.jpg" alt="Science" class="w-full h-auto rounded-xl object-cover aspect-[4/3]" onerror="this.onerror=null; this.src='https://placehold.co/280x270/EF4444/FFFFFF?text=SCIENCE+Image+Load+Error'">
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- उत्पादने विभाग (Products Section) -->
+    <section class="products-section w-full max-w-6xl mx-auto">
+        <!-- 'Our Products' हेडिंगला ॲक्सेंट पिंक रंग दिला आहे -->
+        <h2 class="text-3xl font-bold text-accent-pink mb-6 text-center">Our Products</h2>
+        
+        <!-- सर्च बार (Search Bar) -->
+        <div class="search-bar mb-10 w-full flex justify-center">
+            <input type="text" id="searchInput" placeholder="Search products..." onkeyup="searchProducts()"
+                   class="w-full max-w-sm p-3 text-lg border-2 border-gray-300 rounded-full shadow-inner focus:outline-none focus:border-primary-purple transition duration-200">
+        </div>
+        
+        <!-- उत्पादने कंटेनर (Products Container) -->
+        <div class="products-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <!-- उत्पादन 1: Math Spy Board Game -->
+            <div class="product-card bg-white p-5 rounded-xl shadow-lg transition duration-300 hover:shadow-xl hover:ring-2 hover:ring-primary-purple" data-name="math spy board game">
+                <!-- मुख्य इमेज (Placeholder) -->
+                <img src="https://placehold.co/300x225/6366F1/FFFFFF?text=MATH+SPY" alt="Math Spy Board Game" id="product1" class="product-card-img mx-auto mb-4">
+                
+                <!-- थंबनेल्स (Thumbnails - Placeholder) -->
+                <div class="product-images flex justify-center gap-2 mb-4">
+                    <img src="https://placehold.co/50x50/6366F1/FFFFFF?text=P1" onclick="changeImage(event, 'product1')" class="rounded-lg border-2 border-gray-200 cursor-pointer hover:border-primary-purple transition">
+                    <img src="https://placehold.co/50x50/6366F1/FFFFFF?text=C1" onclick="changeImage(event, 'product1')" class="rounded-lg border-2 border-gray-200 cursor-pointer hover:border-primary-purple transition">
+                    <img src="https://placehold.co/50x50/6366F1/FFFFFF?text=C2" onclick="changeImage(event, 'product1')" class="rounded-lg border-2 border-gray-200 cursor-pointer hover:border-primary-purple transition">
+                    <img src="https://placehold.co/50x50/6366F1/FFFFFF?text=C3" onclick="changeImage(event, 'product1')" class="rounded-lg border-2 border-gray-200 cursor-pointer hover:border-primary-purple transition">
+                </div>
+
+                <h3 class="text-xl font-bold text-gray-800 mb-1">Math Spy Board Game</h3>
+                <p class="text-sm text-gray-600 mb-2">Master precision and creativity with our geometry box!</p>
+                <b class="text-2xl font-extrabold text-green-600 mb-4 block">₹1000/-</b>
+                
+                <!-- बटणाला ॲक्सेंट पिंक रंग दिला आहे -->
+                <button class="button w-full py-3 bg-accent-pink text-white font-bold rounded-full shadow-md transition duration-200 hover:bg-fuchsia-600 active:scale-95 focus:outline-none focus:ring-4 focus:ring-fuchsia-300" 
+                        onclick="addToCart('Math Spy Board Game - ₹1000/-')">
+                    Add to Cart
+                </button>
+            </div>
+            
+            <!-- उत्पादन 2: GK Flashcards -->
+            <div class="product-card bg-white p-5 rounded-xl shadow-lg transition duration-300 hover:shadow-xl hover:ring-2 hover:ring-primary-purple" data-name="gk flashcards">
+                <!-- मुख्य इमेज (Placeholder) -->
+                <img src="https://placehold.co/300x225/EC4899/FFFFFF?text=GK+CARDS" alt="GK Flashcards" id="product2" class="product-card-img mx-auto mb-4">
+                
+                <!-- थंबनेल्स (Placeholder) -->
+                <div class="product-images flex justify-center gap-2 mb-4">
+                    <img src="https://placehold.co/50x50/EC4899/FFFFFF?text=P2" onclick="changeImage(event, 'product2')" class="rounded-lg border-2 border-gray-200 cursor-pointer hover:border-primary-purple transition">
+                    <img src="https://placehold.co/50x50/EC4899/FFFFFF?text=C1" onclick="changeImage(event, 'product2')" class="rounded-lg border-2 border-gray-200 cursor-pointer hover:border-primary-purple transition">
+                    <img src="https://placehold.co/50x50/EC4899/FFFFFF?text=C2" onclick="changeImage(event, 'product2')" class="rounded-lg border-2 border-gray-200 cursor-pointer hover:border-primary-purple transition">
+                    <img src="https://placehold.co/50x50/EC4899/FFFFFF?text=C3" onclick="changeImage(event, 'product2')" class="rounded-lg border-2 border-gray-200 cursor-pointer hover:border-primary-purple transition">
+                </div>
+
+                <h3 class="text-xl font-bold text-gray-800 mb-1">GK Flashcards</h3>
+                <p class="text-sm text-gray-600 mb-2">Boost your knowledge with our engaging GK flashcards!</p>
+                <b class="text-2xl font-extrabold text-green-600 mb-4 block">₹800/-</b>
+                
+                <!-- बटणाला ॲक्सेंट पिंक रंग दिला आहे -->
+                <button class="button w-full py-3 bg-accent-pink text-white font-bold rounded-full shadow-md transition duration-200 hover:bg-fuchsia-600 active:scale-95 focus:outline-none focus:ring-4 focus:ring-fuchsia-300" 
+                        onclick="addToCart('GK Flashcards - ₹800/-')">
+                    Add to Cart
+                </button>
+            </div>
+        
+            <!-- उत्पादन 3: Science Explorer Kit -->
+            <div class="product-card bg-white p-5 rounded-xl shadow-lg transition duration-300 hover:shadow-xl hover:ring-2 hover:ring-primary-purple" data-name="science explorer kit">
+                <!-- मुख्य इमेज (Placeholder) -->
+                <img src="https://placehold.co/300x225/6366F1/FFFFFF?text=SCIENCE+KIT" alt="Science Explorer Kit" id="product3" class="product-card-img mx-auto mb-4">
+                
+                <!-- थंबनेल्स (Placeholder) -->
+                <div class="product-images flex justify-center gap-2 mb-4">
+                    <img src="https://placehold.co/50x50/6366F1/FFFFFF?text=P3" onclick="changeImage(event, 'product3')" class="rounded-lg border-2 border-gray-200 cursor-pointer hover:border-primary-purple transition">
+                    <img src="https://placehold.co/50x50/6366F1/FFFFFF?text=K1" onclick="changeImage(event, 'product3')" class="rounded-lg border-2 border-gray-200 cursor-pointer hover:border-primary-purple transition">
+                    <img src="https://placehold.co/50x50/6366F1/FFFFFF?text=K2" onclick="changeImage(event, 'product3')" class="rounded-lg border-2 border-gray-200 cursor-pointer hover:border-primary-purple transition">
+                    <img src="https://placehold.co/50x50/6366F1/FFFFFF?text=K3" onclick="changeImage(event, 'product3')" class="rounded-lg border-2 border-gray-200 cursor-pointer hover:border-primary-purple transition">
+                </div>
+
+                <h3 class="text-xl font-bold text-gray-800 mb-1">Science Explorer Kit</h3>
+                <p class="text-sm text-gray-600 mb-2">Discover the wonders of science with our fun and exciting Science Explorer Kit!</p>
+                <b class="text-2xl font-extrabold text-green-600 mb-4 block">₹2500/-</b>
+                
+                <!-- बटणाला ॲक्सेंट पिंक रंग दिला आहे -->
+                <button class="button w-full py-3 bg-accent-pink text-white font-bold rounded-full shadow-md transition duration-200 hover:bg-fuchsia-600 active:scale-95 focus:outline-none focus:ring-4 focus:ring-fuchsia-300" 
+                        onclick="addToCart('Science Explorer Kit - ₹2500/-')">
+                    Add to Cart
+                </button>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- कार्ट विभाग (Cart Section) -->
+    <div class="cart-section w-full max-w-4xl mx-auto mt-16 p-6 sm:p-8 bg-white rounded-xl shadow-2xl border-t-4 border-primary-purple">
+        <h2 class="text-3xl font-bold text-gray-800 mb-4">Your Cart</h2>
+        <ul id="cart-list" class="cart-items text-left space-y-2 text-lg text-gray-700 list-disc list-inside px-4">
+            <!-- कार्ट आयटम येथे जोडले जातील -->
+        </ul>
+        <!-- चेकआऊट बटणाला मुख्य पर्पल रंग दिला आहे -->
+        <button id="checkout-btn" class="w-full sm:w-1/2 mt-6 py-3 px-6 text-lg font-bold bg-primary-purple text-white rounded-full shadow-lg transition duration-200 hover:bg-indigo-700 active:scale-95 focus:outline-none focus:ring-4 focus:ring-indigo-300" 
+                onclick="checkout()">
+            Checkout
+        </button>
+        <!-- अलर्टसाठी मेसेज बॉक्स (Message Box for Alerts) -->
+        <div id="message-box" class="mt-4 p-4 text-center text-white rounded-lg hidden" role="alert"></div>
+    </div>
+    
+    <script>
+        // अलर्टऐवजी मेसेज बॉक्स दाखवण्यासाठी फंक्शन
+        function showMessage(message, type = 'info') {
+            const box = document.getElementById('message-box');
+            box.textContent = message;
+            box.className = 'mt-4 p-4 text-center text-white rounded-lg';
+            
+            if (type === 'success') {
+                box.classList.add('bg-green-500');
+            } else if (type === 'error') {
+                box.classList.add('bg-red-500');
+            } else { // info/default
+                box.classList.add('bg-primary-purple');
+            }
+            
+            box.style.display = 'block';
+            setTimeout(() => {
+                box.style.display = 'none';
+            }, 3000);
+        }
+
+        function changeImage(event, mainImageId) {
+            let newSrc = event.target.src;
+            let card = event.target.closest('.product-card');
+            let mainImage = card.querySelector('.product-card-img');
+            
+            if (mainImage) {
+                mainImage.src = newSrc;
+            }
+        }
+        
+        function addToCart(productName) {
+            let cartList = document.getElementById("cart-list");
+            let listItem = document.createElement("li");
+            listItem.textContent = productName;
+            cartList.appendChild(listItem);
+            showMessage(`${productName} added to cart!`, 'success');
+        }
+        
+        function checkout() {
+            // alert() ऐवजी कस्टम मेसेज बॉक्स
+            showMessage("Thank you! Checkout functionality will be implemented soon.", 'info');
+        }
+        
+        function searchProducts() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let products = document.querySelectorAll('.product-card');
+            
+            products.forEach(product => {
+                let productName = product.getAttribute('data-name'); 
+                if (productName.includes(input)) {
+                    product.style.display = "block";
+                } else {
+                    product.style.display = "none";
+                }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KG section - Purple Theme</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lemon&family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* --- General Styles (Based on Higher Education Theme) --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            /* Light Lavender Gradient Background */
+            background: linear-gradient(135deg, #f0e6ff, #d6c0ff, #e9ddff);
+            color: #3d0066; /* Deep Purple text color */
+            padding-top: 60px; /* Space for the exit button */
+        }
+
+        /* --- Exit Button (Themed) --- */
+        .exit {
+            /* Deep Purple background from the Higher Education theme */
+            background-color: #6a11cb;
+            border: none;
+            height: 40px;
+            width: 90px;
+            font-size: 16px;
+            font-weight: 600;
+            position: absolute;
+            left: 25px;
+            top: 25px;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid white;
+            outline: 2px solid #6a11cb; /* Matching outline */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-right: 15px; /* Adjust for image */
+        }
+        .exit:hover {
+            /* Lighter Purple on hover */
+            background-color: #b491f9;
+            color: #3d0066;
+            transform: scale(1.05);
+        }
+        .exit img {
+            /* Keeping the exit image but inverting its color for contrast */
+            height: 15px;
+            width: 15px;
+            padding-left: 5px;
+            filter: invert(1); 
+        }
+
+        /* --- Main Heading --- */
+        h1 {
+            text-align: center; 
+            font-family: 'Lemon', serif; /* Kept the Lemon font for a playful look */
+            font-weight: 400;
+            color: #4b0082 !important; /* Main Deep Purple color */
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.7); /* White shadow for pop */
+            padding-bottom: 20px;
+        }
+
+        /* --- Educational Links/Container --- */
+        .container {
+            text-align: center; /* To center the inline-block images */
+            padding: 20px 0;
+        }
+        .images {
+            display: inline-block;
+            height: 300px;
+            width: 300px;
+            border-radius: 15px; /* Slightly larger border radius */
+            margin: 20px 20px;
+            object-fit: cover;
+            box-shadow: 0 6px 15px rgba(106, 17, 203, 0.2); /* Purple shadow */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 5px solid #fff; /* White border to make them pop */
+        }
+        .images:hover {
+            transform: translateY(-8px) scale(1.05); /* Lift up effect */
+            box-shadow: 0 12px 25px rgba(106, 17, 203, 0.5);
+        }
+
+        /* --- Section Styling --- */
+        section {
+            margin: 20px auto;
+            max-width: 1200px;
+            padding: 30px;
+            background-color: #fff; /* White card background */
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e3d2ff; /* Light purple border */
+        }
+        
+        section h2 {
+            color: #6a11cb; /* Deep Purple for section headings */
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        /* --- Search Box (Themed) --- */
+        #searchBox {
+            padding: 10px 15px;
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 20px;
+            border: 2px solid #b491f9; /* Light purple border */
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+            text-align: left;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        #searchBox:focus {
+            outline: none;
+            border-color: #6a11cb; /* Focus glow */
+            box-shadow: 0 0 5px rgba(106, 17, 203, 0.5);
+        }
+        
+        /* --- Product List --- */
+        .product-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center; /* Changed from space-evenly for better centering */
+            padding: 20px 0;
+        }
+
+        .product {
+            background: linear-gradient(135deg, #e3d2ff, #cbb2ff); /* Light Purple Box Gradient */
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(106, 17, 203, 0.2);
+            text-align: center;
+            width: 300px;
+            transition: transform 0.3s ease;
+        }
+
+        .product:hover {
+             transform: translateY(-5px);
+        }
+        
+        .product h3 {
+            color: #4b0082; /* Deep Purple text */
+            margin: 10px 0;
+            font-weight: 600;
+        }
+        .product p {
+            color: #3d0066;
+            margin-bottom: 5px;
+        }
+        .product b p {
+            font-size: 1.2rem;
+            color: #ffc107; /* Gold/Yellow for price */
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* --- Product Images (Main & Thumbs) --- */
+        .main-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 3px solid #fff;
+        }
+        .product-container{
+            display: flex;
+            justify-content: center;
+            margin: 10px 0;
+        }
+        .product-img{
+            height: 50px;
+            width: 50px;
+            object-fit: cover;
+            border: 2px solid #6a11cb; /* Purple border for thumbnail */
+            border-radius: 5px;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .product-img:hover{
+            transform: scale(1.1);
+            box-shadow: 0 0 5px #ffc107; /* Yellow glow on hover */
+            border-color: #ffc107;
+        }
+
+        /* --- Action Buttons (Themed) --- */
+        .button, #cart button, #spin button {
+            background-color: #ffc107; /* Gold/Yellow theme color */
+            color: #3d0066; /* Deep Purple text */
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            border-radius: 30px; /* Pill shape */
+            font-weight: 700;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .button:hover, #spin button:hover {
+            background-color: #ff9800; /* Darker yellow on hover */
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        /* --- Cart Section --- */
+        #cart {
+            text-align: center;
+        }
+        #cartItems p {
+            background: #e9ddff; /* Light purple background for items */
+            color: #3d0066;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 5px auto;
+            max-width: 500px;
+            font-weight: 600;
+        }
+        #cart button {
+            background-color: #6a11cb; /* Purple for Checkout */
+            color: white;
+            margin: 20px 10px;
+        }
+        #cart button:hover {
+            background-color: #4b0082;
+            color: #ffc107;
+        }
+        
+        /* --- Spin & Win Section --- */
+        #spin {
+            text-align: center;
+        }
+        #spin h2 {
+            font-family: 'Poppins', sans-serif;
+            text-shadow: none;
+            color: #4b0082;
+        }
+        #spin button {
+            background-color: #6a11cb; /* Purple Spin button */
+            color: white;
+            font-size: 18px;
+            padding: 15px 30px;
+            margin: 10px auto;
+            display: block; /* Center button using auto margins and block display */
+            box-shadow: 0 4px 10px rgba(106, 17, 203, 0.5);
+        }
+        #spin button:hover {
+            background-color: #b491f9;
+            color: #3d0066;
+        }
+
+        #spinResult {
+            font-weight: 900;
+            margin-top: 15px;
+            text-align: center;
+            color: #ff9800; /* Gold/Orange for result */
+            font-size: 1.5rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .images {
+                width: 90%;
+                height: auto;
+                margin: 15px 0;
+            }
+            .product {
+                width: 90%;
+            }
+            #spin button {
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="./../primary.html"
+        ><button class="exit">
+            Exit<img src="./../../../images/exit.png" alt="Exit Icon" /></button
+    ></a>
+    <div>
+        <h1 style="text-align: center; font-family:Lemon, serif;
+        font-weight: 400;
+        font-style: normal;; color: crimson;">Learn & Play🤩</h1>
+    </div>
+    <div class="container">
+        <a href="funquiz.html"><img src="./../../../images/fruite-veg.webp" alt="quize-img" class="images"></a>
+        <a href="alphabets.html"><img src="./../../../images/alphabets.webp" alt="alphabet-img" class="images"></a>
+        <a href="color.html"><img src="./../../../images/color.webp" alt="color-img" class="images"></a>
+        <a href="animal.html"><img src="./../../../images/animal.webp" alt="animal-img" class="images"></a>
+    </div><hr style="border-color: #6a11cb;"><hr style="border-color: #6a11cb;">
+
+    <section id="products">
+        <h2>Our Products</h2>
+        <input type="text" id="searchBox" placeholder="Search products..." onkeyup="filterProducts()">
+        <div class="product-list" id="productList">
+            <div class="product">
+                <img src="./../../../images/puzzle.jpg" class="main-img"alt="puzzle" id="main">
+                <div class="product-container">
+                   <img src="./../../../images/puzzle.jpg" class="product-img" onclick="changeImage('./../../../images/puzzle.jpg','main')">
+                   <img src="./../../../images/puzzle1.jpg" class="product-img" onclick="changeImage('./../../../images/puzzle1.jpg','main')">
+                   <img src="./../../../images/puzzle2.jpg" class="product-img" onclick="changeImage('./../../../images/puzzle2.jpg','main')">
+                   <img src="./../../../images/puzzle3.jpg" class="product-img" onclick="changeImage('./../../../images/puzzle3.jpg','main')">
+                </div>
+                <h3>Puzzle Toy</h3>
+                <p>Challenge your brain with our puzzle toy!</p>
+               <b> <p>₹350/-</p></b>
+                <button class="button"onclick="addToCart('Alphabet Flashcards', 350)">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="./../../../images/clock.jpg" class="main-img"alt="Math Learning Toy" id="main2">
+                <div class="product-container">
+                    <img src="./../../../images/clock.jpg" class="product-img" onclick="changeImage('./../../../images/clock.jpg','main2')">
+                    <img src="./../../../images/clock1.jpg" class="product-img" onclick="changeImage('./../../../images/clock1.jpg','main2')">
+                    <img src="./../../../images/clock2.jpg" class="product-img" onclick="changeImage('./../../../images/clock2.jpg','main2')">
+                    <img src="./../../../images/clock3.jpg" class="product-img" onclick="changeImage('./../../../images/clock3.jpg','main2')">
+                </div>
+                <h3>Math Learning Toy</h3>
+                <p>My Clock, Shape Sorting Clock Puzzle</p>
+                <b><p>₹600/-</p></b>
+                <button  class="button" onclick="addToCart('Math Learning Toy', 600)">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="./../../../images/digital.jpg"class="main-img" alt="digital alphabets" id="main3">
+            <div class="product-container">
+                <img src="./../../../images/digital.jpg" class="product-img" onclick="changeImage('./../../../images/digital.jpg','main3')">
+                <img src="./../../../images/digital1.jpg" class="product-img" onclick="changeImage('./../../../images/digital1.jpg','main3')">
+                <img src="./../../../images/digital2.jpg" class="product-img" onclick="changeImage('./../../../images/digital2.jpg','main3')">
+                <img src="./../../../images/digital3.jpg" class="product-img" onclick="changeImage('./../../../images/digital3.jpg','main3')">
+                
+            </div>
+                <h3>Alphabets game</h3>
+                <p>Help your character learn and play with our digital alphabets game!</p>
+               <b> <p>₹850/-</p> </b>   
+               <button class="button" onclick="addToCart('Educational Storybook', 850)">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="./../../../images/story.jpg"class="main-img" alt="digital alphabets" id="main4">
+            <div class="product-container">
+                <img src="./../../../images/story.jpg" class="product-img" onclick="changeImage('./../../../images/story.jpg','main4')">
+                <img src="./../../../images/story1.jpg" class="product-img" onclick="changeImage('./../../../images/story1.jpg','main4')">
+                <img src="./../../../images/story2.jpg" class="product-img" onclick="changeImage('./../../../images/story2.jpg','main4')">
+                <img src="./../../../images/story3.jpg" class="product-img" onclick="changeImage('./../../../images/story3.jpg','main4')">
+                
+            </div>
+                <h3>Storybooks</h3>
+                <p>Get ready to explore the most incredible stories!</p>
+               <b> <p>₹450/-</p> </b>   
+               <button class="button" onclick="addToCart('Storybooks', 450)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="./../../../images/flashcard.jpg"class="main-img" alt="digital alphabets" id="main5">
+            <div class="product-container">
+                <img src="./../../../images/flashcard.jpg" class="product-img" onclick="changeImage('./../../../images/flashcard.jpg','main5')">
+                <img src="./../../../images/flashcard1.jpg" class="product-img" onclick="changeImage('./../../../images/flashcard1.jpg','main5')">
+                <img src="./../../../images/flashcard2.jpg" class="product-img" onclick="changeImage('./../../../images/flashcard2.jpg','main5')">
+                <img src="./../../../images/flashcard3.jpg" class="product-img" onclick="changeImage('./../../../images/flashcard3.jpg','main5')">
+                
+            </div>
+                <h3>Flashcards</h3>
+                <p>Stay organized and creative with our Flashcards!</p>
+               <b> <p>₹500/-</p> </b>   
+               <button class="button" onclick="addToCart('Flashcards', 500)">Add to Cart</button>
+            </div>
+
+            <div class="product">
+                <img src="./../../../images/book.jpg"class="main-img" alt="digital alphabets" id="main6">
+            <div class="product-container">
+                <img src="./../../../images/book.jpg" class="product-img" onclick="changeImage('./../../../images/book.jpg','main6')">
+                <img src="./../../../images/book1.jpg" class="product-img" onclick="changeImage('./../../../images/book1.jpg','main6')">
+                <img src="./../../../images/book2.jpg" class="product-img" onclick="changeImage('./../../../images/book2.jpg','main6')">
+                <img src="./../../../images/book3.jpg" class="product-img" onclick="changeImage('./../../../images/book3.jpg','main6')">
+                
+            </div>
+                <h3>Amazing Storybooks</h3>
+                <p> Get ready to explore the most incredible stories!</p>
+               <b> <p>₹730/-</p> </b>   
+               <button class="button" onclick="addToCart('Amazing Storybooks', 730)">Add to Cart</button>
+            </div>
+        </div>
+    </section>
+    <section id="cart">
+        <h2>Shopping Cart</h2>
+        <div id="cartItems"></div>
+        <button onclick="checkout()">Checkout</button>
+    </section>
+    <section id="spin">
+        <h2 style="text-align: center;font-family: 'Poppins', sans-serif;">Spin & Win a Discount!💥</h2>
+        <button onclick="spinWheel()">Spin Now</button>
+        <p id="spinResult"></p>
+    </section>
+    
+    <script>
+        function changeImage(imgName,mainId){
+            const mainImg = document.getElementById(mainId);
+            mainImg.src = imgName;
+        }
+
+        function checkout() {
+            alert("Checkout functionality will be implemented soon!");
+        }
+
+        function spinWheel() {
+            const discounts = ["10% off", "20% off", "5% off", "No discount, try again!", "50% off"];
+            const result = discounts[Math.floor(Math.random() * discounts.length)];
+            document.getElementById("spinResult").innerText = "You won: " + result;
+        }
+
+        function addToCart(productName, price) {
+            const cart = document.getElementById("cartItems");
+            // Also adding a remove button to the cart item for better UX
+            const item = document.createElement("p");
+            item.innerHTML = `${productName} - ₹${price} <button onclick="this.parentNode.remove()">Remove</button>`;
+            cart.appendChild(item);
+        }
+
+        function filterProducts() {
+            const searchBox = document.getElementById("searchBox").value.toLowerCase();
+            const products = document.getElementsByClassName("product");
+            
+            for (let product of products) {
+                let productName = product.getElementsByTagName("h3")[0].innerText.toLowerCase();
+                if (productName.includes(searchBox)) {
+                    product.style.display = "block"; /* Changed from 'block' to 'inline-block' or 'flex' in real scenario but kept 'block' for simplicity within product-list flex container */
+                } else {
+                    product.style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+</html>

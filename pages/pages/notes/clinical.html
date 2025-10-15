@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLINICAL PHARMA NOTES - Medical Theme</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 🩺 Theme: Medical Blue and White (Clean & Professional) */
+        :root {
+            --primary-color: #007bff; /* Deep Medical Blue */
+            --secondary-color: #28a745; /* Clean Medical Green */
+            --background-light: #f8f9fa; /* Very Light Gray/White */
+            --text-dark: #343a40; /* Dark Charcoal */
+            --note-bg: #e6f7ff; /* Light Aqua/Clinical */
+        }
+
+        body {
+            background-color: var(--background-light);
+            font-family: 'Open Sans', sans-serif;
+            color: var(--text-dark);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center all content */
+        }
+        
+        /* Main Headings */
+        h1 {
+            color: var(--primary-color);
+            font-family: 'Lato', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            padding-bottom: 5px;
+            /* Underline with a clean, double-line look */
+            border-bottom: 4px double var(--secondary-color);
+            text-align: center;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin: 30px 0 15px 0;
+            text-align: center;
+        }
+
+        /* Image Styling */
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            /* Simple, clean box shadow */
+            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15);
+            margin: 20px 0;
+            display: block;
+            border: 1px solid #ddd;
+        }
+
+        /* Content Text (Pharmacology Description) */
+        .content-box {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 25px;
+            background-color: #ffffff; /* Sterile White background */
+            border-left: 5px solid var(--secondary-color);
+            border-radius: 8px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            text-align: justify;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .content-box b {
+            color: var(--primary-color);
+            font-weight: 700;
+            display: inline;
+        }
+
+        /* Horizontal Rule - Simple divider */
+        hr {
+            width: 85%;
+            margin: 30px auto;
+            border: 0;
+            height: 2px;
+            background-color: var(--secondary-color);
+            opacity: 0.6;
+        }
+
+        /* 📝 NOTES Section Styles */
+        #notes-added-heading {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-top: 50px;
+            margin-bottom: 20px;
+            padding: 10px 30px;
+            border: 2px solid var(--primary-color);
+            background-color: #fff;
+            border-radius: 10px;
+            text-shadow: none;
+        }
+
+        .btn {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 90%;
+            max-width: 900px;
+            margin-bottom: 20px;
+            padding: 10px 0;
+        }
+
+        .btn .heading h1 {
+            border-bottom: none;
+            margin: 0;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        #addBtn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 30px; /* Pill shape button */
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background-color 0.3s, transform 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #addBtn:hover {
+            background-color: #0056b3; /* Darker Blue */
+            transform: translateY(-2px);
+        }
+
+        /* 📌 Styling for individual Note Cards (Clinical Note Pad) */
+        #main {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px;
+        }
+
+        .note {
+            width: 300px;
+            height: 300px;
+            background-color: var(--note-bg); 
+            padding: 15px;
+            border-radius: 8px; 
+            box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+            position: relative;
+            transition: transform 0.2s;
+            border-left: 6px solid var(--primary-color); /* Strong vertical emphasis */
+        }
+        
+        .note:hover {
+            transform: scale(1.02);
+        }
+        
+        .note .delete-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #dc3545; /* Red for alert/danger */
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .note textarea {
+            width: 100%;
+            height: 100%;
+            border: none;
+            resize: none;
+            outline: none;
+            background: transparent;
+            font-family: 'Lato', sans-serif;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-dark);
+        }
+
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            .content-box {
+                max-width: 95%;
+                font-size: 0.95rem;
+            }
+            .btn {
+                width: 95%;
+            }
+            .note {
+                width: 90%;
+                height: 250px;
+            }
+            h2 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <h1>💊 CLINICAL PHARMACOLOGY 💉</h1>
+    
+    <img src="./../../../images/cl1.jpg" height="300" width="500" alt="Clinical Pharmacology concept image">
+
+    <h2>What You Know About Clinical Pharmacology?</h2>
+    <div class="content-box">
+        <p>
+            Clinical pharmacology is the branch of pharmacology that focuses on the study of **drugs in humans**, particularly their effects, uses, and mechanisms of action in clinical settings. It involves understanding how drugs interact with the human body, their therapeutic effects, side effects, and how they can be used **safely and effectively** to treat various medical conditions. Clinical pharmacology bridges the gap between basic pharmacological research and patient care, ensuring that drugs are used appropriately in medical practice.
+        </p>
+        <p>
+            One of the core areas is the study of **drug absorption, distribution, metabolism, and excretion (ADME)**, which are critical factors in determining a drug's efficacy and safety. Clinical pharmacologists assess how a drug behaves in different populations (age, genetics, disease states). Understanding these factors helps determine optimal **dosing regimens** and avoid adverse drug reactions or drug interactions.
+        </p>
+        <p>
+            Another important aspect is **pharmacovigilance**, which involves monitoring the safety of drugs after they are marketed. By identifying potential risks, clinical pharmacologists help improve drug safety guidelines and inform regulatory decisions.
+        </p>
+        <p>
+            Clinical pharmacologists also play a vital role in **clinical trials**, designing and overseeing trials to ensure drugs are tested under the most appropriate conditions to evaluate their safety, efficacy, and overall benefit-risk profile.
+        </p>
+        <p>
+            *Healthcare AI is having its moment, with an explosion of new entrants and exceptionally high market demand for solutions from established incumbents. This integration is changing clinical practice from Big Tech and Big Pharma to the institutions responsible for our own care.*
+        </p>
+    </div>
+    
+    <hr>
+    
+    <h2>Road Map For Clinical Pharmacology 📈</h2>
+    
+    <img src="./../../../images/cl2.jpg" height="300" width="500" alt="Clinical Pharmacology Study Roadmap">
+
+    
+    <hr> 
+    
+    <h1 id="notes-added-heading">📝 CLINICAL NOTES</h1>
+    
+    <div class="btn">
+        <div class="heading">
+            <h1>Patient & Drug Observations</h1>
+        </div>
+        <button id="addBtn">
+            <i class="fas fa-plus"></i>
+            Add Note
+        </button>
+    </div>
+    
+    <div id="main">
+        </div>
+    
+    <script src= "https://kit.fontawesome.com/bf520e6492.js" 
+        crossorigin="anonymous">
+    </script>
+    
+    <script src="./../../../js/code.js"></script>
+</body>
+</html>

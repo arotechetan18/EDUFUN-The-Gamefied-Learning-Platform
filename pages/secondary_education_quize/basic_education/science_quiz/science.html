@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Science Quiz</title>
+    <!-- Load Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for appearance and smooth transitions */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Light gray background */
+        }
+        .quiz-container {
+            transition: all 0.3s ease-in-out;
+        }
+        .option {
+            transition: all 0.2s ease;
+        }
+        .correct {
+            background-color: #10b981 !important; /* Tailwind emerald-500 */
+            color: white !important;
+        }
+        .wrong {
+            background-color: #ef4444 !important; /* Tailwind red-500 */
+            color: white !important;
+        }
+        /* Crucial CSS for the smooth animation effect */
+        #timer-progress {
+            /* Ensures the width change happens smoothly over 1 second */
+            transition: width 1s linear; 
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-teal': '#0f766e',
+                        'secondary-blue': '#3b82f6',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="flex justify-center items-center min-h-screen p-4">
+    <div id="main-quiz-container" class="quiz-container bg-white shadow-2xl rounded-xl p-6 w-full max-w-lg">
+
+        <!-- Quiz Heading -->
+        <div class="quiz-heading flex items-center justify-start mb-4 border-b pb-4">
+            <div class="flex items-center space-x-3">
+                <!-- Science Flask Icon (Inline SVG for reliability) -->
+                <div class="text-primary-teal transition-transform duration-200 hover:scale-110">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-flask-conical">
+                        <path d="M10 2v7.31L4.37 17A2 2 0 0 0 5.63 20l.4.4c.73.73 1.7.73 2.42 0L12 16.59l3.55 3.55c.72.73 1.7.73 2.42 0l.4-.4a2 2 0 0 0 1.26-3l-5.63-7.69V2"/>
+                        <path d="M14 2v7.31L19.63 17A2 2 0 0 1 18.37 20l-.4.4c-.73.73-1.7.73-2.42 0L12 16.59l-3.55 3.55c-.72.73-1.7.73-2.42 0l-.4-.4a2 2 0 0 1-1.26-3l5.63-7.69V2"/>
+                    </svg>
+                </div>
+                <span class="text-3xl font-extrabold text-gray-800">Science Quiz</span>
+            </div>
+        </div>
+
+        <!-- ANIMATED TIMER SECTION -->
+        <div class="timer-section mb-6">
+            <!-- Progress Bar Container -->
+            <div class="w-full h-3 bg-gray-200 rounded-full overflow-hidden">
+                <!-- Animated Progress Bar -->
+                <div id="timer-progress" class="h-full bg-red-600" style="width: 100%;"></div>
+            </div>
+            <!-- Timer Text -->
+            <div id="timer-display" class="text-lg font-bold text-red-600 mt-2 text-right">
+                Time Left: <span id="timer">30</span>s
+            </div>
+        </div>
+
+        <!-- Quiz Content -->
+        <div class="quiz-content">
+            <h2 id="question" class="text-xl font-semibold mb-6 text-left text-gray-700 min-h-[60px] flex items-center"></h2>
+
+            <div class="options space-y-3" id="options">
+                <!-- Options will be dynamically inserted here -->
+            </div>
+
+            <div class="flex justify-center mt-8 space-x-4">
+                <button class="next-btn hidden px-6 py-2 bg-primary-teal text-white font-semibold rounded-full hover:bg-teal-700 transition-all duration-200 shadow-md" onclick="nextQuestion()">Next Question</button>
+                <button class="submit-btn hidden px-6 py-2 bg-secondary-blue text-white font-semibold rounded-full hover:bg-blue-600 transition-all duration-200 shadow-md" onclick="submitQuiz()">Finish Quiz</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data for the quiz questions
+        const quizData = [
+            {
+                question : "Which gas do plants take in for photosynthesis?",
+                options: ["Oxygen", "Carbon dioxide", "Hydrogen", "Nitrogen"],
+                answer: 1
+            },
+            {
+                question: "Which part of the plant absorbs water and nutrients from the soil?",
+                options: ["Leaves", "Stems", "Roots", "Flowers"],
+                answer: 2
+            },
+            {
+                question: "What is the basic unit of life?",
+                options: ["Organ", "Tissue", "Atom", "Cell"],
+                answer: 3
+            },
+            {
+                question: "Which layer of the Earth is made up of molten rock?",
+                options: ["Crust", "Mantle", "Core", "Atmosphere"],
+                answer: 1
+            },
+            {
+                question: "What is the unit of measurement for force?",
+                options: ["Newton", "Joule", "Watt", "Pascal"],
+                answer: 0
+            }
+        ];
+
+        // State variables
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let timer;
+        const totalTime = 30; // Time in seconds per question
+        let timeLeft = totalTime;
+
+        /**
+         * Starts or resets the timer and the animated progress bar.
+         */
+        function startTimer() {
+            timeLeft = totalTime;
+            const timerEl = document.getElementById("timer");
+            const timerDisplayEl = document.getElementById("timer-display");
+            const progressBar = document.getElementById("timer-progress");
+
+            // Reset UI
+            timerEl.textContent = timeLeft;
+            timerDisplayEl.classList.remove('text-red-800', 'animate-pulse');
+            progressBar.style.width = '100%';
+            progressBar.classList.remove('bg-red-800');
+            progressBar.classList.add('bg-red-600');
+
+            timer = setInterval(() => {
+                timeLeft--;
+                timerEl.textContent = timeLeft;
+
+                // **ANIMATED PROGRESS BAR LOGIC**
+                const percentage = (timeLeft / totalTime) * 100;
+                progressBar.style.width = `${percentage}%`;
+
+                // Low time warning visual change
+                if (timeLeft <= 10) {
+                    progressBar.classList.remove('bg-red-600');
+                    progressBar.classList.add('bg-red-800');
+                    timerDisplayEl.classList.add('animate-pulse');
+                } else {
+                    timerDisplayEl.classList.remove('animate-pulse');
+                }
+
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    // Automatically move to the next question if time runs out
+                    nextQuestion();
+                }
+            }, 1000);
+        }
+
+        /**
+         * Loads the current question and its options into the UI.
+         */
+        function loadQuestion() {
+            clearInterval(timer);
+            startTimer();
+
+            const questionEl = document.getElementById("question");
+            const optionsEl = document.getElementById("options");
+            const nextBtn = document.querySelector(".next-btn");
+            const submitBtn = document.querySelector(".submit-btn");
+
+            // Update question text
+            questionEl.innerHTML = `<span class="text-primary-teal font-extrabold mr-2">${currentQuestionIndex + 1}.</span> ${quizData[currentQuestionIndex].question}`;
+            optionsEl.innerHTML = "";
+
+            // Create option buttons
+            quizData[currentQuestionIndex].options.forEach((option, index) => {
+                const button = document.createElement("button");
+                button.innerText = option;
+                // Tailwind classes for options
+                button.className = "option block w-full text-left px-4 py-3 bg-gray-100 text-gray-800 border border-gray-200 rounded-lg hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-secondary-blue shadow-sm";
+                button.onclick = () => checkAnswer(button, index);
+                optionsEl.appendChild(button);
+            });
+
+            nextBtn.classList.add("hidden");
+            submitBtn.classList.add("hidden");
+            // The restart button is dynamically created/removed in submitQuiz/restartQuiz, no need to hide it here.
+        }
+
+        /**
+         * Checks the selected answer against the correct answer.
+         */
+        function checkAnswer(button, selectedIndex) {
+            clearInterval(timer); // Stop the timer once an answer is selected
+            document.getElementById("timer-display").classList.remove('animate-pulse');
+
+            const correctIndex = quizData[currentQuestionIndex].answer;
+            const options = document.querySelectorAll(".option");
+
+            // Disable all options
+            options.forEach(btn => btn.disabled = true);
+
+            // Apply correct/wrong styling
+            if (selectedIndex === correctIndex) {
+                button.classList.add("correct");
+                score++;
+            } else {
+                button.classList.add("wrong");
+                // Also highlight the correct answer
+                options[correctIndex].classList.add("correct");
+            }
+
+            // Show the appropriate navigation button
+            if (currentQuestionIndex < quizData.length - 1) {
+                document.querySelector(".next-btn").classList.remove("hidden");
+            } else {
+                document.querySelector(".submit-btn").classList.remove("hidden");
+            }
+        }
+
+        /**
+         * Moves to the next question.
+         */
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                loadQuestion();
+            } else {
+                submitQuiz();
+            }
+        }
+
+        /**
+         * Displays the final quiz results.
+         */
+        function submitQuiz() {
+            clearInterval(timer); // Stop the final timer
+            const quizContainer = document.getElementById("main-quiz-container");
+
+            // Generate the result box HTML with Tailwind styling
+            quizContainer.innerHTML = `
+                <div class="result-box text-center p-8">
+                    <div class="result-header flex justify-center items-center mb-6">
+                        <h2 class="text-3xl font-extrabold text-primary-teal flex items-center space-x-2">
+                            <span>🎉 Quiz Completed!</span>
+                        </h2>
+                    </div>
+                    <hr class="border-t border-gray-200 mb-6" />
+                    <p class="text-2xl font-bold mb-4 text-gray-700">Your Score:</p>
+                    <p class="text-5xl font-extrabold text-secondary-blue">${score} / ${quizData.length}</p>
+                    <p class="mt-4 text-lg text-gray-500">${score === quizData.length ? 'Perfect score! You are a science whiz!' : 'Great effort! Review the topics and try again.'}</p>
+                    <button class="restart mt-8 px-6 py-3 bg-primary-teal text-white font-semibold rounded-full hover:bg-teal-700 transition-all duration-200 shadow-lg" onclick="restartQuiz()">🔄 Restart Quiz</button>
+                </div>
+            `;
+        }
+
+        /**
+         * Resets the quiz to the starting state and reloads the first question.
+         */
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            // Reconstruct the main quiz HTML structure using the initial template
+            document.getElementById("main-quiz-container").innerHTML = `
+                <div class="quiz-heading flex items-center justify-start mb-4 border-b pb-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="text-primary-teal transition-transform duration-200 hover:scale-110">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-flask-conical">
+                                <path d="M10 2v7.31L4.37 17A2 2 0 0 0 5.63 20l.4.4c.73.73 1.7.73 2.42 0L12 16.59l3.55 3.55c.72.73 1.7.73 2.42 0l.4-.4a2 2 0 0 0 1.26-3l-5.63-7.69V2"/>
+                                <path d="M14 2v7.31L19.63 17A2 2 0 0 1 18.37 20l-.4.4c-.73.73-1.7.73-2.42 0L12 16.59l-3.55 3.55c-.72.73-1.7.73-2.42 0l-.4-.4a2 2 0 0 1-1.26-3l5.63-7.69V2"/>
+                            </svg>
+                        </div>
+                        <span class="text-3xl font-extrabold text-gray-800">Science Quiz</span>
+                    </div>
+                </div>
+
+                <div class="timer-section mb-6">
+                    <div class="w-full h-3 bg-gray-200 rounded-full overflow-hidden">
+                        <div id="timer-progress" class="h-full bg-red-600" style="width: 100%;"></div>
+                    </div>
+                    <div id="timer-display" class="text-lg font-bold text-red-600 mt-2 text-right">
+                        Time Left: <span id="timer">30</span>s
+                    </div>
+                </div>
+                
+                <div class="quiz-content">
+                    <h2 id="question" class="text-xl font-semibold mb-6 text-left text-gray-700 min-h-[60px] flex items-center"></h2>
+
+                    <div class="options space-y-3" id="options">
+                        <!-- Options will be dynamically inserted here -->
+                    </div>
+
+                    <div class="flex justify-center mt-8 space-x-4">
+                        <button class="next-btn hidden px-6 py-2 bg-primary-teal text-white font-semibold rounded-full hover:bg-teal-700 transition-all duration-200 shadow-md" onclick="nextQuestion()">Next Question</button>
+                        <button class="submit-btn hidden px-6 py-2 bg-secondary-blue text-white font-semibold rounded-full hover:bg-blue-600 transition-all duration-200 shadow-md" onclick="submitQuiz()">Finish Quiz</button>
+                    </div>
+                </div>
+            `;
+            loadQuestion();
+        }
+
+        // Initialize the first question when the page loads
+        document.addEventListener("DOMContentLoaded", loadQuestion);
+    </script>
+</body>
+</html>

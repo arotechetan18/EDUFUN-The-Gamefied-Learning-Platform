@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>India GK Quiz</title>
+    <!-- Load Tailwind CSS CDN and custom font configuration -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-indigo': '#4f46e5',
+                        'correct-green': '#10b981',
+                        'incorrect-red': '#f43f5e',
+                        'next-orange': '#fb923c',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* General Setup and Custom Classes */
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Vibrant gradient background */
+            background: linear-gradient(135deg, #4f46e5, #3b82f6); 
+        }
+        
+        /* Utility classes for correct/incorrect button states (used in JS) */
+        .correct {
+            background-color: var(--tw-correct-green) !important;
+            color: white !important;
+            border-color: var(--tw-correct-green) !important;
+        }
+        .incorrect {
+            background-color: var(--tw-incorrect-red) !important;
+            color: white !important;
+            border-color: var(--tw-incorrect-red) !important;
+        }
+
+        /* Set CSS variables for cleaner state transitions */
+        :root {
+            --tw-correct-green: #10b981;
+            --tw-incorrect-red: #f43f5e;
+        }
+    </style>
+</head>
+<body class="flex justify-center items-center min-h-screen p-4">
+
+    <!-- Exit Button (Stylized and positioned using Tailwind) -->
+    <a href="./../secondary_education.html" class="absolute top-4 left-4">
+        <button class="px-4 py-2 bg-rose-600 text-white font-semibold rounded-lg shadow-lg hover:bg-rose-700 transition duration-200 border-2 border-white">
+            Exit
+        </button>
+    </a>
+
+    <!-- Quiz Container Card -->
+    <div class="quiz-container bg-white shadow-2xl rounded-2xl p-8 w-full max-w-lg text-gray-800 transform hover:scale-[1.01] transition-transform duration-300">
+        
+        <!-- UPDATED HEADING -->
+        <h1 class="text-3xl font-extrabold text-primary-indigo mb-6 border-b pb-4">
+            GK Quiz
+        </h1>
+
+        <h2 id="question" class="text-xl font-semibold mb-6 text-left min-h-[50px] flex items-center">
+            Loading...
+        </h2>
+
+        <div id="options" class="space-y-4">
+            <!-- Options will be dynamically inserted here -->
+        </div>
+
+        <!-- Next Button -->
+        <button id="next-btn" onclick="nextQuestion()" class="mt-8 w-full px-8 py-3 bg-next-orange text-white font-bold rounded-full hover:bg-orange-600 transition shadow-xl transform hover:translate-y-[-1px]">
+            Next Question
+        </button>
+        
+        <!-- Result Display -->
+        <p id="result" class="mt-6 text-xl font-bold text-center"></p>
+    </div>
+    
+    <script>
+        const quizData = [
+            {
+                question: "What is the capital of India?",
+                options: ["Mumbai", "New Delhi", "Kolkata", "Chennai"],
+                answer: "New Delhi"
+            },
+            {
+                question: "Who is known as the Father of the Nation in India?",
+                options: ["Jawaharlal Nehru", "Subhas Chandra Bose", "Mahatma Gandhi", "Sardar Patel"],
+                answer: "Mahatma Gandhi"
+            },
+            {
+                question: "Which is the national animal of India?",
+                options: ["Lion", "Elephant", "Tiger", "Leopard"],
+                answer: "Tiger"
+            },
+            {
+                question: "Which is the longest river in India?",
+                options: ["Yamuna", "Ganga", "Brahmaputra", "Godavari"],
+                answer: "Ganga"
+            },
+            {
+                question: "Who was the first Prime Minister of India?",
+                options: ["Mahatma Gandhi", "Jawaharlal Nehru", "Dr. B.R. Ambedkar", "Sardar Patel"],
+                answer: "Jawaharlal Nehru"
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        /**
+         * Loads the current question and populates the options.
+         */
+        function loadQuestion() {
+            const questionData = quizData[currentQuestionIndex];
+            document.getElementById("question").innerHTML = `<span class="text-primary-indigo font-extrabold mr-2">${currentQuestionIndex + 1}.</span> ${questionData.question}`;
+            document.getElementById("options").innerHTML = "";
+            document.getElementById("result").innerText = "";
+            document.getElementById("next-btn").style.display = "none"; // Hide Next initially
+            
+            questionData.options.forEach(option => {
+                const button = document.createElement("button");
+                button.innerText = option;
+                
+                // Tailwind classes for options
+                button.className = "option block w-full text-left px-5 py-3 bg-gray-100 text-gray-800 rounded-lg hover:bg-indigo-100 focus:outline-none transition duration-150 shadow-md transform hover:scale-[1.01]";
+
+                button.onclick = () => checkAnswer(button, option);
+                document.getElementById("options").appendChild(button);
+            });
+        }
+
+        /**
+         * Checks the selected answer against the correct answer and updates the score.
+         * @param {HTMLElement} button - The button element that was clicked.
+         * @param {string} selectedOption - The text value of the selected option.
+         */
+        function checkAnswer(button, selectedOption) {
+            const correctAnswer = quizData[currentQuestionIndex].answer;
+            
+            // Disable all options after selection
+            document.querySelectorAll(".option").forEach(btn => btn.disabled = true);
+            
+            if (selectedOption === correctAnswer) {
+                button.classList.add("correct");
+                score++;
+            } else {
+                button.classList.add("incorrect");
+                
+                // Highlight the correct answer
+                document.querySelectorAll(".option").forEach(btn => {
+                    if (btn.innerText === correctAnswer) {
+                        btn.classList.add("correct");
+                    }
+                });
+            }
+
+            // Show the Next button
+            document.getElementById("next-btn").style.display = "block";
+        }
+
+        /**
+         * Moves to the next question or finishes the quiz.
+         */
+        function nextQuestion() {
+            if (currentQuestionIndex < quizData.length - 1) {
+                currentQuestionIndex++;
+                loadQuestion();
+            } else {
+                // Quiz finished - display final score
+                const resultText = document.getElementById("result");
+                resultText.innerText = `Quiz Over! Your Final Score: ${score}/${quizData.length}`;
+                resultText.classList.add('text-primary-indigo');
+                document.getElementById("options").innerHTML = "";
+                document.getElementById("question").innerText = "Thank you for playing!";
+                document.getElementById("next-btn").innerText = "Restart Quiz";
+                document.getElementById("next-btn").onclick = restartQuiz;
+            }
+        }
+        
+        /**
+         * Resets the quiz for a new session.
+         */
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            document.getElementById("next-btn").innerText = "Next Question";
+            document.getElementById("next-btn").onclick = nextQuestion;
+            loadQuestion();
+        }
+
+        // Initial call to start the quiz
+        document.addEventListener("DOMContentLoaded", () => {
+            loadQuestion();
+        });
+    </script>
+</body>
+</html>

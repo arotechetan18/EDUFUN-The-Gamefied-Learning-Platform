@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us Page - Purple Theme</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 🌈 Global Style (Adopted from Purple Theme) */
+        :root {
+            --main-purple: #6a11cb;
+            --light-purple: #b491f9;
+            --deep-purple: #3d0066;
+            --text-color: #2f004f;
+            --card-gradient: linear-gradient(135deg, #e3d2ff, #cbb2ff);
+            --bg-gradient: linear-gradient(135deg, #f0e6ff, #d6c0ff, #e9ddff);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+            text-decoration: none; /* Ensure links don't have underlines by default */
+        }
+
+        body {
+            background: var(--bg-gradient);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding-top: 90px; /* Space for sticky navbar */
+        }
+        
+        /* Navbar & Footer Glow Animation */
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 8px rgba(255, 255, 255, 0.6); }
+            50% { text-shadow: 0 0 15px rgba(255, 255, 255, 0.9); }
+        }
+
+        /* 🌟 Navbar Style */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 60px;
+            background: linear-gradient(90deg, var(--main-purple), var(--light-purple));
+            box-shadow: 0 4px 15px rgba(106, 17, 203, 0.4);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            border-bottom: 3px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .edufun-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .edufun-logo img {
+            height: 50px;
+            filter: drop-shadow(0 2px 5px rgba(255,255,255,0.4));
+        }
+        
+        #logo-heading {
+            height: 50px;
+            animation: glow 3s ease-in-out infinite;
+        }
+        
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        .navbar ul li {
+            text-decoration: none;
+            color: #fff;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 8px 18px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .navbar ul li:hover {
+            background: #fff;
+            color: var(--main-purple);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+            transform: scale(1.08);
+        }
+        
+        .hamburger {
+             /* Assuming you'd add a hamburger button here for mobile */
+             display: none; 
+        }
+
+        /* --- About Us Hero Section --- */
+        .wrapper {
+            min-height: 50vh;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 0;
+            margin-bottom: 40px;
+            /* Use a simple placeholder background image or remove it for clean look */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../images/lerning.jpg');
+            background-position: center;
+            background-size: cover;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .testimonial {
+            max-width: 1000px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .article {
+            color: #fff;
+        }
+        
+        .article h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: #fff;
+            text-shadow: 0 0 20px var(--light-purple);
+            margin-bottom: 20px;
+        }
+
+        .article img {
+            height: 250px;
+            width: 290px;
+            border: 4px solid var(--light-purple);
+            border-radius: 15px; /* Use professional looking corners */
+            margin-top: 30px;
+            object-fit: cover;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+            transition: transform 0.3s;
+        }
+        
+        .article img:hover {
+            transform: scale(1.05);
+        }
+        
+        .article p {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            margin-top: 30px;
+            color: #fff;
+            max-width: 800px;
+            padding: 0 20px;
+            line-height: 1.6;
+        }
+        
+        /* --- Facilities Section --- */
+        .ext {
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            margin-top: 40px;
+            margin-bottom: 30px;
+            color: var(--deep-purple);
+            font-weight: 700;
+        }
+        
+        .main {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            padding: 20px;
+            max-width: 1200px;
+        }
+        
+        .cointainer {
+            height: 350px; /* Increased height for better proportions */
+            width: 300px;
+            border-radius: 20px;
+            background: var(--card-gradient); /* Purple Card Background */
+            border: none;
+            box-shadow: 0 8px 25px rgba(106, 17, 203, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .cointainer:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(106, 17, 203, 0.6);
+        }
+
+        .basket {
+            height: 150px;
+            width: auto;
+            object-fit: contain;
+            margin: 10px auto;
+            display: block;
+        }
+
+        .button {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            margin-top: auto; /* Push buttons to the bottom */
+            padding-top: 15px;
+        }
+
+        .btn {
+            font-size: 1rem;
+            border: none;
+            border-radius: 30px; /* Pill shape */
+            padding: 10px 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .off {
+            background-color: var(--main-purple);
+            color: white;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+        .off:hover {
+            background-color: var(--deep-purple);
+        }
+
+        .on {
+            background-color: var(--light-purple);
+            color: var(--deep-purple);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+        .on:hover {
+            background-color: #fff;
+        }
+
+        /* --- Footer Section --- */
+        .footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 120px; /* Reduced height for cleaner look */
+            background: linear-gradient(90deg, var(--light-purple), var(--main-purple));
+            box-shadow: 0 -5px 15px rgba(106, 17, 203, 0.4);
+            margin-top: 50px;
+        }
+        
+        .social-media-logo {
+            display: flex;
+            justify-content: center;
+        }
+
+        .social-media-logo img {
+            height: 35px;
+            width: 35px;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            filter: invert(1); /* Invert to white for better visibility on purple */
+        }
+        .social-media-logo img:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: scale(1.1);
+            filter: none; /* Remove invert on hover to show original color */
+        }
+
+        /* --- Responsive Styles --- */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 70px;
+            }
+            .navbar {
+                padding: 10px 20px;
+            }
+            .navbar ul {
+                display: none;
+            }
+            .article h1 {
+                font-size: 3rem;
+            }
+            .article img {
+                width: 90%;
+                height: auto;
+            }
+            .article p {
+                font-size: 1rem;
+            }
+            .ext {
+                font-size: 2rem;
+            }
+            .main {
+                gap: 20px;
+                padding: 10px;
+            }
+            .cointainer {
+                width: 90%;
+                height: 300px;
+            }
+            .button {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="edufun-logo">
+            <img src="../icons/head-logo.png" alt="edufun-logo">
+            <img src="../icons/nav-heading.png" id="logo-heading" alt="logo-heading">
+        </div>
+        <ul>
+            <li>Home</li>
+            <li>Spaceship</li>
+            <li>About</li>
+            <li>contact</li>
+            <li>Log In</li>
+        </ul>
+        <div class="hamburger">
+             </div>
+    </nav>
+
+<div class="wrapper">
+    <div class="testimonial">
+        <div class="article">
+            <h1 class="text">about Us</h1>
+            <img src="../images/girls.avif " class="center-img" alt="Students learning digitally">
+            <p>
+                **Edufun** is dedicated to providing **next-generation digital education** that uses modern technologies to deliver engaging and accessible educational content and resources online. We believe in offering flexibility and personalization, empowering every learner to achieve their potential through an interactive and enjoyable learning experience.
+            </p>
+            </div>
+    </div>
+</div>
+<h1 class="ext">Our Core Facilities</h1>
+<div class="main">
+    <div class="cointainer">
+        <img src="../images/puzzale2.png" id="basket" class="basket" alt="Puzzle/Card Icon"/>
+        <div class="button">
+            <button class="btn off" onclick="off()">Puzzles</button>
+            <button class="btn on" onclick="on()">Cards</button>
+        </div>
+    </div>
+    <div class="cointainer" >
+        <img src="../images/q2.png" id="q1" class="basket" alt="Quiz/Calculate Icon"/>
+        <div class="button">
+            <button class="btn off" onclick="q1()">Quiz</button>
+            <button class="btn on" onclick="q2()">Calculate</button>
+        </div>
+    </div>
+    <div class="cointainer" >
+        <img src="../images/s1.png" id="s1" class="basket" alt="Scholarship/Certificate Icon"/>
+        <div class="button">
+            <button class="btn off" onclick="s1()">Certificate</button>
+            <button class="btn on" onclick="s2()">Scholarship</button>
+        </div> 
+    </div>
+</div>
+
+<div class="footer">
+    <div class="social-media-logo">
+        <img src="../images/static-github.png" id="logo1" onmouseover="mainImgChange('logo1', '../images/github.png')" onmouseout="mainImgChange('logo1', '../images/static-github.png')" alt="Github">
+        <img src="../images/static-instagram.png" id="logo2" onmouseover="mainImgChange('logo2', '../images/instagram.png')" onmouseout="mainImgChange('logo2', '../images/static-instagram.png')" alt="Instagram">
+        <img src="../images/static-facebook.png" id="logo3" onmouseover="mainImgChange('logo3', '../images/facebook.png')" onmouseout="mainImgChange('logo3', '../images/static-facebook.png')" alt="Facebook">
+        <img src="../images/static-linkedin.png" id="logo4" onmouseover="mainImgChange('logo4', '../images/linkedin.png')" onmouseout="mainImgChange('logo4', '../images/static-linkedin.png')" alt="LinkedIn">
+    </div>
+</div>
+
+<script>
+    // --- Facilities Section Script ---
+    const basketElement = document.getElementById("basket");
+    function off() {
+        basketElement.src = "../images/puzzals.png";
+    }
+    function on() {
+        basketElement.src = "../images/puzzale2.png";
+    }
+
+    const q1Element = document.getElementById("q1");
+    function q1() {
+        q1Element.src = "../images/q1.png"; // Assuming q1.png for Quiz (off button)
+    }
+    // Corrected the variable name in original HTML/JS. Assuming q1Element is the target.
+    function q2() {
+        q1Element.src = "../images/q2.png"; // Assuming q2.png for Calculate (on button)
+    }
+
+    const s1Element = document.getElementById("s1");
+    function s1() {
+        s1Element.src = "../images/certificate.png";
+    }
+    function s2() {
+        s1Element.src = "../images/s1.png"; // Assuming s1.png for Scolership (on button)
+    }
+    
+    // --- Footer Script ---
+    function mainImgChange(id, newSrc) {
+        document.getElementById(id).src = newSrc;
+    }
+    
+    // Dummy function for hamburger menu (as the original script.js is missing)
+    function hamburgerMenu() {
+         // This function logic would be needed if a ham-nav menu was included in the HTML
+    }
+</script>
+</body>
+</html>

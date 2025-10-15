@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FINANCE BANKING NOTES</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 🎨 Theme: Navy Blue and Gold */
+        :root {
+            --primary-color: #001f3f; /* Deep Navy Blue */
+            --secondary-color: #FFD700; /* Gold Yellow */
+            --background-light: #f4f7fa; /* Very Light Blue-Gray */
+            --text-dark: #333;
+        }
+
+        body {
+            background-color: var(--background-light);
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-dark);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center all content */
+        }
+        
+        /* Main Headings */
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            padding-bottom: 5px;
+            border-bottom: 4px solid var(--secondary-color);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 30px 0 15px 0;
+            text-align: center;
+        }
+
+        /* Image Styling */
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 31, 63, 0.2);
+            margin: 15px 0;
+            display: block;
+        }
+
+        /* Content Text (Quote/Summary) */
+        .content-box {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #e6f0f9; /* Light contrast background */
+            border-left: 5px solid var(--secondary-color);
+            border-radius: 8px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            font-weight: 400;
+            text-align: justify;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Horizontal Rule */
+        hr {
+            width: 80%;
+            margin: 40px auto;
+            border: 0;
+            height: 1px;
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0), var(--secondary-color), rgba(0, 0, 0, 0));
+        }
+
+        /* 📝 NOTES Section Styles */
+        #notes-added-heading {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-top: 50px;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            border: 2px solid var(--secondary-color);
+            background-color: #fff;
+            border-radius: 5px;
+        }
+
+        .btn {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 90%;
+            max-width: 800px;
+            margin-bottom: 20px;
+            padding: 10px 0;
+            border-bottom: 2px dashed #ccc;
+        }
+
+        .btn .heading h1 {
+            border-bottom: none;
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        #addBtn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background-color 0.3s, transform 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        #addBtn:hover {
+            background-color: #1a4267; /* Darker Navy */
+            transform: translateY(-2px);
+        }
+
+        /* 📌 Styling for individual Note Cards (Assuming 'main' holds them) */
+        #main {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px;
+        }
+
+        /* Note: The actual note creation element (like a textarea wrapped in a div) 
+           will need to be styled in code.js or separately, but here is a placeholder 
+           style for the note container: */
+        .note {
+            width: 300px;
+            height: 300px;
+            background-color: #FFFFE0; /* Light Yellow for Sticky Note feel */
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            transition: transform 0.3s;
+        }
+        
+        .note:hover {
+            transform: scale(1.03);
+            box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .note .delete-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 3px;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        
+        .note textarea {
+            width: 100%;
+            height: 100%;
+            border: none;
+            resize: none;
+            outline: none;
+            background: transparent;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #333;
+        }
+
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            .content-box {
+                max-width: 95%;
+                font-size: 1rem;
+                text-align: left;
+            }
+            .btn {
+                width: 95%;
+            }
+            #main {
+                flex-direction: column;
+                align-items: center;
+            }
+            .note {
+                width: 90%;
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <h1>FINANCE & BANKING 🏦</h1>
+    
+    <img src="./../../../images/banking1.jpg" height="300" width="500" alt="Finance and Banking concept">
+
+    <h2>**What You Need to Know About Finance Banking?**</h2>
+    <div class="content-box">
+        <p>
+            <b>Finance in Banking: An Overview</b> <br>
+            Banking is a **cornerstone** of the financial system, acting as an **intermediary** between savers and borrowers while facilitating economic growth.
+            Banks provide essential services such as deposit accounts, loans, payment processing, and investment products. They play a critical role in **monetary policy** implementation, **credit creation**, and financial stability.  
+            Banking remains vital to global finance, continuously evolving with technology and economic shifts. Whether through traditional branch services or **fintech** innovations, banks will keep shaping how money is stored, moved, and invested worldwide.
+        </p>
+        <p>
+            **The role of banks** in efficient allocation of scarce resources and technological advancement is key.
+        </p>
+    </div>
+    
+    <hr>
+    
+    <h2>Roadmap For Banking 🧭</h2>
+    
+    <img src="./../../../images/banking2.jpg" height="300" width="500" alt="Banking Roadmap diagram">
+
+    <div class="content-box">
+        <p>
+            A finance and banking **roadmap** outlines a strategic plan for achieving specific goals, whether for a financial institution, a department within one, or an individual's career path, by identifying **key steps and milestones**.
+        </p>
+    </div>
+    
+    <img src="./../../../images/banking3.jpg" height="300" width="500" alt="Finance and Banking strategic planning">
+    
+    <hr> 
+    
+    <h1 id="notes-added-heading">📝 YOUR NOTES</h1>
+    
+    <div class="btn">
+        <div class="heading">
+            <h1>Add Your Insights</h1> 
+        </div>
+        <button id="addBtn">
+            <i class="fas fa-plus"></i>
+            Add Note
+        </button>
+    </div>
+    
+    <div id="main">
+        </div>
+    
+    <script src= "https://kit.fontawesome.com/bf520e6492.js" 
+        crossorigin="anonymous">
+    </script>
+    
+    <script src="./../../../js/code.js"></script>
+</body>
+</html>

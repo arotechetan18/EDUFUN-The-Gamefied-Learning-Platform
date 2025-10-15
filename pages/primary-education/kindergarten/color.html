@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Recognition Game</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <style>
+        /* --- General Styles and Animations --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            /* Vibrant Rainbow Gradient Background */
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            animation: rainbowShift 15s ease infinite alternate; /* Background Animation */
+            text-align: center;
+            min-height: 100vh;
+            padding: 30px;
+            color: #333;
+        }
+
+        /* Rainbow Background Animation */
+        @keyframes rainbowShift {
+            0% { background: linear-gradient(135deg, #ff9a9e, #fad0c4); }
+            33% { background: linear-gradient(135deg, #a18cd1, #fbc2eb); }
+            66% { background: linear-gradient(135deg, #84fab0, #8fd3f4); }
+            100% { background: linear-gradient(135deg, #ffcf6b, #ff8243); }
+        }
+
+        /* --- EXIT BUTTON --- */
+        .exit {
+            background-color: #ff5e5e; 
+            border: 2px solid #fff;
+            height: 45px;
+            width: 50px;
+            font-size: 0; 
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            animation: bounceIn 1s ease-out; 
+            z-index: 10; 
+        }
+        .exit:hover {
+            background-color: #cc0052;
+            transform: scale(1.1) translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+        }
+        .exit .material-symbols-outlined {
+            font-size: 24px;
+            color: white;
+        }
+
+        /* Bounce-In Animation for Exit */
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); opacity: 1; }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); }
+        }
+
+        /* --- Header --- */
+        h1 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 40px;
+            color: #000080; /* Dark Blue */
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+            margin-top: 60px; /* Space for the exit button */
+            animation: fadeInDown 1s ease-out;
+        }
+
+        /* Fade Down Animation for Header */
+        @keyframes fadeInDown {
+            0% { opacity: 0; transform: translateY(-50px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Color Box --- */
+        .color-box {
+            width: 220px; /* Slightly larger */
+            height: 220px;
+            margin: 30px auto;
+            border: 8px solid #fff; /* Thicker border */
+            border-radius: 50%; /* Make it a circle for a fun look */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            transition: box-shadow 0.3s ease-in-out;
+            animation: pulse 2s infinite alternate, popIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        /* Pulse Animation for Color Box */
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4); }
+            100% { transform: scale(1.03); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5); }
+        }
+
+        /* Pop-In Animation for New Color */
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; border-radius: 10px; }
+            50% { transform: scale(1.1); opacity: 1; border-radius: 50%; }
+            100% { transform: scale(1); }
+        }
+
+        /* --- Buttons --- */
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        .buttons button {
+            padding: 15px 25px;
+            font-size: 18px;
+            font-weight: 700;
+            border: none;
+            border-radius: 30px; /* Pill shape */
+            cursor: pointer;
+            transition: transform 0.1s, box-shadow 0.1s;
+            color: white;
+            box-shadow: 0 6px 0 #333; /* 3D effect */
+        }
+        
+        /* Specific colors for buttons */
+        .buttons button[data-color="Red"] { background-color: #e74c3c; }
+        .buttons button[data-color="Blue"] { background-color: #3498db; }
+        .buttons button[data-color="Green"] { background-color: #2ecc71; }
+        .buttons button[data-color="Yellow"] { background-color: #f1c40f; color: #333; }
+        .buttons button[data-color="Orange"] { background-color: #e67e22; }
+        .buttons button[data-color="Purple"] { background-color: #9b59b6; }
+
+
+        .buttons button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 0 #333;
+        }
+
+        .buttons button:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #333; /* Press effect */
+        }
+
+        /* Shake Animation for Wrong Answer */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-5px); }
+            40%, 80% { transform: translateX(5px); }
+        }
+
+        /* --- Result Text --- */
+        #result {
+            font-family: 'Fredoka One', cursive;
+            font-size: 36px;
+            font-weight: bold;
+            margin-top: 30px;
+            opacity: 0;
+            animation: feedbackFade 0.5s ease-out forwards;
+            position: relative;
+        }
+        
+        /* Feedback Fade Animation */
+        @keyframes feedbackFade {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        #result.correct {
+            color: #27ae60; /* Dark Green */
+            text-shadow: 2px 2px 0px #fff;
+        }
+        
+        #result.wrong {
+            color: #c0392b; /* Dark Red */
+            text-shadow: 2px 2px 0px #fff;
+        }
+
+
+        /* --- Responsive Design --- */
+        @media screen and (max-width: 600px) {
+            h1 { font-size: 30px; margin-top: 50px;}
+            .color-box { width: 150px; height: 150px; margin: 20px auto; }
+            .buttons { gap: 10px; }
+            .buttons button { padding: 10px 15px; font-size: 16px; border-radius: 20px;}
+            #result { font-size: 28px; }
+            
+            .exit {
+                height: 35px;
+                width: 38px;
+                left: 10px;
+                top: 10px;
+            }
+            .exit .material-symbols-outlined {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="./../.././primary-education/kindergarten/kindergarden.html">
+        <button class="exit" onclick="return confirmExit()">
+            <span class="material-symbols-outlined"> logout </span>
+        </button>
+    </a>
+
+    <h1>🌈 Color Recognition Challenge!</h1>
+    <div class="color-box" id="colorBox"></div>
+    <div class="buttons" id="buttonContainer"></div>
+    <p id="result"></p>
+
+    <script>
+        const colors = [
+            { name: "Red", hex: "#e74c3c" },
+            { name: "Blue", hex: "#3498db" },
+            { name: "Green", hex: "#2ecc71" },
+            { name: "Yellow", hex: "#f1c40f" },
+            { name: "Orange", hex: "#e67e22" },
+            { name: "Purple", hex: "#9b59b6" }
+        ];
+        
+        let correctColorName = "";
+        const colorBox = document.getElementById("colorBox");
+        const buttonContainer = document.getElementById("buttonContainer");
+        const resultDisplay = document.getElementById("result");
+
+        function shuffleArray(array) {
+            return array.sort(() => Math.random() - 0.5);
+        }
+
+        function setGame() {
+            // Choose a new correct color
+            const correctColorObject = colors[Math.floor(Math.random() * colors.length)];
+            correctColorName = correctColorObject.name;
+
+            // Apply Pop-In animation to the color box
+            colorBox.style.animation = 'none';
+            colorBox.offsetHeight; // Trigger reflow
+            colorBox.style.animation = 'popIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55), pulse 2s infinite alternate 0.5s';
+            colorBox.style.backgroundColor = correctColorObject.hex;
+
+            // Clear result text
+            resultDisplay.textContent = "";
+            resultDisplay.style.opacity = 0;
+
+            // Clear old buttons and create new ones
+            buttonContainer.innerHTML = "";
+            let shuffledColors = shuffleArray([...colors]);
+            
+            shuffledColors.forEach(color => {
+                const button = document.createElement("button");
+                button.textContent = color.name;
+                button.style.backgroundColor = color.hex;
+                button.setAttribute('data-color', color.name); // Use data attribute for styling
+                
+                // Adjust text color for yellow
+                if (color.name === "Yellow") {
+                    button.style.color = "#333";
+                }
+                
+                button.onclick = () => checkAnswer(color.name, button);
+                buttonContainer.appendChild(button);
+            });
+        }
+
+        function checkAnswer(selectedColor, buttonElement) {
+            // Remove previous shake/fade animation
+            resultDisplay.style.animation = 'none';
+            resultDisplay.offsetHeight; 
+            
+            if (selectedColor === correctColorName) {
+                resultDisplay.textContent = "Correct! 🎉";
+                resultDisplay.className = "correct";
+                // Disable all buttons temporarily
+                Array.from(buttonContainer.children).forEach(btn => btn.disabled = true);
+                
+                // Highlight the correct button with a green flash
+                buttonElement.style.backgroundColor = '#27ae60';
+                
+                // Move to the next game after a short pause
+                setTimeout(() => {
+                    setGame();
+                    // Re-enable buttons for the next round
+                    Array.from(buttonContainer.children).forEach(btn => btn.disabled = false);
+                }, 1200);
+
+            } else {
+                resultDisplay.textContent = "Try Again! ❌";
+                resultDisplay.className = "wrong";
+                // Apply shake animation to the wrong button
+                buttonElement.style.animation = 'shake 0.4s 2';
+                buttonElement.disabled = true; // Disable the incorrect option
+                setTimeout(() => {
+                    buttonElement.style.animation = 'none';
+                }, 400);
+            }
+            
+            // Re-apply feedback fade animation
+            resultDisplay.style.animation = 'feedbackFade 0.5s ease-out forwards';
+        }
+
+        function confirmExit() {
+            let exitConfirm = confirm("Are you sure you want to exit?");
+            return exitConfirm; // Return result to the button's href to control navigation
+        }
+
+        // Initialize the game
+        setGame();
+    </script>
+</body>
+</html>

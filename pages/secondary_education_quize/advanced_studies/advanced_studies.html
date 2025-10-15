@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Studies - Quiz & Persistent Store</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Firebase SDKs -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { 
+            getFirestore, doc, addDoc, onSnapshot, collection, query, 
+            serverTimestamp, setLogLevel 
+        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        
+        // Expose Firebase objects globally for use in the script block
+        window.FirebaseServices = { 
+            initializeApp, getAuth, signInAnonymously, signInWithCustomToken, 
+            onAuthStateChanged, getFirestore, doc, addDoc, onSnapshot, 
+            collection, query, serverTimestamp, setLogLevel
+        };
+    </script>
+    <script>
+        // Customizing Tailwind theme with a Purple/Pink academic palette
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-accent': '#8b5cf6', // Indigo 500
+                        'secondary-pink': '#ec4899', // Pink 500
+                        'bg-light': '#fef3f8', // Near White Pink
+                        'heading-dark': '#4c1d95', // Deep Purple
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'spin-slow': 'spin 3s linear infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* General styling for hover lift and transitions */
+        .card-lift-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-lift-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(79, 70, 229, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-bg-light min-h-screen text-gray-800 pb-20">
+
+    <!-- Exit Button -->
+    <a href="./../secondary_education.html"
+    class="absolute top-5 left-5 bg-secondary-pink hover:bg-red-700 
+           text-white font-semibold py-2 px-4 rounded-xl 
+           shadow-lg transition duration-300 flex items-center 
+           border-2 border-white focus:outline-none focus:ring-4 focus:ring-secondary-pink/50">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9 9a1 1 0 000 2h2a1 1 0 100-2H9zm1-4a1 1 0 00-1 1v3a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+        </svg>
+        Exit
+    </a>
+
+    <div class="max-w-7xl mx-auto p-4 md:p-8">
+        <h1 class="text-4xl md:text-5xl font-extrabold text-heading-dark pt-16 text-center mb-12">
+            Advanced Learning Quizzes & Store 🚀
+        </h1>
+
+        <!-- Quiz Section -->
+        <h2 class="text-3xl font-bold text-primary-accent border-b-4 border-primary-accent/30 inline-block px-4 pb-2 mb-8 mt-4">
+            Learn and Play Quizzes...🥰
+        </h2>
+        <div class="flex justify-center gap-6 md:gap-10 flex-wrap">
+            <!-- Quiz Card Templates -->
+            <div class="w-full sm:w-64">
+                <a href="../advanced_studies/math.html" class="block bg-white p-3 rounded-2xl shadow-xl card-lift-hover hover:shadow-2xl">
+                    <!-- Original Math Quiz Image -->
+                    <img src="../../../images/math122.jpg" 
+                         onerror="this.onerror=null; this.src='https://placehold.co/250x160/8b5cf6/ffffff?text=Math+Quiz'" 
+                         alt="Math Quiz" class="rounded-xl object-cover w-full h-40">
+                    <button class="w-full mt-4 py-2 bg-primary-accent text-white font-bold rounded-xl hover:bg-indigo-700 transition duration-300 shadow-md hover:shadow-lg">
+                        Play Math Quiz
+                    </button>
+                </a>
+            </div>
+            
+            <div class="w-full sm:w-64">
+                <a href="../advanced_studies/physics.html" class="block bg-white p-3 rounded-2xl shadow-xl card-lift-hover hover:shadow-2xl">
+                    <!-- Original Physics Quiz Image -->
+                    <img src="../../../images/ph.jpg" 
+                         onerror="this.onerror=null; this.src='https://placehold.co/250x160/ec4899/ffffff?text=Physics+Quiz'" 
+                         alt="Physics Quiz" class="rounded-xl object-cover w-full h-40">
+                    <button class="w-full mt-4 py-2 bg-primary-accent text-white font-bold rounded-xl hover:bg-indigo-700 transition duration-300 shadow-md hover:shadow-lg">
+                        Play Physics Quiz
+                    </button>
+                </a>
+            </div>
+
+            <div class="w-full sm:w-64">
+                <a href="../advanced_studies/biology.html" class="block bg-white p-3 rounded-2xl shadow-xl card-lift-hover hover:shadow-2xl">
+                    <!-- Original Biology Quiz Image -->
+                    <img src="../../../images/bio.jpg" 
+                         onerror="this.onerror=null; this.src='https://placehold.co/250x160/10b981/ffffff?text=Biology+Quiz'" 
+                         alt="Biology Quiz" class="rounded-xl object-cover w-full h-40">
+                    <button class="w-full mt-4 py-2 bg-primary-accent text-white font-bold rounded-xl hover:bg-indigo-700 transition duration-300 shadow-md hover:shadow-lg">
+                        Play Biology Quiz
+                    </button>
+                </a>
+            </div>
+            
+            <div class="w-full sm:w-64">
+                <a href="../advanced_studies/chemistry.html" class="block bg-white p-3 rounded-2xl shadow-xl card-lift-hover hover:shadow-2xl">
+                    <!-- Original Chemistry Quiz Image -->
+                    <img src="../../../images/che.jpg" 
+                         onerror="this.onerror=null; this.src='https://placehold.co/250x160/f97316/ffffff?text=Chemistry+Quiz'" 
+                         alt="Chemistry Quiz" class="rounded-xl object-cover w-full h-40">
+                    <button class="w-full mt-4 py-2 bg-primary-accent text-white font-bold rounded-xl hover:bg-indigo-700 transition duration-300 shadow-md hover:shadow-lg">
+                        Play Chemistry Quiz
+                    </button>
+                </a>
+            </div>
+        </div>
+
+        <!-- Store Section -->
+        <h2 class="text-3xl font-bold text-secondary-pink border-b-4 border-secondary-pink/30 inline-block px-4 pb-2 mb-8 mt-16">
+            Buy Learning & Gaming Materials 🛍️
+        </h2>
+        <div class="flex justify-center gap-6 md:gap-10 flex-wrap" id="product-container">
+            
+            <!-- Product 1: Math Material -->
+            <div class="w-full sm:w-80 bg-white p-5 rounded-2xl shadow-xl card-lift-hover">
+                <!-- Original Math Material Image -->
+                <img src="../../../images/formula.jpg" 
+                     onerror="this.onerror=null; this.src='https://placehold.co/320x180/8b5cf6/ffffff?text=Formula+Guide'" 
+                     alt="Math Material" class="w-full h-44 object-cover rounded-xl mb-4">
+                <h3 class="text-xl font-bold text-heading-dark">Math Formula Guide</h3>
+                <p class="text-lg font-semibold my-2">Price: ₹200</p>
+                <button class="cart-btn w-full py-3 bg-secondary-pink text-white font-bold rounded-full 
+                               hover:bg-pink-600 transition duration-300 shadow-lg" 
+                        onclick="addToCart('Math Formula Guide', 200)">
+                    Add to Cart
+                </button>
+            </div>
+
+            <!-- Product 2: Physics Material -->
+            <div class="w-full sm:w-80 bg-white p-5 rounded-2xl shadow-xl card-lift-hover">
+                <!-- Original Physics Material Image -->
+                <img src="../../../images/phy.jpg" 
+                     onerror="this.onerror=null; this.src='https://placehold.co/320x180/ec4899/ffffff?text=Physics+Kit'" 
+                     alt="Physics Material" class="w-full h-44 object-cover rounded-xl mb-4">
+                <h3 class="text-xl font-bold text-heading-dark">Physics Explorer Kit</h3>
+                <p class="text-lg font-semibold my-2">Price: ₹250</p>
+                <button class="cart-btn w-full py-3 bg-secondary-pink text-white font-bold rounded-full 
+                               hover:bg-pink-600 transition duration-300 shadow-lg" 
+                        onclick="addToCart('Physics Explorer Kit', 250)">
+                    Add to Cart
+                </button>
+            </div>
+
+            <!-- Product 3: Biology Material -->
+            <div class="w-full sm:w-80 bg-white p-5 rounded-2xl shadow-xl card-lift-hover">
+                <!-- Original Biology Material Image -->
+                <img src="../../../images/kit.jpg" 
+                     onerror="this.onerror=null; this.src='https://placehold.co/320x180/10b981/ffffff?text=Biology+Kit'" 
+                     alt="Biology Material" class="w-full h-44 object-cover rounded-xl mb-4">
+                <h3 class="text-xl font-bold text-heading-dark">Biology Learning Guide</h3>
+                <p class="text-lg font-semibold my-2">Price: ₹300</p>
+                <button class="cart-btn w-full py-3 bg-secondary-pink text-white font-bold rounded-full 
+                               hover:bg-pink-600 transition duration-300 shadow-lg" 
+                        onclick="addToCart('Biology Learning Guide', 300)">
+                    Add to Cart
+                </button>
+            </div>
+
+            <!-- Product 4: Chemistry Material -->
+            <div class="w-full sm:w-80 bg-white p-5 rounded-2xl shadow-xl card-lift-hover">
+                <!-- Original Chemistry Material Image -->
+                <img src="../../../images/ch.jpg" 
+                     onerror="this.onerror=null; this.src='https://placehold.co/320x180/f97316/ffffff?text=Chemistry+Lab'" 
+                     alt="Chemistry Material" class="w-full h-44 object-cover rounded-xl mb-4">
+                <h3 class="text-xl font-bold text-heading-dark">Chemistry Lab Kit</h3>
+                <p class="text-lg font-semibold my-2">Price: ₹350</p>
+                <button class="cart-btn w-full py-3 bg-secondary-pink text-white font-bold rounded-full 
+                               hover:bg-pink-600 transition duration-300 shadow-lg" 
+                        onclick="addToCart('Chemistry Lab Kit', 350)">
+                    Add to Cart
+                </button>
+            </div>
+        </div>
+        
+        <!-- Cart Information -->
+        <h2 class="text-3xl font-bold text-heading-dark border-b-4 border-heading-dark/30 inline-block px-4 pb-2 mb-8 mt-16">
+            Your Persistent Cart 🛒
+        </h2>
+        <div class="flex justify-center">
+            <div class="cart-info w-full max-w-2xl p-6 bg-white rounded-3xl shadow-2xl border-2 border-primary-accent/50 text-left">
+                <div id="cart-info">
+                    <!-- Loading state for cart -->
+                    <div class="flex justify-center items-center text-primary-accent">
+                        <svg class="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24" fill="currentColor">
+                             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-16.5V6h2V3.5c0-.28-.22-.5-.5-.5s-.5.22-.5.5zM4 12c0-.55.45-1 1-1h1c.55 0 1 .45 1 1s-.45 1-1 1H5c-.55 0-1-.45-1-1zm14 0c0-.55.45-1 1-1h1c.55 0 1 .45 1 1s-.45 1-1 1h-1c-.55 0-1-.45-1-1zM11 19.5V18h2v1.5c0 .28-.22.5-.5.5s-.5-.22-.5-.5z"/>
+                        </svg>
+                        Loading cart...
+                    </div>
+                </div>
+                
+                <p class="mt-4 pt-4 border-t border-gray-200">
+                    <strong class="text-xl text-heading-dark">Total: ₹<span id="cart-total">0</span></strong>
+                </p>
+                <p class="text-sm text-gray-500 mt-2">
+                    <span class="font-bold">User ID:</span> <span id="user-id-display">Authenticating...</span>
+                </p>
+            </div>
+        </div>
+
+        <!-- Custom Notification Message Box -->
+        <div id="message-box" class="fixed top-5 right-5 p-4 rounded-xl shadow-2xl bg-green-500 text-white font-semibold transform translate-x-full transition duration-500 z-50">
+            Item added to cart!
+        </div>
+
+    </div>
+    
+    <script>
+        // Global variables provided by the environment
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        let db, auth, userId;
+        const CART_COLLECTION = 'cart_items_v1';
+        
+        const messagebox = document.getElementById('message-box');
+
+        /** Shows a temporary success message to the user */
+        function showMessage(message, duration = 3000) {
+            messagebox.textContent = message;
+            messagebox.classList.remove('bg-red-500', 'bg-green-500');
+            messagebox.classList.add('bg-green-500', 'translate-x-0');
+            
+            setTimeout(() => {
+                messagebox.classList.remove('translate-x-0');
+                messagebox.classList.add('translate-x-full');
+            }, duration);
+        }
+        
+        /**
+         * Initializes Firebase and sets up authentication and the real-time cart listener.
+         */
+        async function initializeFirebase() {
+            const { 
+                initializeApp, getAuth, signInAnonymously, signInWithCustomToken, 
+                onAuthStateChanged, getFirestore, collection, query, onSnapshot, setLogLevel 
+            } = window.FirebaseServices;
+
+            if (!firebaseConfig) {
+                console.error("Firebase configuration not found.");
+                document.getElementById("cart-info").innerHTML = "<p class='text-red-500'>Error: Firebase Config missing. Cannot load store.</p>";
+                return;
+            }
+
+            try {
+                // Set Firestore log level for debugging
+                setLogLevel('Debug');
+                
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+
+                // 1. Authenticate the user
+                if (initialAuthToken) {
+                    await signInWithCustomToken(auth, initialAuthToken);
+                } else {
+                    await signInAnonymously(auth);
+                }
+
+                // 2. Wait for auth state change to get the user ID
+                onAuthStateChanged(auth, (user) => {
+                    userId = user ? user.uid : (crypto.randomUUID ? crypto.randomUUID() : 'anonymous-user');
+                    document.getElementById('user-id-display').textContent = userId;
+                    
+                    if (user) {
+                        // 3. Set up the real-time listener for the cart
+                        setupCartListener();
+                    } else {
+                        document.getElementById("cart-info").innerHTML = "<p class='text-yellow-500'>Signed in anonymously. Data may not persist if browser changes ID.</p>";
+                    }
+                });
+
+            } catch (error) {
+                console.error("Error initializing Firebase:", error);
+                document.getElementById("cart-info").innerHTML = `<p class='text-red-500'>Error: ${error.message}</p>`;
+            }
+        }
+        
+        /**
+         * Sets up the real-time onSnapshot listener for the user's private cart.
+         */
+        function setupCartListener() {
+            // Path: /artifacts/{appId}/users/{userId}/cart_items_v1
+            const cartPath = `artifacts/${appId}/users/${userId}/${CART_COLLECTION}`;
+            const cartRef = collection(db, cartPath);
+            const q = query(cartRef);
+
+            onSnapshot(q, (snapshot) => {
+                const cartItems = [];
+                let total = 0;
+                
+                snapshot.forEach((doc) => {
+                    const data = doc.data();
+                    // Store the doc id along with data for future removal functionality
+                    cartItems.push({ id: doc.id, ...data });
+                    total += data.price || 0;
+                });
+                
+                updateCartDisplay(cartItems, total);
+            }, (error) => {
+                console.error("Error listening to cart changes:", error);
+                document.getElementById("cart-info").innerHTML = "<p class='text-red-500'>Error loading cart data.</p>";
+            });
+        }
+
+        /**
+         * Adds an item to the user's cart in Firestore.
+         * @param {string} name 
+         * @param {number} price 
+         */
+        async function addToCart(name, price) {
+            if (!userId) {
+                showMessage("Authentication not ready. Please wait.", 5000);
+                return;
+            }
+            
+            const { addDoc, collection, serverTimestamp } = window.FirebaseServices;
+
+            try {
+                const cartPath = `artifacts/${appId}/users/${userId}/${CART_COLLECTION}`;
+                
+                await addDoc(collection(db, cartPath), {
+                    name: name,
+                    price: price,
+                    addedAt: serverTimestamp(),
+                    quantity: 1 
+                });
+
+                showMessage(`${name} added to cart successfully!`);
+
+            } catch (error) {
+                console.error("Error adding to cart:", error);
+                messagebox.classList.remove('bg-green-500');
+                messagebox.classList.add('bg-red-500', 'translate-x-0');
+                messagebox.textContent = `Error adding item: ${error.message}`;
+            }
+        }
+        
+        /**
+         * Renders the cart contents to the UI.
+         * @param {Array<Object>} cartItems 
+         * @param {number} total 
+         */
+        function updateCartDisplay(cartItems, total) {
+            const cartInfoElement = document.getElementById("cart-info");
+            const totalElement = document.getElementById("cart-total");
+
+            if (cartItems.length === 0) {
+                cartInfoElement.innerHTML = "<p class='italic text-gray-500'>Your persistent cart is currently empty. Start shopping!</p>";
+                totalElement.textContent = '0';
+            } else {
+                let cartHTML = "<ul class='list-disc list-inside space-y-1'>";
+                cartItems.forEach(product => {
+                    cartHTML += `<li class='text-lg'>${product.name} - <span class='font-semibold'>₹${product.price}</span></li>`;
+                });
+                cartHTML += `</ul>`;
+                cartInfoElement.innerHTML = cartHTML;
+                totalElement.textContent = total;
+            }
+        }
+        
+        // Start initialization when the window loads
+        window.onload = initializeFirebase;
+    </script>
+</body>
+</html>

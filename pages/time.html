@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduFun - Time Management</title>
+    <!-- Use Inter font for a modern feel -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CSS Variables for Cohesive Theme */
+        :root {
+            --color-primary: #66a6ff; /* Blue */
+            --color-secondary: #89f7fe; /* Cyan */
+            --color-bg-light: #f7f9fc;
+            --color-text-dark: #1f2937;
+            --color-card-shadow: rgba(102, 166, 255, 0.5);
+            --color-button-start: #10b981; /* Green */
+            --color-button-stop: #ef4444; /* Red */
+            --color-button-reset: #6b7280; /* Gray */
+            --color-dark-bg: #1f2937;
+            --color-dark-card: #374151;
+            --color-dark-text: #f3f4f6;
+
+            /* Message Box Colors */
+            --msg-success-bg: #d1fae5;
+            --msg-success-text: #065f46;
+            --msg-error-bg: #fee2e2;
+            --msg-error-text: #991b1b;
+        }
+
+        /* ------------------ Base & Layout ------------------ */
+        body {
+            font-family: 'Inter', sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg, var(--color-secondary), var(--color-primary));
+            color: var(--color-text-dark);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.5s ease, color 0.5s ease;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 420px;
+            padding: 30px;
+            background: var(--color-bg-light);
+            border-radius: 20px;
+            box-shadow: 0 15px 30px var(--color-card-shadow);
+            transition: 0.5s ease;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 30px;
+            color: var(--color-primary);
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        /* ------------------ Time Boxes ------------------ */
+        .time-box, .stopwatch-box, .focus-box {
+            background: #ffffff;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            transition: background 0.5s ease, box-shadow 0.3s ease;
+        }
+
+        /* Highlight the timer displays */
+        #currentTime, #stopwatch, #focusTimer {
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 10px 0;
+            color: var(--color-primary);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ------------------ Buttons ------------------ */
+        button {
+            border: none;
+            padding: 12px 20px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+        }
+
+        button:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Specific button colors */
+        .stopwatch-box button:nth-of-type(1), .focus-box button:nth-of-type(1) {
+            background: var(--color-button-start);
+        }
+        .stopwatch-box button:nth-of-type(1):hover, .focus-box button:nth-of-type(1):hover {
+            background: #059669;
+        }
+        
+        .stopwatch-box button:nth-of-type(2) {
+            background: var(--color-button-stop);
+        }
+        .stopwatch-box button:nth-of-type(2):hover {
+            background: #b91c1c;
+        }
+
+        .stopwatch-box button:nth-of-type(3), .focus-box button:nth-of-type(2) {
+            background: var(--color-button-reset);
+        }
+        .stopwatch-box button:nth-of-type(3):hover, .focus-box button:nth-of-type(2):hover {
+            background: #4b5563;
+        }
+
+        #darkModeToggle {
+            background: var(--color-dark-bg);
+            margin-top: 25px;
+            padding: 10px 18px;
+        }
+        #darkModeToggle:hover {
+            background: #444;
+        }
+
+        /* ------------------ Message Box ------------------ */
+        #message-box {
+            display: none;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            text-align: center;
+            width: 100%;
+            max-width: 420px;
+            box-sizing: border-box;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: opacity 0.3s ease;
+        }
+        .success {
+            background-color: var(--msg-success-bg);
+            color: var(--msg-success-text);
+            border: 1px solid var(--msg-success-text);
+        }
+
+        /* ------------------ Dark Mode Styles ------------------ */
+        body.dark-mode {
+            background: var(--color-dark-bg);
+            color: var(--color-dark-text);
+        }
+        body.dark-mode .container {
+            background: var(--color-dark-card);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.8);
+        }
+        body.dark-mode h1 {
+            color: var(--color-secondary);
+        }
+        body.dark-mode .time-box, 
+        body.dark-mode .stopwatch-box, 
+        body.dark-mode .focus-box {
+            background: #2b3542;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+        body.dark-mode #currentTime, 
+        body.dark-mode #stopwatch, 
+        body.dark-mode #focusTimer {
+            color: var(--color-secondary);
+        }
+
+        /* ------------------ Responsiveness ------------------ */
+        @media (max-width: 500px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                padding: 20px;
+                border-radius: 15px;
+            }
+            #currentTime, #stopwatch, #focusTimer {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Message Box (Global) -->
+    <div id="message-box" role="status"></div>
+
+    <div class="container">
+        <h1>🌟 EduFun - Time Management 🌟</h1>
+        
+        <!-- Current Time Clock -->
+        <div class="time-box">
+            <h2>🌍 Current Time</h2>
+            <p id="currentTime">00:00:00</p>
+        </div>
+
+        <!-- Stopwatch -->
+        <div class="stopwatch-box">
+            <h2>⏱ Stopwatch</h2>
+            <p id="stopwatch">00:00:00</p>
+            <button onclick="startStopwatch()">Start</button>
+            <button onclick="stopStopwatch()">Stop</button>
+            <button onclick="resetStopwatch()">Reset</button>
+        </div>
+
+        <!-- Focus Timer (Pomodoro) -->
+        <div class="focus-box">
+            <h2>⏳ Focus Watch (25 min timer)</h2>
+            <p id="focusTimer">25:00</p>
+            <button onclick="startFocusTimer()">Start</button>
+            <button onclick="resetFocusTimer()">Reset</button>
+        </div>
+
+        <!-- Dark Mode Toggle -->
+        <button id="darkModeToggle">🌙 Dark Mode</button>
+    </div>
+
+    <!-- Tone.js for simple audio feedback -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
+
+    <script>
+        // --- Utility Functions ---
+
+        /**
+         * Plays a simple notification sound.
+         */
+        function playBellSound() {
+            try {
+                // Ensure Tone.js is initialized
+                if (Tone.context.state !== 'running') {
+                    Tone.start();
+                }
+                const synth = new Tone.MembraneSynth().toDestination();
+                // Play a simple, short sound effect
+                synth.triggerAttackRelease("C4", "8n");
+            } catch (error) {
+                console.error("Audio playback error:", error);
+            }
+        }
+
+        /**
+         * Utility function to show a custom message box instead of using alert().
+         * @param {string} message The message to display.
+         * @param {'success'|'error'|'warning'} type The type of message.
+         */
+        function showMessage(message, type) {
+            const msgBox = document.getElementById('message-box');
+            msgBox.textContent = message;
+            msgBox.className = type; // Use CSS class for styling
+            msgBox.style.display = 'block';
+
+            // Optional: Move message box slightly into view for better user experience
+            setTimeout(() => {
+                msgBox.style.opacity = 1;
+            }, 10);
+            
+            setTimeout(() => {
+                msgBox.style.opacity = 0;
+                // Use transition to hide after fade out
+                setTimeout(() => {
+                    msgBox.style.display = 'none';
+                }, 300); 
+            }, 5000); // Hide after 5 seconds
+        };
+
+        // --- Clock Logic (Initial code kept) ---
+        function updateClock() {
+            const now = new Date();
+            document.getElementById("currentTime").textContent = 
+                now.getHours().toString().padStart(2, '0') + ":" + 
+                now.getMinutes().toString().padStart(2, '0') + ":" + 
+                now.getSeconds().toString().padStart(2, '0');
+        }
+        // Run immediately and then every second
+        updateClock();
+        setInterval(updateClock, 1000);
+
+        // --- Stopwatch Logic (Initial code kept) ---
+        let stopwatchInterval;
+        let stopwatchTime = 0;
+
+        function formatTime(seconds) {
+            let hrs = Math.floor(seconds / 3600);
+            let mins = Math.floor((seconds % 3600) / 60);
+            let secs = seconds % 60;
+            return `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function startStopwatch() {
+            if (!stopwatchInterval) {
+                showMessage("Stopwatch started.", 'warning');
+                stopwatchInterval = setInterval(() => {
+                    stopwatchTime++;
+                    document.getElementById("stopwatch").textContent = formatTime(stopwatchTime);
+                }, 1000);
+            }
+        }
+
+        function stopStopwatch() {
+            if (stopwatchInterval) {
+                clearInterval(stopwatchInterval);
+                stopwatchInterval = null;
+                showMessage("Stopwatch paused.", 'warning');
+            }
+        }
+
+        function resetStopwatch() {
+            stopStopwatch();
+            stopwatchTime = 0;
+            document.getElementById("stopwatch").textContent = "00:00:00";
+            showMessage("Stopwatch reset.", 'warning');
+        }
+
+        // --- Focus Timer Logic (Modified to use showMessage and Tone.js) ---
+        const INITIAL_FOCUS_TIME = 1500; // 25 minutes in seconds
+        let focusTime = INITIAL_FOCUS_TIME;
+        let focusInterval;
+
+        function formatMinutes(seconds) {
+            let mins = Math.floor(seconds / 60);
+            let secs = seconds % 60;
+            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function startFocusTimer() {
+            if (!focusInterval) {
+                showMessage("Focus Timer started! Time to work hard. 🚀", 'success');
+                focusInterval = setInterval(() => {
+                    if (focusTime > 0) {
+                        focusTime--;
+                        document.getElementById("focusTimer").textContent = formatMinutes(focusTime);
+                    } else {
+                        clearInterval(focusInterval);
+                        focusInterval = null;
+                        
+                        // CRITICAL FIX: Replaced alert() with custom message box and sound
+                        playBellSound();
+                        showMessage("Time's up! Focus session complete. Take a break ☕", 'success');
+                    }
+                }, 1000);
+            } else {
+                // If interval is already running, stop/pause it
+                clearInterval(focusInterval);
+                focusInterval = null;
+                showMessage("Focus Timer paused.", 'warning');
+            }
+            // Toggle button text for pause functionality
+            document.querySelector('.focus-box button:nth-of-type(1)').textContent = focusInterval ? "Pause" : "Start";
+        }
+
+        function resetFocusTimer() {
+            clearInterval(focusInterval);
+            focusTime = INITIAL_FOCUS_TIME;
+            document.getElementById("focusTimer").textContent = formatMinutes(focusTime);
+            focusInterval = null;
+            document.querySelector('.focus-box button:nth-of-type(1)').textContent = "Start";
+            showMessage("Focus Timer reset to 25 minutes.", 'warning');
+        }
+        
+        // --- Dark Mode Toggle ---
+        document.getElementById("darkModeToggle").addEventListener("click", function() {
+            const isDarkMode = document.body.classList.toggle("dark-mode");
+            this.textContent = isDarkMode ? "☀️ Light Mode" : "🌙 Dark Mode";
+        });
+
+        // Initialize focus timer display on load
+        document.getElementById("focusTimer").textContent = formatMinutes(INITIAL_FOCUS_TIME);
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12th Standard Biology Quiz</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for smooth timer animation and hover effects */
+        .option-btn {
+            transition: all 0.3s ease;
+        }
+        
+        /* The timer bar transition for smooth visual countdown */
+        #timer-bar {
+            transition: width 1s linear, background-color 0.5s ease;
+        }
+        
+        /* Pulse animation for timer text when time is low */
+        @keyframes pulse-red {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.9; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .timer-low-animation {
+            animation: pulse-red 0.5s infinite alternate ease-in-out;
+            color: #ef4444; /* Force red text color when pulsing */
+            display: inline-block; /* Required for transform to work */
+        }
+        
+        /* Exit Button Style */
+        .exit-btn {
+            background-color: #ef4444; /* Red color */
+            border: 2px solid white;
+            outline: 2px solid #ef4444;
+            transition: all 0.3s;
+        }
+        .exit-btn:hover {
+            background-color: #b91c1c; /* Dark Red */
+            transform: scale(1.05);
+        }
+
+        /* Responsive quiz container width */
+        .quiz-container {
+            width: 95%;
+            max-width: 700px;
+            /* Added transition for hover effect */
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+        }
+
+        /* New Hover Effect for the Quiz Card */
+        .quiz-container:hover {
+            transform: translateY(-5px) scale(1.01); /* Lift up slightly */
+            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.6), 0 6px 6px rgba(0, 0, 0, 0.1); /* Add primary accent shadow */
+            border: 2px solid #4f46e5; /* Primary accent border on hover */
+        }
+    </style>
+    <script>
+        // Tailwind configuration for purple and light shades
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // Light purple and bluish background
+                        'bg-start': '#d8b4fe', /* Lavender 300 - Light Purple */
+                        'bg-end': '#a78bfa', /* Violet 400 - Medium Purple */
+                        'primary-accent': '#4f46e5', /* Indigo 600 - Main Accent */
+                        'secondary-color': '#fcd34d', /* Amber 300 - Secondary Color (Timer) */
+                        'option-bg': '#7c3aed', /* Violet 600 - Button Background */
+                        'text-color': '#1f2937', /* Dark Gray - Main Text Color */
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="min-h-screen flex flex-col items-center p-4" 
+      style="background: linear-gradient(135deg, var(--tw-bg-start), var(--tw-bg-end));">
+
+    <!-- Exit Button -->
+    <a href="./../secondary_education.html"
+       class="exit-btn absolute top-5 left-5 h-10 w-20 text-lg font-semibold text-white rounded-xl cursor-pointer 
+              flex items-center justify-center shadow-lg">
+        Exit
+    </a>
+
+    <!-- Quiz Container - Added new styles for visual appeal -->
+    <div class="quiz-container mx-auto mt-12 bg-white/90 backdrop-blur-sm p-6 sm:p-10 rounded-2xl shadow-2xl text-text-color border-4 border-white/50">
+        <h2 class="text-3xl font-extrabold mb-8 drop-shadow-lg text-primary-accent">12th Standard Biology Quiz</h2>
+        
+        <div id="quiz" class="space-y-6">
+            <!-- Timer Display with Animated Bar -->
+            <div class="mb-6">
+                <p id="timer" class="text-xl font-bold mb-2 text-primary-accent drop-shadow-md">
+                    Time Remaining: <span id="timer-text">30s</span>
+                </p>
+                <div class="w-full bg-gray-200 rounded-full h-2.5 overflow-hidden">
+                    <div id="timer-bar" class="h-full bg-primary-accent rounded-full" style="width: 100%;"></div>
+                </div>
+            </div>
+
+            <!-- Question Text: Font color changed -->
+            <p class="question text-2xl font-semibold mb-6 text-text-color" id="question-text"></p>
+            
+            <!-- Options Container -->
+            <div class="options space-y-3" id="options">
+                <!-- Options will be dynamically inserted here -->
+            </div>
+            
+            <!-- Result Feedback -->
+            <p id="result" class="text-xl font-bold pt-4 min-h-[3rem]"></p>
+            
+            <!-- Next Button -->
+            <button onclick="nextQuestion()" style="display:none;" id="next-btn"
+                    class="mt-4 px-6 py-3 bg-primary-accent text-white font-bold rounded-lg shadow-lg 
+                           hover:bg-indigo-700 transition duration-300">
+                Next Question
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Array of quiz questions
+        const questions = [
+            // Note: Formulas and terms are kept in English as they are universally used this way.
+            { question: "What is the formula for Photosynthesis?", options: ["6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂", "C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O", "H₂O + CO₂ → H₂CO₃", "ATP + H₂O → ADP + Pᵢ"], correct: "6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂" },
+            { question: "What is the formula for Aerobic Respiration?", options: ["C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O", "6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂", "H₂O + CO₂ → H₂CO₃", "ATP + H₂O → ADP + Pᵢ"], correct: "C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O" },
+            { question: "What is the molecular formula for Glucose?", options: ["C₆H₁₂O₆", "C₁₂H₂₂O₁₁", "C₅H₁₀O₅", "CH₄"], correct: "C₆H₁₂O₆" },
+            { question: "What is the formula for ATP Hydrolysis?", options: ["ATP + H₂O → ADP + Pᵢ", "ADP + Pᵢ → ATP + H₂O", "C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O", "6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂"], correct: "ATP + H₂O → ADP + Pᵢ" },
+            { question: "Which of the following nitrogenous bases is found in DNA?", options: ["Adenine", "Cytosine", "Guanine", "All of the above"], correct: "All of the above" }
+        ];
+        
+        let currentQuestionIndex = 0;
+        const initialTime = 30;
+        let timeLeft = initialTime;
+        let timer;
+
+        /**
+         * Starts or restarts the 30-second countdown timer and the animated bar.
+         */
+        function startTimer() {
+            timeLeft = initialTime;
+            const timerText = document.getElementById("timer-text");
+            const timerBar = document.getElementById("timer-bar");
+
+            // Clear any existing timer
+            clearInterval(timer);
+            
+            // Reset bar appearance, width, and remove animation
+            timerText.innerText = `${timeLeft}s`;
+            timerBar.classList.remove('bg-red-500', 'bg-yellow-500');
+            timerBar.classList.add('bg-primary-accent');
+            timerBar.style.width = '100%';
+            timerText.classList.remove('timer-low-animation');
+
+            timer = setInterval(() => {
+                timeLeft--;
+                timerText.innerText = `${timeLeft}s`;
+                
+                // Update the bar width based on percentage of time left
+                const percent = (timeLeft / initialTime) * 100;
+                timerBar.style.width = `${percent}%`;
+
+                // Add pulsing animation when time is low (<= 10 seconds)
+                if (timeLeft <= 10) {
+                    timerText.classList.add('timer-low-animation');
+                } else {
+                    timerText.classList.remove('timer-low-animation');
+                }
+
+                // Change color warning on the bar
+                if (timeLeft <= 10 && timeLeft > 5) {
+                    timerBar.classList.remove('bg-primary-accent');
+                    timerBar.classList.add('bg-yellow-500'); // Yellow color
+                } else if (timeLeft <= 5) {
+                    timerBar.classList.remove('bg-yellow-500');
+                    timerBar.classList.add('bg-red-500'); // Red color
+                } else {
+                    // Reset to primary color if time is high again (only happens if the user restarts the quiz)
+                    timerBar.classList.remove('bg-yellow-500', 'bg-red-500');
+                    timerBar.classList.add('bg-primary-accent');
+                }
+
+
+                if (timeLeft === 0) {
+                    clearInterval(timer);
+                    checkAnswer(null); // Time's up, check as wrong
+                }
+            }, 1000);
+        }
+
+        /**
+         * Loads the current question and its options into the quiz container.
+         */
+        function loadQuestion() {
+            startTimer();
+            let q = questions[currentQuestionIndex];
+            
+            document.getElementById("question-text").innerHTML = q.question;
+            let optionsDiv = document.getElementById("options");
+            optionsDiv.innerHTML = "";
+            
+            q.options.forEach(option => {
+                let btn = document.createElement("button");
+                btn.innerHTML = option;
+                btn.className = 'option-btn w-full py-3 px-4 font-medium text-lg rounded-xl shadow-lg ' +
+                                'bg-option-bg text-white hover:bg-violet-700 focus:outline-none focus:ring-4 focus:ring-primary-accent/50';
+                btn.onclick = (e) => checkAnswer(option, e.target);
+                optionsDiv.appendChild(btn);
+            });
+        }
+
+        /**
+         * Checks the user's selected answer against the correct answer.
+         * @param {string|null} selected - The selected option text, or null if time expired.
+         * @param {HTMLElement|null} selectedButton - The button element that was clicked.
+         */
+        function checkAnswer(selected, selectedButton) {
+            clearInterval(timer);
+            // Stop the pulsing animation immediately
+            document.getElementById("timer-text").classList.remove('timer-low-animation'); 
+
+            let resultText = document.getElementById("result");
+            let nextBtn = document.getElementById("next-btn");
+            let isCorrect = selected === questions[currentQuestionIndex].correct;
+            let correctOption = questions[currentQuestionIndex].correct;
+            
+            // Disable all buttons to prevent multiple clicks
+            document.querySelectorAll('.option-btn').forEach(btn => {
+                btn.disabled = true;
+                btn.classList.remove('hover:bg-violet-700');
+                
+                // Highlight correct answer
+                if (btn.innerHTML === correctOption) {
+                    btn.classList.remove('bg-option-bg');
+                    btn.classList.add('bg-green-600', 'ring-4', 'ring-green-400');
+                }
+                
+                // Highlight selected wrong answer
+                if (selectedButton && btn === selectedButton && !isCorrect) {
+                    btn.classList.remove('bg-option-bg');
+                    btn.classList.add('bg-red-600', 'ring-4', 'ring-red-400');
+                }
+            });
+
+            if (isCorrect) {
+                resultText.innerHTML = "Correct! ✅ Your answer is accurate.";
+                resultText.classList.remove('text-red-500');
+                resultText.classList.add('text-green-600');
+            } else if (selected === null) {
+                resultText.innerHTML = `Time's up! ⏰ The correct answer was: <span class="font-extrabold">${correctOption}</span>`;
+                resultText.classList.remove('text-green-600');
+                resultText.classList.add('text-red-600');
+            } else {
+                resultText.innerHTML = `Wrong! ❌ The correct answer was: <span class="font-extrabold">${correctOption}</span>`;
+                resultText.classList.remove('text-green-600');
+                resultText.classList.add('text-red-600');
+            }
+            
+            nextBtn.style.display = "block";
+        }
+
+        /**
+         * Advances to the next question or finishes the quiz.
+         */
+        function nextQuestion() {
+            currentQuestionIndex++;
+            let resultText = document.getElementById("result");
+            let nextBtn = document.getElementById("next-btn");
+            
+            if (currentQuestionIndex < questions.length) {
+                resultText.innerHTML = "";
+                nextBtn.style.display = "none";
+                loadQuestion();
+            } else {
+                document.getElementById("quiz").innerHTML = `
+                    <h3 class="text-4xl font-extrabold text-primary-accent">Quiz Complete! 🎉</h3>
+                    <p class="text-2xl mt-4 text-text-color">Congratulations on completing the 12th Standard Biology Quiz!</p>
+                    <a href="./../secondary_education.html" 
+                       class="inline-block mt-8 px-6 py-3 bg-primary-accent text-white font-bold rounded-lg shadow-lg 
+                              hover:bg-indigo-700 transition duration-300">
+                       Go back to Advanced Studies
+                    </a>
+                `;
+            }
+        }
+
+        // Initialize the first question on load
+        loadQuestion();
+    </script>
+</body>
+</html>
