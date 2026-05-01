@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EduNotes | Higher Education</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #5b21b6;
+            --secondary: #7c3aed;
+            --accent: #0f766e;
+            --text: #312e81;
+            --muted: #5b647d;
+            --surface: rgba(255,255,255,0.96);
+            --border: rgba(196,181,253,0.55);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f5f3ff, #eef2ff, #eff6ff);
+            color: var(--text);
+        }
+
+        .page {
+            width: min(1180px, calc(100% - 28px));
+            margin: 0 auto;
+            padding: 88px 0 40px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, rgba(91,33,182,0.96), rgba(124,58,237,0.92));
+            color: #fff;
+            border-radius: 30px;
+            padding: 34px;
+            box-shadow: 0 18px 40px rgba(91,33,182,0.18);
+            margin-bottom: 22px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.16);
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 4vw, 3.1rem);
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            max-width: 860px;
+            line-height: 1.8;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 18px;
+        }
+
+        .hero-actions a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            border-radius: 999px;
+            padding: 12px 18px;
+            font-weight: 600;
+        }
+
+        .hero-actions .primary {
+            background: #fff;
+            color: var(--primary);
+        }
+
+        .hero-actions .secondary {
+            background: rgba(255,255,255,0.14);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.24);
+        }
+
+        .summary-grid,
+        .track-grid,
+        .note-grid {
+            display: grid;
+            gap: 18px;
+        }
+
+        .summary-grid {
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            margin-bottom: 22px;
+        }
+
+        .summary-card,
+        .track-card,
+        .note-card,
+        .tool-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 22px;
+            box-shadow: 0 14px 32px rgba(99,102,241,0.11);
+        }
+
+        .summary-card span {
+            display: block;
+            color: var(--muted);
+            font-size: 0.92rem;
+            margin-bottom: 8px;
+        }
+
+        .summary-card strong {
+            font-size: 1.7rem;
+            color: var(--primary);
+        }
+
+        .section-title {
+            font-size: 1.55rem;
+            color: var(--primary);
+            margin: 24px 0 14px;
+        }
+
+        .section-copy {
+            color: #433b72;
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        .track-grid {
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            margin-bottom: 12px;
+        }
+
+        .track-card h3,
+        .note-card h3,
+        .tool-card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .track-card p,
+        .note-card p,
+        .tool-card p {
+            color: #433b72;
+            line-height: 1.75;
+        }
+
+        .track-card ul {
+            margin-top: 12px;
+            padding-left: 18px;
+            color: #433b72;
+            line-height: 1.8;
+        }
+
+        .tools {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 18px;
+            margin: 22px 0;
+        }
+
+        .search-bar {
+            margin: 14px 0 18px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 16px;
+            border: 2px solid #d8b4fe;
+            font-size: 1rem;
+            color: var(--text);
+            background: rgba(255,255,255,0.96);
+        }
+
+        .note-grid {
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        }
+
+        .note-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(91,33,182,0.08);
+            color: var(--primary);
+            border-radius: 999px;
+            padding: 7px 12px;
+            font-size: 0.84rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .note-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 14px 0 0;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .note-card a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 16px;
+            text-decoration: none;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: #fff;
+            border-radius: 999px;
+            padding: 11px 16px;
+            font-weight: 600;
+        }
+
+        .empty-state {
+            background: rgba(255,255,255,0.95);
+            border: 1px dashed #c4b5fd;
+            color: var(--muted);
+            border-radius: 20px;
+            padding: 18px;
+        }
+
+        @media (max-width: 640px) {
+            .page {
+                width: calc(100% - 18px);
+                padding-top: 74px;
+            }
+
+            .hero {
+                padding: 24px 18px;
+                border-radius: 22px;
+            }
+        }
+    </style>
+    <script>
+      (function () {
+        const marker = "/pages/";
+        const path = window.location.pathname;
+        const root = path.includes(marker) ? path.split(marker)[0] + "/" : path.substring(0, path.lastIndexOf("/") + 1);
+        const navScript = document.createElement("script");
+        navScript.src = root + "js/site-navigation.js";
+        navScript.defer = true;
+        document.head.appendChild(navScript);
+        const notesScript = document.createElement("script");
+        notesScript.src = root + "js/notes-library.js";
+        notesScript.defer = true;
+        document.head.appendChild(notesScript);
+      })();
+    </script>
+</head>
+<body>
+    <main class="page">
+        <section class="hero">
+            <div class="eyebrow">EduNotes</div>
+            <h1>Higher Education Notes, Properly Organized</h1>
+            <p>EduNotes is the dedicated higher-education revision space inside EduFun. It collects clear note sets for Civil Services, Finance, IT, Law, and Pharmacy, then organizes them into focused subjects so learners can revise faster and move directly into quizzes, reading, and practice.</p>
+            <div class="hero-actions">
+                <a class="primary" href="./notes.html">Open Full Notes Hub</a>
+                <a class="secondary" href="./games/word-scramble.html">Take a Quick Learning Break</a>
+            </div>
+        </section>
+
+        <section class="summary-grid" id="summary-grid"></section>
+
+        <h2 class="section-title">Tracks Included</h2>
+        <p class="section-copy">Each track below groups higher-education subjects into a clear revision path, so students can move from broad overview to specific subject notes without getting lost.</p>
+        <section class="track-grid">
+            <article class="track-card">
+                <h3>Civil Services</h3>
+                <p>Focus on polity, governance, economy, geography, and structured answer thinking.</p>
+                <ul>
+                    <li>Constitution and public institutions</li>
+                    <li>Economy, development, and current issues</li>
+                    <li>Revision planning for competitive preparation</li>
+                </ul>
+            </article>
+            <article class="track-card">
+                <h3>Finance</h3>
+                <p>Build strong foundations in accounting, business terms, investment logic, and planning.</p>
+                <ul>
+                    <li>Accounting and reporting basics</li>
+                    <li>Investment, risk, and portfolio thinking</li>
+                    <li>Business interpretation and financial discipline</li>
+                </ul>
+            </article>
+            <article class="track-card">
+                <h3>IT</h3>
+                <p>Strengthen programming logic, data structures, databases, operating systems, and networking.</p>
+                <ul>
+                    <li>Programming and debugging flow</li>
+                    <li>Data structures and algorithms</li>
+                    <li>Database and network fundamentals</li>
+                </ul>
+            </article>
+            <article class="track-card">
+                <h3>Law</h3>
+                <p>Revise constitutional law, administrative law, criminal law, contracts, torts, and evidence concepts.</p>
+                <ul>
+                    <li>Rights, remedies, and legal structure</li>
+                    <li>Criminal reasoning and evidence basics</li>
+                    <li>Case-based conceptual retention</li>
+                </ul>
+            </article>
+            <article class="track-card">
+                <h3>Pharmacy</h3>
+                <p>Study pharmacology, pharmaceutics, dosage forms, safety, and patient-centered application.</p>
+                <ul>
+                    <li>Drug action and therapeutic use</li>
+                    <li>Dosage forms and storage quality</li>
+                    <li>Safety, dispensing, and patient care</li>
+                </ul>
+            </article>
+        </section>
+
+        <div class="tools">
+            <article class="tool-card">
+                <h3>How To Use EduNotes</h3>
+                <p>Pick one track, open one note, write three recall points, then immediately solve a quiz or game. This keeps notes active instead of passive.</p>
+            </article>
+            <article class="tool-card">
+                <h3>Best Revision Flow</h3>
+                <p>Use topic notes for concept clarity, then switch to quizzes for recall, then return to profile progress to measure improvement after each session.</p>
+            </article>
+        </div>
+
+        <h2 class="section-title">Search Higher-Education Notes</h2>
+        <div class="search-bar">
+            <input id="edunotes-search" type="text" placeholder="Search by track, subject, topic, or keyword" />
+        </div>
+
+        <h2 class="section-title">All Higher-Education Notes</h2>
+        <section id="edunotes-grid" class="note-grid"></section>
+    </main>
+
+    <script>
+        function renderEduNotes() {
+            const allNotes = window.EduFunNotesLibrary || [];
+            const higherEducationNotes = allNotes.filter(function (note) {
+                return note.section === "Higher Education";
+            });
+            const grid = document.getElementById("edunotes-grid");
+            const summaryGrid = document.getElementById("summary-grid");
+            const searchInput = document.getElementById("edunotes-search");
+
+            summaryGrid.innerHTML = [
+                { label: "Higher-ed note sets", value: higherEducationNotes.length },
+                { label: "Career tracks covered", value: 5 },
+                { label: "Structured topic blocks", value: higherEducationNotes.reduce(function (sum, note) { return sum + note.topics.length; }, 0) },
+                { label: "Revision ready", value: "Yes" }
+            ].map(function (item) {
+                return `<article class="summary-card"><span>${item.label}</span><strong>${item.value}</strong></article>`;
+            }).join("");
+
+            function buildCards(query) {
+                const normalized = (query || "").trim().toLowerCase();
+                const filtered = higherEducationNotes.filter(function (note) {
+                    return !normalized || JSON.stringify(note).toLowerCase().includes(normalized);
+                });
+
+                if (!filtered.length) {
+                    grid.innerHTML = '<div class="empty-state">No notes matched this search. Try a track name like Finance, IT, Law, Civil, or Pharmacy.</div>';
+                    return;
+                }
+
+                grid.innerHTML = filtered.map(function (note) {
+                    return `
+                        <article class="note-card">
+                            <div class="note-badge">${note.section}</div>
+                            <h3>${note.title}</h3>
+                            <p>${note.summary}</p>
+                            <div class="note-meta">
+                                <span>${note.level}</span>
+                                <span>${note.topics.length} topic blocks</span>
+                            </div>
+                            <a href="./note-detail.html?id=${note.id}">Open Note</a>
+                        </article>
+                    `;
+                }).join("");
+            }
+
+            buildCards("");
+
+            searchInput.addEventListener("input", function () {
+                buildCards(searchInput.value);
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            if (window.EduFunNotesLibrary) {
+                renderEduNotes();
+            } else {
+                window.addEventListener("load", renderEduNotes);
+            }
+        });
+    </script>
+</body>
+</html>

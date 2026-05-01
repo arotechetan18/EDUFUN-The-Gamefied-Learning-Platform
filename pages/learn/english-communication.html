@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>English Communication | EduFun</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #be185d; --secondary: #ec4899; --surface: rgba(255,255,255,0.96); --text: #831843; --border: rgba(244, 114, 182, 0.45); }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Poppins", sans-serif; }
+        body { background: linear-gradient(135deg, #fdf2f8, #fff1f2, #faf5ff); color: var(--text); min-height: 100vh; }
+        .page { max-width: 1100px; margin: 0 auto; padding: 88px 20px 40px; }
+        .back-link { display: inline-flex; padding: 10px 16px; border-radius: 999px; background: rgba(190,24,93,0.1); color: var(--primary); text-decoration: none; font-weight: 600; margin-bottom: 18px; }
+        .hero, .section, .card { border-radius: 24px; border: 1px solid var(--border); box-shadow: 0 12px 28px rgba(236, 72, 153, 0.12); }
+        .hero { background: linear-gradient(135deg, rgba(190,24,93,0.96), rgba(236,72,153,0.9)); color: #fff; padding: 32px; }
+        .hero h1 { font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: 12px; }
+        .hero p, .section li, .section p, .card p { line-height: 1.8; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin: 24px 0; }
+        .card, .section { background: var(--surface); padding: 22px; }
+        .card h2, .section h2 { color: var(--primary); margin-bottom: 10px; }
+        .section { margin-bottom: 18px; }
+        .section ul { padding-left: 18px; }
+        .cta { display: inline-block; margin-top: 14px; padding: 11px 18px; border-radius: 999px; text-decoration: none; font-weight: 600; background: var(--primary); color: #fff; }
+    </style>
+    <script>
+      (function () {
+        const marker = "/pages/";
+        const path = window.location.pathname;
+        const root = path.includes(marker) ? path.split(marker)[0] + "/" : path.substring(0, path.lastIndexOf("/") + 1);
+        const script = document.createElement("script");
+        script.src = root + "js/site-navigation.js";
+        script.defer = true;
+        document.head.appendChild(script);
+      })();
+    </script>
+</head>
+<body>
+    <main class="page">
+        <a class="back-link" href="./../notes.html">← Back to Notes Hub</a>
+        <section class="hero">
+            <h1>English Communication</h1>
+            <p>English improves through listening, reading, speaking, and writing. The goal is not only correct grammar but also clear communication and confidence.</p>
+        </section>
+        <section class="grid">
+            <article class="card"><h2>Vocabulary</h2><p>Learn words in context. Instead of memorizing a list, use each new word in a sentence of your own.</p></article>
+            <article class="card"><h2>Reading</h2><p>Read short passages and ask: What is the main idea? Which words show the answer?</p></article>
+            <article class="card"><h2>Writing</h2><p>Good writing uses simple sentences, correct punctuation, and a clear order of ideas.</p></article>
+        </section>
+        <section class="section">
+            <h2>How To Improve Speaking</h2>
+            <ul>
+                <li>Read aloud for a few minutes every day.</li>
+                <li>Practice introducing yourself clearly and politely.</li>
+                <li>Use short and correct sentences before trying difficult ones.</li>
+                <li>Listen to good English and repeat the pronunciation.</li>
+            </ul>
+        </section>
+        <section class="section">
+            <h2>Writing Better Answers</h2>
+            <ul>
+                <li>Start with a direct answer to the question.</li>
+                <li>Add one or two supporting points or examples.</li>
+                <li>Use linking words like because, however, first, and finally.</li>
+                <li>Always recheck spelling and punctuation.</li>
+            </ul>
+        </section>
+        <section class="section">
+            <h2>Daily Practice Tip</h2>
+            <p>Keep a small notebook for new words, useful phrases, and short writing practice. Small daily effort creates steady progress.</p>
+            <a class="cta" href="./../games/word-scramble.html">Build Vocabulary With a Game</a>
+        </section>
+    </main>
+</body>
+</html>

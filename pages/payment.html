@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EduFun Payment</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./../css/storefront.css" />
+    <script>
+      (function () {
+        const marker = "/pages/";
+        const path = window.location.pathname;
+        const root = path.includes(marker) ? path.split(marker)[0] + "/" : path.substring(0, path.lastIndexOf("/") + 1);
+
+        const navScript = document.createElement("script");
+        navScript.src = root + "js/site-navigation.js";
+        navScript.defer = true;
+        document.head.appendChild(navScript);
+
+        const storeScript = document.createElement("script");
+        storeScript.src = root + "js/storefront.js";
+        storeScript.defer = true;
+        document.head.appendChild(storeScript);
+      })();
+    </script>
+</head>
+<body class="payment-page">
+    <main class="store-shell">
+        <div class="topbar">
+            <a class="return-link" href="./../index.html"><- Continue shopping</a>
+            <div class="topbar-actions">
+                <div class="cart-pill">
+                    <span>Items</span>
+                    <strong data-cart-count>0</strong>
+                </div>
+                <div class="cart-pill">
+                    <span>Total</span>
+                    <strong data-cart-total>Rs 0</strong>
+                </div>
+            </div>
+        </div>
+
+        <section class="store-hero">
+            <div class="hero-eyebrow">Secure checkout</div>
+            <h1>Payment built into the full EduFun shopping flow.</h1>
+            <p>Review your cart, confirm delivery details, choose a payment method, and place the order in one clean step. Discounts earned from the spin wheel are automatically applied here.</p>
+            <div class="hero-meta">
+                <article class="hero-meta-card"><span>Protected step</span><strong>Cart summary locked</strong></article>
+                <article class="hero-meta-card"><span>Fast checkout</span><strong>One page form</strong></article>
+                <article class="hero-meta-card"><span>Payment choices</span><strong>Card, UPI, COD</strong></article>
+            </div>
+        </section>
+
+        <section class="payment-layout">
+            <article class="payment-card">
+                <h2>Customer And Payment Details</h2>
+                <p class="panel-copy">Complete the information below to finish the purchase. This flow keeps the summary visible while you fill out the form so there are no surprises at the last step.</p>
+                <form class="payment-form" data-payment-form>
+                    <div class="form-grid">
+                        <div class="field">
+                            <label for="customerName">Full name</label>
+                            <input id="customerName" name="customerName" type="text" placeholder="Enter your full name" required />
+                        </div>
+                        <div class="field">
+                            <label for="email">Email address</label>
+                            <input id="email" name="email" type="email" placeholder="name@example.com" required />
+                        </div>
+                        <div class="field">
+                            <label for="phone">Phone number</label>
+                            <input id="phone" name="phone" type="tel" placeholder="+91 98765 43210" required />
+                        </div>
+                        <div class="field">
+                            <label for="city">City</label>
+                            <input id="city" name="city" type="text" placeholder="Pune" />
+                        </div>
+                        <div class="field full">
+                            <label for="address">Delivery address</label>
+                            <textarea id="address" name="address" placeholder="House number, street, landmark, area, and pin code" required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="field full">
+                        <label>Payment method</label>
+                        <div class="method-grid">
+                            <label class="method-option"><input type="radio" name="paymentMethod" value="card" checked /><span>Debit or credit card</span></label>
+                            <label class="method-option"><input type="radio" name="paymentMethod" value="upi" /><span>UPI payment</span></label>
+                            <label class="method-option"><input type="radio" name="paymentMethod" value="cod" /><span>Cash on delivery</span></label>
+                        </div>
+                    </div>
+
+                    <div class="form-grid" data-card-fields>
+                        <div class="field full">
+                            <label for="cardNumber">Card number</label>
+                            <input id="cardNumber" name="cardNumber" type="text" inputmode="numeric" placeholder="1234 5678 9012 3456" />
+                        </div>
+                        <div class="field">
+                            <label for="expiry">Expiry date</label>
+                            <input id="expiry" name="expiry" type="text" placeholder="MM/YY" />
+                        </div>
+                        <div class="field">
+                            <label for="cvv">CVV</label>
+                            <input id="cvv" name="cvv" type="password" inputmode="numeric" placeholder="123" />
+                        </div>
+                    </div>
+
+                    <div class="field full" data-upi-field hidden>
+                        <label for="upiId">UPI ID</label>
+                        <input id="upiId" name="upiId" type="text" placeholder="name@bank" />
+                    </div>
+
+                    <div class="button-row">
+                        <button class="sf-btn" type="submit">Pay Now</button>
+                        <a class="sf-btn-ghost" href="./../index.html">Back To Home</a>
+                    </div>
+                </form>
+            </article>
+
+            <aside class="summary-card">
+                <div class="summary-panel">
+                    <h3>Order Summary</h3>
+                    <p class="panel-copy">Everything in your cart is listed here. Remove items from any storefront page if you want to update the order before payment.</p>
+                    <p class="promo-banner" data-cart-promo hidden></p>
+                    <div class="cart-items" data-cart-items></div>
+                    <div class="summary-stack" style="margin-top: 18px;">
+                        <div class="summary-row"><span>Subtotal</span><strong data-cart-subtotal>Rs 0</strong></div>
+                        <div class="summary-row"><span>Discount</span><strong data-cart-discount>Rs 0</strong></div>
+                        <div class="summary-row total"><span>Total payable</span><strong data-cart-total>Rs 0</strong></div>
+                    </div>
+                    <p class="summary-note" style="margin-top: 18px;">Orders placed here clear the shared EduFun cart and open a confirmation page with your final receipt details.</p>
+                </div>
+            </aside>
+        </section>
+    </main>
+</body>
+</html>

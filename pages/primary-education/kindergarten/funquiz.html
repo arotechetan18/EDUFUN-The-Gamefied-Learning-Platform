@@ -216,6 +216,21 @@
             .exit .material-symbols-outlined { font-size: 20px; }
         }
     </style>
+    <script>
+      (function () {
+        const marker = "/pages/";
+        const path = window.location.pathname;
+        const root = path.includes(marker) ? path.split(marker)[0] + "/" : path.substring(0, path.lastIndexOf("/") + 1);
+        const scoreScript = document.createElement("script");
+        scoreScript.src = root + "js/score-manager.js";
+        scoreScript.defer = true;
+        document.head.appendChild(scoreScript);
+        const script = document.createElement("script");
+        script.src = root + "js/site-navigation.js";
+        script.defer = true;
+        document.head.appendChild(script);
+      })();
+    </script>
 </head>
 <body>
     <a href="./../.././primary-education/kindergarten/kindergarden.html">
@@ -282,6 +297,16 @@
                 document.getElementById("fruitBtn").classList.remove('correct-feedback', 'incorrect-feedback');
                 document.getElementById("vegetableBtn").classList.remove('correct-feedback', 'incorrect-feedback');
             } else {
+                if (window.EduFunScores) {
+                    window.EduFunScores.saveScore({
+                        id: "kindergarten-funquiz",
+                        title: "Fruit or Vegetable Quiz",
+                        category: "Primary Education",
+                        score: score,
+                        total: totalQuestions,
+                        path: window.location.pathname
+                    });
+                }
                 // Quiz end screen
                 progressElement.style.width = '100%';
                 quizContainer.innerHTML = `
@@ -344,8 +369,7 @@
         }
 
         function confirmExit() {
-            let exitConfirm = confirm("Are you sure you want to exit the quiz?");
-            return exitConfirm; 
+            return true;
         }
 
         // Initialize the quiz on load
@@ -353,3 +377,5 @@
     </script>
 </body>
 </html>
+
+

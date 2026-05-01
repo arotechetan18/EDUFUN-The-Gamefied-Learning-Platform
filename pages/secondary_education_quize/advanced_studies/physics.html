@@ -1,377 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>12th Standard Physics Formula Quiz</title>
-    <!-- Importing Poppins Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-color: #5d06b8; /* Deep Violet */
-            --secondary-color: #ff9800; /* Orange Accent */
-            --background-start: #667eea;
-            --background-end: #764ba2;
-            --text-color: #ffffff;
-            --container-bg: rgba(255, 255, 255, 0.1); /* Frosted Glass Base */
-            --shadow-deep: 0 15px 30px rgba(0, 0, 0, 0.4);
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            text-align: center;
-            background: linear-gradient(135deg, var(--background-start), var(--background-end));
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* --- Exit Button Styling --- */
-        .exit {
-            background-color: #e53e3e; 
-            border: 2px solid var(--text-color);
-            height: 40px;
-            width: 80px;
-            font-size: 16px;
-            font-weight: 600;
-            position: absolute;
-            left: 20px;
-            top: 20px;
-            color: var(--text-color);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 0 #9b2c2c; /* 3D effect */
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-        }
-        
-        .exit:active {
-            box-shadow: 0 1px 0 #9b2c2c;
-            transform: translateY(4px);
-        }
-        
-        .exit:hover {
-            background-color: #c53030;
-        }
-
-        /* --- Quiz Container Styling --- */
-        .quiz-container {
-            width: 90%;
-            max-width: 550px; 
-            margin: 20px auto;
-            background: var(--container-bg);
-            backdrop-filter: blur(12px); 
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 40px 30px; 
-            border-radius: 18px;
-            box-shadow: var(--shadow-deep);
-        }
-        
-        h2 {
-            font-weight: 700;
-            margin-bottom: 25px;
-            font-size: 2rem;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .question {
-            font-size: 1.35rem;
-            margin-bottom: 25px;
-            font-weight: 600;
-            line-height: 1.6;
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.25);
-            border-radius: 10px;
-        }
-
-        /* --- Options Button Styling --- */
-        .options button {
-            display: block;
-            width: 100%;
-            margin: 12px 0;
-            padding: 16px;
-            font-size: 1.15rem;
-            border: none;
-            cursor: pointer;
-            background: var(--secondary-color);
-            color: var(--text-color);
-            border-radius: 10px;
-            transition: all 0.2s ease-in-out;
-            font-weight: 600;
-            box-shadow: 0 4px 0 #cc7a00; /* 3D effect */
-        }
-
-        .options button:active:not(.disabled button) {
-            box-shadow: 0 1px 0 #cc7a00;
-            transform: translateY(3px);
-        }
-
-        .options button:hover:not(.disabled button) {
-            background: #e68900;
-            transform: scale(1.01);
-        }
-        
-        .options.disabled button {
-            pointer-events: none; /* Disable click events after selection */
-            cursor: default;
-        }
-
-        /* --- Timer Bar Styling (Animated Feature) --- */
-        #timer-container {
-            margin-bottom: 30px;
-            padding: 10px 0;
-        }
-        #timer-text {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-            color: #ffeb3b; 
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-        }
-        #time-bar-bg {
-            width: 100%;
-            height: 12px;
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 6px;
-            overflow: hidden;
-            box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.5); 
-        }
-        #time-bar {
-            height: 100%;
-            width: 100%;
-            background: linear-gradient(90deg, #4caf50, #ffeb3b);
-            transition: width 1s linear, background 0.5s ease-in-out; 
-            border-radius: 6px;
-            transform-origin: left;
-        }
-        
-        #result {
-            font-size: 1.4rem;
-            margin-top: 25px;
-            padding: 12px;
-            border-radius: 10px;
-            font-weight: 700;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-        }
-        
-        /* --- Next/Restart Button Styling --- */
-        #next-btn, #restart-btn {
-            padding: 15px 30px;
-            font-size: 1.2rem;
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            margin-top: 25px;
-            transition: background 0.3s, transform 0.3s;
-            display: block;
-            width: 180px;
-            margin-left: auto;
-            margin-right: auto;
-            box-shadow: 0 5px 0 #3b0472; 
-        }
-        
-        #next-btn:active, #restart-btn:active {
-            box-shadow: 0 1px 0 #3b0472;
-            transform: translateY(4px);
-        }
-        
-        #next-btn:hover, #restart-btn:hover {
-            background: #47048f;
-        }
-
-        /* Correct/Wrong Feedback Colors */
-        .correct {
-            background: #4caf50 !important; /* Green */
-            box-shadow: 0 0 20px rgba(76, 175, 80, 1) !important;
-        }
-
-        .wrong {
-            background: #f44336 !important; /* Red */
-            box-shadow: 0 0 20px rgba(244, 67, 54, 1) !important;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Physics Quiz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+    body { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 18px; background: linear-gradient(135deg, #e0e7ff, #ede9fe, #eff6ff); color: #312e81; }
+    .quiz-shell { width: min(100%, 860px); background: rgba(255,255,255,0.96); border-radius: 28px; box-shadow: 0 18px 42px rgba(99, 102, 241, 0.16); padding: 24px; }
+    .quiz-head { margin-bottom: 18px; }
+    .quiz-head h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); color: #5b21b6; margin-bottom: 8px; }
+    .quiz-head p { color: #475569; line-height: 1.7; }
+    .status-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin: 18px 0; }
+    .status-card { background: #f8fafc; border: 1px solid #dbeafe; border-radius: 18px; padding: 14px; text-align: center; }
+    .status-card span { display: block; color: #64748b; font-size: 0.9rem; margin-bottom: 6px; }
+    .status-card strong { color: #312e81; font-size: 1.25rem; }
+    .question-card { background: #faf5ff; border: 1px solid #ddd6fe; border-radius: 20px; padding: 22px; }
+    .question-card h2 { font-size: 1.25rem; line-height: 1.7; color: #312e81; margin-bottom: 16px; }
+    .options { display: grid; gap: 12px; }
+    .option { width: 100%; text-align: left; padding: 14px 16px; border-radius: 14px; border: 2px solid #d8b4fe; background: white; color: #312e81; cursor: pointer; font-size: 1rem; }
+    .option:hover:not(:disabled) { background: #f5f3ff; }
+    .option.correct { background: #dcfce7; border-color: #16a34a; color: #166534; }
+    .option.incorrect { background: #fee2e2; border-color: #dc2626; color: #991b1b; }
+    .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+    .btn, .link-btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 18px; border-radius: 999px; font-weight: 600; text-decoration: none; border: none; cursor: pointer; }
+    .btn.primary { background: linear-gradient(90deg, #5b21b6, #7c3aed); color: white; }
+    .link-btn { background: #dcfce7; color: #166534; }
+    .message { min-height: 28px; margin-top: 14px; font-weight: 600; }
+    .result.hidden, .play-area.hidden { display: none; }
+    .result { text-align: center; padding: 28px 10px 12px; }
+    .result h2 { color: #5b21b6; font-size: 2rem; margin-bottom: 10px; }
+    .result p { color: #475569; margin-bottom: 16px; }
+  </style>
+  <script>
+    (function () {
+      const marker = '/pages/';
+      const path = window.location.pathname;
+      const root = path.includes(marker) ? path.split(marker)[0] + '/' : path.substring(0, path.lastIndexOf('/') + 1);
+      const scoreScript = document.createElement('script');
+      scoreScript.src = root + 'js/score-manager.js';
+      scoreScript.defer = true;
+      document.head.appendChild(scoreScript);
+      const navScript = document.createElement('script');
+      navScript.src = root + 'js/site-navigation.js';
+      navScript.defer = true;
+      document.head.appendChild(navScript);
+    })();
+  </script>
 </head>
-<body>
-    
-    <a href="./../secondary_education.html" class="exit">Exit</a>
-
-    <div class="quiz-container">
-        <h2>12th Standard Physics Formula Quiz</h2>
-        <div id="quiz">
-            <div id="timer-container">
-                <p id="timer-text">Time Left: 30s</p>
-                <div id="time-bar-bg"><div id="time-bar"></div></div>
-            </div>
-            
-            <p class="question" id="question-text"></p>
-            <div class="options" id="options"></div>
-            <p id="result"></p>
-            <button onclick="nextQuestion()" style="display:none;" id="next-btn">Next Question</button>
+<body>  <main class="quiz-shell">
+    <section class="play-area" id="play-area">
+      <div class="quiz-head">
+        <h1>Physics Quiz</h1>
+        <p>Test motion, force, electricity, and energy ideas with a cleaner advanced-studies quiz experience.</p>
+      </div>
+      <div class="status-grid">
+        <div class="status-card"><span>Question</span><strong id="question-count">1 / 5</strong></div>
+        <div class="status-card"><span>Score</span><strong id="score-count">0</strong></div>
+        <div class="status-card"><span>Time Left</span><strong id="timer-count">30s</strong></div>
+      </div>
+      <section class="question-card">
+        <h2 id="question-text">Loading...</h2>
+        <div id="options" class="options"></div>
+        <div id="message-box" class="message"></div>
+        <div class="actions">
+          <button type="button" class="btn primary" id="next-btn" style="display:none;">Next</button>
+          <a class="link-btn" href="./../../../../account.html">View Profile</a>
         </div>
-    </div>
-
-    <script>
-        // Helper function to render LaTeX-style math for clean, italic display
-        function formatMath(text) {
-            // Replaces $...$ with <span> for italic math font display
-            return text.replace(/\$(.*?)\$/g, (match, p1) => `<span style="font-family: Georgia, serif; font-style: italic;">${p1}</span>`);
+      </section>
+    </section>
+    <section class="result hidden" id="result-screen">
+      <h2>Quiz Complete</h2>
+      <p id="result-summary"></p>
+      <div class="actions" style="justify-content:center;">
+        <button type="button" class="btn primary" id="restart-btn">Play Again</button>
+        <a class="link-btn" href="./../../../../account.html">Open Profile</a>
+      </div>
+    </section>
+  </main>
+  <script>
+    const quizData = [{"question":"What is the SI unit of force?","options":["Joule","Newton","Watt","Pascal"],"answer":1},{"question":"Speed with direction is called what?","options":["Velocity","Mass","Energy","Density"],"answer":0},{"question":"What is the unit of electric current?","options":["Volt","Ohm","Ampere","Tesla"],"answer":2},{"question":"Which law explains force equals mass times acceleration?","options":["Newton\;
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let timeLeft = 30;
+    let timerInterval = null;
+    let hasSavedScore = false;
+    const playArea = document.getElementById('play-area');
+    const resultScreen = document.getElementById('result-screen');
+    const questionText = document.getElementById('question-text');
+    const questionCount = document.getElementById('question-count');
+    const scoreCount = document.getElementById('score-count');
+    const timerCount = document.getElementById('timer-count');
+    const options = document.getElementById('options');
+    const nextBtn = document.getElementById('next-btn');
+    const messageBox = document.getElementById('message-box');
+    const resultSummary = document.getElementById('result-summary');
+    const restartBtn = document.getElementById('restart-btn');
+    function startTimer() {
+      clearInterval(timerInterval);
+      timeLeft = 30;
+      timerCount.textContent = timeLeft + 's';
+      timerInterval = setInterval(function () {
+        timeLeft -= 1;
+        timerCount.textContent = timeLeft + 's';
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          document.querySelectorAll('.option').forEach(function (button) { button.disabled = true; });
+          messageBox.textContent = 'Time is up for this question.';
+          nextBtn.style.display = 'inline-flex';
         }
-
-        // Questions updated to use clean math notation
-        const questions = [
-            { question: "What is Newton's Second Law of Motion?", options: ["$F = ma$", "$E = mc^2$", "$v = u + at$", "$P = IV$"], correct: "$F = ma$" },
-            { question: "What is the formula for Gravitational Force?", options: ["$F = \\frac{Gm_1m_2}{r^2}$", "$F = ma$", "$E = mc^2$", "$P = IV$"], correct: "$F = \\frac{Gm_1m_2}{r^2}$" },
-            { question: "What is the formula for Work Done?", options: ["$W = Fd \\cos\\theta$", "$P = IV$", "$F = ma$", "$KE = \\frac{1}{2} mv^2$"], correct: "$W = Fd \\cos\\theta$" },
-            { question: "What is the equation for Ohm's Law?", options: ["$V = IR$", "$P = IV$", "$F = ma$", "$W = Fx$"], correct: "$V = IR$" },
-            { question: "What is the formula for Power (in terms of Work and Time)?", options: ["$P = \\frac{W}{t}$", "$P = IV$", "$F = ma$", "$V = IR$"], correct: "$P = \\frac{W}{t}$" }
-        ];
-        
-        const MAX_TIME = 30;
-        let currentQuestionIndex = 0;
-        let timeLeft = MAX_TIME;
-        let timer;
-        let score = 0;
-
-        function startTimer() {
-            timeLeft = MAX_TIME;
-            document.getElementById("timer-text").innerText = `Time Left: ${timeLeft}s`;
-            
-            const timeBar = document.getElementById("time-bar");
-            
-            // 1. Reset the bar state visually and instantly
-            timeBar.style.transition = 'none'; 
-            timeBar.style.width = '100%';
-            timeBar.style.background = 'linear-gradient(90deg, #4caf50, #ffeb3b)';
-
-            // 2. Re-enable transition for smooth animation
-            setTimeout(() => {
-                timeBar.style.transition = 'width 1s linear, background 0.5s ease-in-out';
-            }, 10);
-
-            timer = setInterval(() => {
-                timeLeft--;
-                document.getElementById("timer-text").innerText = `Time Left: ${timeLeft}s`;
-
-                const percentage = (timeLeft / MAX_TIME) * 100;
-                timeBar.style.width = `${percentage}%`;
-
-                // Dynamic color change logic: Green -> Yellow/Orange -> Red
-                if (timeLeft <= 10) {
-                    timeBar.style.background = '#f44336'; 
-                } else if (timeLeft <= 20) {
-                    timeBar.style.background = 'linear-gradient(90deg, #ff9800, #ffeb3b)'; 
-                } else {
-                    timeBar.style.background = 'linear-gradient(90deg, #4caf50, #ffeb3b)'; 
-                }
-
-                if (timeLeft === 0) {
-                    clearInterval(timer);
-                    checkAnswer(null); // Time's up
-                }
-            }, 1000);
-        }
-
-        function loadQuestion() {
-            if (currentQuestionIndex >= questions.length) {
-                showResults();
-                return;
-            }
-
-            clearInterval(timer);
-            startTimer();
-            
-            let q = questions[currentQuestionIndex];
-            
-            // Apply formatting to question text
-            document.getElementById("question-text").innerHTML = formatMath(q.question);
-            
-            let optionsDiv = document.getElementById("options");
-            optionsDiv.innerHTML = "";
-            optionsDiv.classList.remove('disabled'); 
-            document.getElementById("result").innerText = "";
-            document.getElementById("next-btn").style.display = "none";
-            
-            q.options.forEach(option => {
-                let btn = document.createElement("button");
-                // Apply formatting to option text
-                btn.innerHTML = formatMath(option); 
-                btn.onclick = () => checkAnswer(option);
-                optionsDiv.appendChild(btn);
-            });
-        }
-
-        function checkAnswer(selected) {
-            clearInterval(timer);
-            
-            let resultText = document.getElementById("result");
-            let nextBtn = document.getElementById("next-btn");
-            let optionsDiv = document.getElementById("options");
-            
-            optionsDiv.classList.add('disabled'); // Disable options
-            nextBtn.style.display = "block";
-
-            let isCorrect = false;
-            Array.from(optionsDiv.children).forEach(button => {
-                // Get the clean text value for comparison (remove HTML and math formatting)
-                const cleanButtonValue = button.textContent.trim();
-                const cleanCorrectValue = questions[currentQuestionIndex].correct.replace(/[\$\\]/g, '').trim();
-
-                // Highlight the correct answer
-                if (cleanButtonValue === cleanCorrectValue) {
-                    button.classList.add('correct');
-                }
-
-                // Check and highlight the selected answer
-                if (selected !== null && cleanButtonValue === selected.replace(/[\$\\]/g, '').trim()) {
-                    if (selected === questions[currentQuestionIndex].correct) {
-                        isCorrect = true;
-                    } else {
-                        button.classList.add('wrong');
-                    }
-                }
-            });
-            
-            if (isCorrect) {
-                resultText.innerHTML = "Correct! ✅";
-                resultText.style.color = "#4caf50";
-                score++;
-            } else if (selected === null) {
-                resultText.innerHTML = `Time's Up! ⏱️. The correct answer is: ${formatMath(questions[currentQuestionIndex].correct)}`;
-                resultText.style.color = "#f44336";
-            } else {
-                resultText.innerHTML = `Wrong! ❌. The correct answer is: ${formatMath(questions[currentQuestionIndex].correct)}`;
-                resultText.style.color = "#f44336";
-            }
-        }
-
-        function nextQuestion() {
-            currentQuestionIndex++;
-            loadQuestion();
-        }
-        
-        function showResults() {
-            document.getElementById("quiz").innerHTML = `
-                <h3 style="font-size: 2.2rem; color: #ffeb3b; margin-bottom: 30px;">Quiz Completed! 🎉</h3>
-                <p style="font-size: 1.6rem;">Your Final Score:</p>
-                <p style="font-size: 3rem; font-weight: 800; color: #4caf50;">${score} / ${questions.length}</p>
-                <p style="font-size: 1.3rem; margin-top: 30px;">Keep practicing to master these Physics formulas!</p>
-                <button onclick="window.location.reload()" id="restart-btn" style="background-color: #4caf50; margin-top: 40px;">Restart Quiz</button>
-            `;
-        }
-
-        // Initialize quiz
+      }, 1000);
+    }
+    function loadQuestion() {
+      const current = quizData[currentQuestionIndex];
+      questionText.textContent = current.question;
+      questionCount.textContent = (currentQuestionIndex + 1) + ' / ' + quizData.length;
+      scoreCount.textContent = score;
+      options.innerHTML = '';
+      nextBtn.style.display = 'none';
+      messageBox.textContent = '';
+      current.options.forEach(function (option, index) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'option';
+        button.textContent = option;
+        button.addEventListener('click', function () {
+          handleAnswer(button, index);
+        });
+        options.appendChild(button);
+      });
+      startTimer();
+    }
+    function handleAnswer(button, index) {
+      clearInterval(timerInterval);
+      const correctIndex = quizData[currentQuestionIndex].answer;
+      document.querySelectorAll('.option').forEach(function (item) { item.disabled = true; });
+      if (index === correctIndex) {
+        score += 1;
+        button.classList.add('correct');
+        messageBox.textContent = 'Correct answer.';
+      } else {
+        button.classList.add('incorrect');
+        document.querySelectorAll('.option')[correctIndex].classList.add('correct');
+        messageBox.textContent = 'Review the highlighted correct answer.';
+      }
+      scoreCount.textContent = score;
+      nextBtn.style.display = 'inline-flex';
+    }
+    function finishQuiz() {
+      clearInterval(timerInterval);
+      playArea.classList.add('hidden');
+      resultScreen.classList.remove('hidden');
+      resultSummary.textContent = 'Your final score is ' + score + ' / ' + quizData.length + '.';
+      if (!hasSavedScore && window.EduFunScores) {
+        window.EduFunScores.saveScore({
+          id: 'advanced-physics-quiz',
+          title: 'Physics Quiz',
+          category: 'Advanced Studies',
+          score: score,
+          total: quizData.length,
+          path: window.location.pathname
+        });
+        hasSavedScore = true;
+      }
+    }
+    function nextQuestion() {
+      currentQuestionIndex += 1;
+      if (currentQuestionIndex < quizData.length) {
         loadQuestion();
-    </script>
+      } else {
+        finishQuiz();
+      }
+    }
+    function restartQuiz() {
+      currentQuestionIndex = 0;
+      score = 0;
+      hasSavedScore = false;
+      playArea.classList.remove('hidden');
+      resultScreen.classList.add('hidden');
+      loadQuestion();
+    }
+    nextBtn.addEventListener('click', nextQuestion);
+    restartBtn.addEventListener('click', restartQuiz);
+    document.addEventListener('DOMContentLoaded', loadQuestion);
+  </script>
 </body>
 </html>
+

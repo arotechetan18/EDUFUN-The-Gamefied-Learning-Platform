@@ -46,11 +46,26 @@
             --tw-incorrect-red: #f43f5e;
         }
     </style>
+    <script>
+      (function () {
+        const marker = "/pages/";
+        const path = window.location.pathname;
+        const root = path.includes(marker) ? path.split(marker)[0] + "/" : path.substring(0, path.lastIndexOf("/") + 1);
+        const scoreScript = document.createElement("script");
+        scoreScript.src = root + "js/score-manager.js";
+        scoreScript.defer = true;
+        document.head.appendChild(scoreScript);
+        const script = document.createElement("script");
+        script.src = root + "js/site-navigation.js";
+        script.defer = true;
+        document.head.appendChild(script);
+      })();
+    </script>
 </head>
 <body class="flex justify-center items-center min-h-screen p-4">
 
     <!-- Exit Button (Stylized and positioned using Tailwind) -->
-    <a href="./../secondary_education.html" class="absolute top-4 left-4">
+        <a href="./../junior_secondary_studies.html" class="absolute top-4 left-4">
         <button class="px-4 py-2 bg-rose-600 text-white font-semibold rounded-lg shadow-lg hover:bg-rose-700 transition duration-200 border-2 border-white">
             Exit
         </button>
@@ -173,6 +188,16 @@
                 loadQuestion();
             } else {
                 // Quiz finished - display final score
+                if (window.EduFunScores) {
+                    window.EduFunScores.saveScore({
+                        id: "junior-gk-quiz",
+                        title: "GK Quiz",
+                        category: "Junior Secondary Studies",
+                        score: score,
+                        total: quizData.length,
+                        path: window.location.pathname
+                    });
+                }
                 const resultText = document.getElementById("result");
                 resultText.innerText = `Quiz Over! Your Final Score: ${score}/${quizData.length}`;
                 resultText.classList.add('text-primary-indigo');
@@ -201,3 +226,4 @@
     </script>
 </body>
 </html>
+

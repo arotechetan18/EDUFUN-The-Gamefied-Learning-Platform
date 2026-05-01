@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Memory Match | EduFun</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Poppins", sans-serif; }
+        body { min-height: 100vh; background: linear-gradient(135deg, #fef3c7, #fde68a, #fae8ff); color: #422006; padding: 18px; display: flex; align-items: center; justify-content: center; }
+        .shell { width: min(100%, 1040px); display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 22px; }
+        .panel { background: rgba(255,255,255,0.96); border-radius: 26px; padding: 24px; box-shadow: 0 18px 40px rgba(146,64,14,0.15); border: 1px solid #fde68a; }
+        .hero h1 { font-size: clamp(2rem, 4vw, 3rem); color: #b45309; margin-bottom: 10px; }
+        .hero p { color: #6b7280; line-height: 1.8; }
+        .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 20px 0; }
+        .stat { background: #fffbeb; border-radius: 18px; padding: 14px; text-align: center; border: 1px solid #fde68a; }
+        .stat span { display: block; font-size: 0.88rem; color: #78716c; margin-bottom: 6px; }
+        .stat strong { font-size: 1.3rem; color: #92400e; }
+        .board { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+        .card { aspect-ratio: 1 / 1; border: none; border-radius: 18px; background: linear-gradient(135deg, #f59e0b, #f97316); color: #fff; font-size: 0.95rem; font-weight: 700; cursor: pointer; padding: 12px; box-shadow: 0 10px 18px rgba(217,119,6,0.18); }
+        .card.revealed, .card.matched { background: #fff7ed; color: #9a3412; border: 2px solid #fdba74; }
+        .card.matched { background: #dcfce7; border-color: #4ade80; color: #166534; cursor: default; }
+        .button-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+        button, .link-btn { border: none; border-radius: 999px; padding: 12px 18px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; }
+        .primary-btn { background: linear-gradient(90deg, #f59e0b, #f97316); color: #fff; }
+        .secondary-btn { background: #ffedd5; color: #9a3412; }
+        .link-btn { background: #ede9fe; color: #5b21b6; }
+        .message { min-height: 28px; margin-top: 14px; font-weight: 600; color: #166534; }
+        .history { display: grid; gap: 12px; margin-top: 18px; }
+        .history-item { background: #fff7ed; border: 1px solid #fed7aa; border-radius: 16px; padding: 14px; }
+        .result-box { display: none; text-align: center; margin-top: 18px; }
+        .result-box.active { display: block; }
+        @media (max-width: 860px) { .shell { grid-template-columns: 1fr; } }
+        @media (max-width: 560px) { .board { grid-template-columns: repeat(2, 1fr); } .stats { grid-template-columns: 1fr; } }
+    </style>
+    <script>
+      (function () {
+        const marker = "/pages/";
+        const path = window.location.pathname;
+        const root = path.includes(marker) ? path.split(marker)[0] + "/" : path.substring(0, path.lastIndexOf("/") + 1);
+        const scoreScript = document.createElement("script");
+        scoreScript.src = root + "js/score-manager.js";
+        scoreScript.defer = true;
+        document.head.appendChild(scoreScript);
+        const navScript = document.createElement("script");
+        navScript.src = root + "js/site-navigation.js";
+        navScript.defer = true;
+        document.head.appendChild(navScript);
+      })();
+    </script>
+</head>
+<body>
+    <main class="shell">
+        <section class="panel">
+            <div class="hero">
+                <h1>Memory Match</h1>
+                <p>Flip cards, find matching learning pairs, and improve topic recognition through a short visual memory challenge. It is simple, fast, and built for repeat practice.</p>
+            </div>
+            <div class="stats">
+                <div class="stat"><span>Moves</span><strong id="moves-text">0</strong></div>
+                <div class="stat"><span>Matches</span><strong id="matches-text">0 / 4</strong></div>
+                <div class="stat"><span>Best Goal</span><strong>8 Moves</strong></div>
+            </div>
+            <div id="board" class="board"></div>
+            <div id="message-box" class="message"></div>
+            <div class="button-row">
+                <button class="primary-btn" id="restart-btn" type="button">Restart Game</button>
+                <a class="link-btn" href="./math-sprint.html">Try Math Sprint</a>
+            </div>
+            <div id="result-box" class="result-box">
+                <h2 style="font-size:2rem; color:#b45309; margin-bottom:10px;">Board Cleared</h2>
+                <p id="final-text" style="color:#6b7280; margin-bottom:14px;">You finished the game.</p>
+                <a class="link-btn" href="./../account.html">Open Profile</a>
+            </div>
+        </section>
+        <aside class="panel">
+            <h2 style="color:#b45309; margin-bottom:10px;">Learning Pairs</h2>
+            <p style="color:#6b7280; line-height:1.75;">The game uses simple learning pairs so players connect terms with their matching concept. This turns the game into quick subject revision.</p>
+            <div id="history-list" class="history"></div>
+        </aside>
+    </main>
+
+    <script>
+        const pairs = [
+            { label: "Cell", match: "Life Unit" },
+            { label: "Budget", match: "Finance Plan" },
+            { label: "Router", match: "Network Device" },
+            { label: "Rights", match: "Constitution" }
+        ];
+
+        let deck = [];
+        let revealed = [];
+        let moves = 0;
+        let matches = 0;
+        let lockBoard = false;
+
+        const board = document.getElementById("board");
+        const movesText = document.getElementById("moves-text");
+        const matchesText = document.getElementById("matches-text");
+        const messageBox = document.getElementById("message-box");
+        const resultBox = document.getElementById("result-box");
+        const finalText = document.getElementById("final-text");
+        const historyList = document.getElementById("history-list");
+
+        function shuffle(list) {
+            const clone = list.slice();
+            for (let i = clone.length - 1; i > 0; i -= 1) {
+                const j = Math.floor(Math.random() * (i + 1));
+                const temp = clone[i];
+                clone[i] = clone[j];
+                clone[j] = temp;
+            }
+            return clone;
+        }
+
+        function buildDeck() {
+            deck = shuffle(pairs.flatMap(function (pair, index) {
+                return [
+                    { id: `${index}-a`, pairId: index, text: pair.label, revealed: false, matched: false },
+                    { id: `${index}-b`, pairId: index, text: pair.match, revealed: false, matched: false }
+                ];
+            }));
+        }
+
+        function renderBoard() {
+            board.innerHTML = deck.map(function (card, index) {
+                const classes = ["card"];
+                if (card.revealed) classes.push("revealed");
+                if (card.matched) classes.push("matched");
+                return `<button class="${classes.join(" ")}" type="button" data-index="${index}">${card.revealed || card.matched ? card.text : "?"}</button>`;
+            }).join("");
+            board.querySelectorAll(".card").forEach(function (button) {
+                button.addEventListener("click", function () {
+                    revealCard(Number(button.getAttribute("data-index")));
+                });
+            });
+            movesText.textContent = moves;
+            matchesText.textContent = `${matches} / ${pairs.length}`;
+        }
+
+        function revealCard(index) {
+            const card = deck[index];
+            if (lockBoard || card.matched || card.revealed) {
+                return;
+            }
+
+            card.revealed = true;
+            revealed.push(index);
+            renderBoard();
+
+            if (revealed.length < 2) {
+                return;
+            }
+
+            moves += 1;
+            const first = deck[revealed[0]];
+            const second = deck[revealed[1]];
+            lockBoard = true;
+
+            if (first.pairId === second.pairId) {
+                first.matched = true;
+                second.matched = true;
+                matches += 1;
+                messageBox.textContent = "Match found. Great memory.";
+                revealed = [];
+                lockBoard = false;
+                renderBoard();
+                if (matches === pairs.length) {
+                    finishGame();
+                }
+            } else {
+                messageBox.textContent = "Not a match. Try again.";
+                setTimeout(function () {
+                    first.revealed = false;
+                    second.revealed = false;
+                    revealed = [];
+                    lockBoard = false;
+                    renderBoard();
+                }, 700);
+            }
+        }
+
+        function finishGame() {
+            resultBox.classList.add("active");
+            finalText.textContent = `You completed all matches in ${moves} moves.`;
+            if (window.EduFunScores) {
+                const score = Math.max(0, 12 - moves);
+                window.EduFunScores.saveScore({
+                    id: "memory-match-game",
+                    title: "Memory Match",
+                    category: "Interactive Games",
+                    score: score,
+                    total: 12,
+                    path: window.location.pathname
+                });
+            }
+            renderHistory();
+        }
+
+        function restartGame() {
+            revealed = [];
+            moves = 0;
+            matches = 0;
+            lockBoard = false;
+            resultBox.classList.remove("active");
+            messageBox.textContent = "";
+            buildDeck();
+            renderBoard();
+        }
+
+        function renderHistory() {
+            if (!window.EduFunScores) {
+                historyList.innerHTML = "<div class='history-item'>Play while signed in to keep Memory Match history.</div>";
+                return;
+            }
+            const history = window.EduFunScores.getUserScores().filter(function (entry) {
+                return entry.id === "memory-match-game";
+            }).slice(-5).reverse();
+            if (!history.length) {
+                historyList.innerHTML = "<div class='history-item'>No Memory Match attempts saved yet.</div>";
+                return;
+            }
+            historyList.innerHTML = history.map(function (entry) {
+                return `<div class="history-item"><strong>${entry.score} / ${entry.total}</strong><div style="color:#78716c; margin-top:6px;">${new Date(entry.playedAt).toLocaleDateString()}</div></div>`;
+            }).join("");
+        }
+
+        document.getElementById("restart-btn").addEventListener("click", restartGame);
+
+        restartGame();
+        renderHistory();
+    </script>
+</body>
+</html>

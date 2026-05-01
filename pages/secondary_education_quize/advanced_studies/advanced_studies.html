@@ -53,6 +53,17 @@
             box-shadow: 0 10px 20px rgba(79, 70, 229, 0.2);
         }
     </style>
+    <script>
+      (function () {
+        const marker = "/pages/";
+        const path = window.location.pathname;
+        const root = path.includes(marker) ? path.split(marker)[0] + "/" : path.substring(0, path.lastIndexOf("/") + 1);
+        const script = document.createElement("script");
+        script.src = root + "js/site-navigation.js";
+        script.defer = true;
+        document.head.appendChild(script);
+      })();
+    </script>
 </head>
 <body class="bg-bg-light min-h-screen text-gray-800 pb-20">
 
@@ -387,3 +398,4 @@
     </script>
 </body>
 </html>
+

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Science Quiz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+    body { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 18px; background: linear-gradient(135deg, #eef2ff, #f5f3ff, #eff6ff); color: #312e81; }
+    .quiz-shell { width: min(100%, 860px); background: rgba(255,255,255,0.96); border-radius: 28px; box-shadow: 0 18px 42px rgba(99, 102, 241, 0.16); padding: 24px; }
+    .quiz-head { display: flex; justify-content: space-between; gap: 14px; align-items: center; margin-bottom: 18px; flex-wrap: wrap; }
+    .quiz-head h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); color: #5b21b6; }
+    .quiz-head p { color: #475569; line-height: 1.7; max-width: 560px; }
+    .status-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin: 18px 0; }
+    .status-card { background: #f8fafc; border: 1px solid #dbeafe; border-radius: 18px; padding: 14px; text-align: center; }
+    .status-card span { display: block; color: #64748b; font-size: 0.9rem; margin-bottom: 6px; }
+    .status-card strong { color: #312e81; font-size: 1.25rem; }
+    .question-card { background: #faf5ff; border: 1px solid #ddd6fe; border-radius: 20px; padding: 22px; }
+    .question-card h2 { font-size: 1.25rem; line-height: 1.7; color: #312e81; margin-bottom: 16px; }
+    .options { display: grid; gap: 12px; }
+    .option { width: 100%; text-align: left; padding: 14px 16px; border-radius: 14px; border: 2px solid #d8b4fe; background: white; color: #312e81; cursor: pointer; font-size: 1rem; }
+    .option:hover:not(:disabled) { background: #f5f3ff; }
+    .option.correct { background: #dcfce7; border-color: #16a34a; color: #166534; }
+    .option.incorrect { background: #fee2e2; border-color: #dc2626; color: #991b1b; }
+    .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+    .btn, .link-btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 18px; border-radius: 999px; font-weight: 600; text-decoration: none; border: none; cursor: pointer; }
+    .btn.primary { background: linear-gradient(90deg, #5b21b6, #7c3aed); color: white; }
+    .link-btn { background: #dcfce7; color: #166534; }
+    .message { min-height: 28px; margin-top: 14px; font-weight: 600; }
+    .result.hidden, .play-area.hidden { display: none; }
+    .result { text-align: center; padding: 28px 10px 12px; }
+    .result h2 { color: #5b21b6; font-size: 2rem; margin-bottom: 10px; }
+    .result p { color: #475569; margin-bottom: 16px; }
+    @media (max-width: 560px) { .quiz-shell { padding: 16px; border-radius: 20px; } }
+  </style>
+  <script>
+    (function () {
+      const marker = '/pages/';
+      const path = window.location.pathname;
+      const root = path.includes(marker) ? path.split(marker)[0] + '/' : path.substring(0, path.lastIndexOf('/') + 1);
+      const scoreScript = document.createElement('script');
+      scoreScript.src = root + 'js/score-manager.js';
+      scoreScript.defer = true;
+      document.head.appendChild(scoreScript);
+      const navScript = document.createElement('script');
+      navScript.src = root + 'js/site-navigation.js';
+      navScript.defer = true;
+      document.head.appendChild(navScript);
+    })();
+  </script>
+</head>
+<body>
+  <main class="quiz-shell">
+    <section class="play-area" id="play-area">
+      <div class="quiz-head">
+        <div>
+          <h1>Science Quiz</h1>
+          <p>Explore simple science questions with the same smooth timer, total-score result, and play-again flow used across Brain Boosters.</p>
+        </div>
+      </div>
+      <div class="status-grid">
+        <div class="status-card"><span>Question</span><strong id="question-count">1 / 5</strong></div>
+        <div class="status-card"><span>Score</span><strong id="score-count">0</strong></div>
+        <div class="status-card"><span>Time Left</span><strong id="timer-count">30s</strong></div>
+      </div>
+      <section class="question-card">
+        <h2 id="question-text">Loading...</h2>
+        <div id="options" class="options"></div>
+        <div id="message-box" class="message"></div>
+        <div class="actions">
+          <button type="button" class="btn primary" id="next-btn" style="display:none;">Next</button>
+          <a class="link-btn" href="./../../../../account.html">View Profile</a>
+        </div>
+      </section>
+    </section>
+    <section class="result hidden" id="result-screen">
+      <h2>Quiz Complete</h2>
+      <p id="result-summary"></p>
+      <div class="actions" style="justify-content:center;">
+        <button type="button" class="btn primary" id="restart-btn">Play Again</button>
+        <a class="link-btn" href="./../../../../account.html">Open Profile</a>
+      </div>
+    </section>
+  </main>
+  <script>
+    const quizData = [
+      { question: 'Which gas do plants use to make food during photosynthesis?', options: ['Oxygen', 'Carbon dioxide', 'Helium', 'Nitrogen'], answer: 1 },
+      { question: 'Which organ pumps blood throughout the human body?', options: ['Lungs', 'Brain', 'Heart', 'Kidney'], answer: 2 },
+      { question: 'What is the boiling point of water at normal pressure?', options: ['50 C', '75 C', '100 C', '120 C'], answer: 2 },
+      { question: 'Which planet is known for its rings?', options: ['Mars', 'Saturn', 'Mercury', 'Venus'], answer: 1 },
+      { question: 'What force pulls objects toward the Earth?', options: ['Magnetism', 'Friction', 'Electricity', 'Gravity'], answer: 3 }
+    ];
+    const quizMeta = {
+      id: 'basic-science-quiz',
+      title: 'Science Quiz',
+      category: 'Secondary Education'
+    };
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let timeLeft = 30;
+    let timerInterval = null;
+    let hasSavedScore = false;
+    const playArea = document.getElementById('play-area');
+    const resultScreen = document.getElementById('result-screen');
+    const questionText = document.getElementById('question-text');
+    const questionCount = document.getElementById('question-count');
+    const scoreCount = document.getElementById('score-count');
+    const timerCount = document.getElementById('timer-count');
+    const options = document.getElementById('options');
+    const nextBtn = document.getElementById('next-btn');
+    const messageBox = document.getElementById('message-box');
+    const resultSummary = document.getElementById('result-summary');
+    const restartBtn = document.getElementById('restart-btn');
+    function startTimer() {
+      clearInterval(timerInterval);
+      timeLeft = 30;
+      timerCount.textContent = timeLeft + 's';
+      timerInterval = setInterval(function () {
+        timeLeft -= 1;
+        timerCount.textContent = timeLeft + 's';
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          lockOptions();
+          messageBox.textContent = 'Time is up for this question.';
+          nextBtn.style.display = 'inline-flex';
+        }
+      }, 1000);
+    }
+    function lockOptions() {
+      document.querySelectorAll('.option').forEach(function (button) {
+        button.disabled = true;
+      });
+    }
+    function loadQuestion() {
+      const current = quizData[currentQuestionIndex];
+      questionText.textContent = current.question;
+      questionCount.textContent = (currentQuestionIndex + 1) + ' / ' + quizData.length;
+      scoreCount.textContent = score;
+      options.innerHTML = '';
+      nextBtn.style.display = 'none';
+      messageBox.textContent = '';
+      current.options.forEach(function (option, index) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'option';
+        button.textContent = option;
+        button.addEventListener('click', function () {
+          handleAnswer(button, index);
+        });
+        options.appendChild(button);
+      });
+      startTimer();
+    }
+    function handleAnswer(button, index) {
+      clearInterval(timerInterval);
+      const correctIndex = quizData[currentQuestionIndex].answer;
+      lockOptions();
+      if (index === correctIndex) {
+        score += 1;
+        button.classList.add('correct');
+        messageBox.textContent = 'Correct answer.';
+      } else {
+        button.classList.add('incorrect');
+        document.querySelectorAll('.option')[correctIndex].classList.add('correct');
+        messageBox.textContent = 'Review the highlighted correct answer.';
+      }
+      scoreCount.textContent = score;
+      nextBtn.style.display = 'inline-flex';
+    }
+    function finishQuiz() {
+      clearInterval(timerInterval);
+      playArea.classList.add('hidden');
+      resultScreen.classList.remove('hidden');
+      resultSummary.textContent = 'Your total score is ' + score + ' / ' + quizData.length + '.';
+      if (!hasSavedScore && window.EduFunScores) {
+        window.EduFunScores.saveScore({
+          id: quizMeta.id,
+          title: quizMeta.title,
+          category: quizMeta.category,
+          score: score,
+          total: quizData.length,
+          path: window.location.pathname
+        });
+        hasSavedScore = true;
+      }
+    }
+    function nextQuestion() {
+      currentQuestionIndex += 1;
+      if (currentQuestionIndex < quizData.length) {
+        loadQuestion();
+      } else {
+        finishQuiz();
+      }
+    }
+    function restartQuiz() {
+      currentQuestionIndex = 0;
+      score = 0;
+      hasSavedScore = false;
+      playArea.classList.remove('hidden');
+      resultScreen.classList.add('hidden');
+      loadQuestion();
+    }
+    nextBtn.addEventListener('click', nextQuestion);
+    restartBtn.addEventListener('click', restartQuiz);
+    document.addEventListener('DOMContentLoaded', loadQuestion);
+  </script>
+</body>
+</html>

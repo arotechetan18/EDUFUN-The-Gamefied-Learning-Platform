@@ -19,7 +19,7 @@
         }
 
         body {
-            background-color: var(--bg-light);
+            background: linear-gradient(135deg, #f3e8ff, #eef2ff);
             font-family: 'Poppins', sans-serif;
             color: var(--text-dark);
             margin: 0;
@@ -28,7 +28,9 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            padding: 18px;
         }
+
 
         .container {
             width: 90%;
@@ -51,7 +53,13 @@
             color: var(--primary-purple);
             font-size: 2rem;
             font-weight: 700;
-            margin-bottom: 30px;
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            color: #6c757d;
+            margin-bottom: 22px;
+            line-height: 1.7;
         }
 
         form {
@@ -90,6 +98,28 @@
             display: block;
             text-align: left;
             margin-top: -5px;
+        }
+
+        .auth-message {
+            display: none;
+            padding: 13px 14px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-align: left;
+        }
+
+        .auth-message.error {
+            display: block;
+            background: #ffe5e5;
+            color: #e53935;
+        }
+
+        .auth-message.success {
+            display: block;
+            background: #e8fff0;
+            color: #1f7a38;
         }
 
         #login-btn {
@@ -147,11 +177,24 @@
             }
         }
     </style>
+    <script>
+      (function () {
+        const marker = "/pages/";
+        const path = window.location.pathname;
+        const root = path.includes(marker) ? path.split(marker)[0] + "/" : path.substring(0, path.lastIndexOf("/") + 1);
+        const script = document.createElement("script");
+        script.src = root + "js/site-navigation.js";
+        script.defer = true;
+        document.head.appendChild(script);
+      })();
+    </script>
 </head>
 <body>
     <div class="container">
         <h1>Log In</h1>
-        <form>
+        <p class="subtitle">Welcome back. Log in to continue learning and keep all your quiz and game scores connected to your profile.</p>
+        <div id="auth-message" class="auth-message" role="alert"></div>
+        <form onsubmit="event.preventDefault(); login();">
             <input
                 type="text"
                 id="log-in-username"

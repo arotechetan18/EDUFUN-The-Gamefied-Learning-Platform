@@ -1,326 +1,204 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Animated English Quiz</title>
-    <!-- Load Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'primary-purple': '#6D28D9', // Deep Violet/Indigo
-                        'light-purple': '#F5F3FF', // Very Light Purple
-                        'accent-red': '#EF4444',
-                        'accent-green': '#10B981',
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    keyframes: {
-                        // 3D Flip Animation Keyframes
-                        flip: {
-                            '0%, 100%': { transform: 'rotateY(0deg)', opacity: '1' },
-                            '50%': { transform: 'rotateY(10deg)', opacity: '0.5' },
-                        }
-                    },
-                    animation: {
-                        flip: 'flip 0.7s ease-in-out',
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        /* Custom CSS for animation effects */
-        body {
-            /* Light Purple Background */
-            background-color: #EDE9FE; 
-        }
-
-        /* Class to apply the flip animation */
-        .card-animate {
-            animation: flip 0.7s ease-in-out;
-        }
-
-        /* Timer Progress Bar transition */
-        .timer-progress {
-            transition: width 1s linear;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>English Quiz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+    body { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 18px; background: linear-gradient(135deg, #eef2ff, #f5f3ff, #eff6ff); color: #312e81; }
+    .quiz-shell { width: min(100%, 860px); background: rgba(255,255,255,0.96); border-radius: 28px; box-shadow: 0 18px 42px rgba(99, 102, 241, 0.16); padding: 24px; }
+    .quiz-head { display: flex; justify-content: space-between; gap: 14px; align-items: center; margin-bottom: 18px; flex-wrap: wrap; }
+    .quiz-head h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); color: #5b21b6; }
+    .quiz-head p { color: #475569; line-height: 1.7; max-width: 560px; }
+    .status-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin: 18px 0; }
+    .status-card { background: #f8fafc; border: 1px solid #dbeafe; border-radius: 18px; padding: 14px; text-align: center; }
+    .status-card span { display: block; color: #64748b; font-size: 0.9rem; margin-bottom: 6px; }
+    .status-card strong { color: #312e81; font-size: 1.25rem; }
+    .question-card { background: #faf5ff; border: 1px solid #ddd6fe; border-radius: 20px; padding: 22px; }
+    .question-card h2 { font-size: 1.25rem; line-height: 1.7; color: #312e81; margin-bottom: 16px; }
+    .options { display: grid; gap: 12px; }
+    .option { width: 100%; text-align: left; padding: 14px 16px; border-radius: 14px; border: 2px solid #d8b4fe; background: white; color: #312e81; cursor: pointer; font-size: 1rem; }
+    .option:hover:not(:disabled) { background: #f5f3ff; }
+    .option.correct { background: #dcfce7; border-color: #16a34a; color: #166534; }
+    .option.incorrect { background: #fee2e2; border-color: #dc2626; color: #991b1b; }
+    .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+    .btn, .link-btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 18px; border-radius: 999px; font-weight: 600; text-decoration: none; border: none; cursor: pointer; }
+    .btn.primary { background: linear-gradient(90deg, #5b21b6, #7c3aed); color: white; }
+    .btn.secondary { background: #e9d5ff; color: #5b21b6; }
+    .link-btn { background: #dcfce7; color: #166534; }
+    .message { min-height: 28px; margin-top: 14px; font-weight: 600; }
+    .result.hidden, .play-area.hidden { display: none; }
+    .result { text-align: center; padding: 28px 10px 12px; }
+    .result h2 { color: #5b21b6; font-size: 2rem; margin-bottom: 10px; }
+    .result p { color: #475569; margin-bottom: 16px; }
+    @media (max-width: 560px) { .quiz-shell { padding: 16px; border-radius: 20px; } }
+  </style>
+  <script>
+    (function () {
+      const marker = '/pages/';
+      const path = window.location.pathname;
+      const root = path.includes(marker) ? path.split(marker)[0] + '/' : path.substring(0, path.lastIndexOf('/') + 1);
+      const scoreScript = document.createElement('script');
+      scoreScript.src = root + 'js/score-manager.js';
+      scoreScript.defer = true;
+      document.head.appendChild(scoreScript);
+      const navScript = document.createElement('script');
+      navScript.src = root + 'js/site-navigation.js';
+      navScript.defer = true;
+      document.head.appendChild(navScript);
+    })();
+  </script>
 </head>
-<body class="font-sans min-h-screen flex justify-center items-center p-4">
-    <div id="quiz-card" class="quiz-container w-full max-w-xl bg-white p-6 sm:p-8 rounded-2xl shadow-2xl border-4 border-primary-purple">
-        <div class="quiz-heading flex items-center justify-center mb-6 border-b pb-4 border-primary-purple/30">
-            <div class="heading-icon w-14 h-14 mr-4 flex-shrink-0">
-               <!-- Placeholder Icon for English -->
-               <img src="https://placehold.co/60x60/6D28D9/FFFFFF?text=Eng" alt="Quiz Icon" class="rounded-full shadow-md" onerror="this.onerror=null; this.src='https://placehold.co/60x60/6D28D9/FFFFFF?text=Eng'"> 
-            </div>
-            <span class="quiz-text text-3xl font-extrabold text-primary-purple">English Quiz</span>
+<body>  <main class="quiz-shell">
+    <section class="play-area" id="play-area">
+      <div class="quiz-head">
+        <div>
+          <h1>English Quiz</h1>
+          <p>Practice vocabulary, grammar, and comprehension with a cleaner quiz flow that works well on mobile and desktop.</p>
         </div>
-
-        <!-- Timer Progress Bar -->
-        <div class="timer-bar mb-6 bg-gray-200 rounded-full h-3">
-            <div id="timer-progress" class="timer-progress h-3 rounded-full bg-accent-red" style="width: 100%;"></div>
+      </div>
+      <div class="status-grid">
+        <div class="status-card"><span>Question</span><strong id="question-count">1 / 5</strong></div>
+        <div class="status-card"><span>Score</span><strong id="score-count">0</strong></div>
+        <div class="status-card"><span>Time Left</span><strong id="timer-count">30s</strong></div>
+      </div>
+      <section class="question-card">
+        <h2 id="question-text">Loading...</h2>
+        <div id="options" class="options"></div>
+        <div id="message-box" class="message"></div>
+        <div class="actions">
+          <button type="button" class="btn primary" id="next-btn" style="display:none;">Next</button>
+          <a class="link-btn" href="./../../../../account.html">View Profile</a>
         </div>
-        <div class="timer text-xl font-bold mb-4 text-accent-red">Time Left: <span id="timer-text">30</span>s</div>
-
-
-        <div class="quiz-content">
-            <h2 id="question" class="text-xl sm:text-2xl font-semibold text-gray-800 mb-6"></h2>
-            
-            <div class="options space-y-3" id="options">
-                <!-- Options will be loaded here -->
-            </div>
-            
-            <div class="mt-8 flex justify-center space-x-4">
-                <button class="next-btn hidden px-6 py-3 bg-primary-purple text-white font-bold rounded-full shadow-lg transition duration-200 hover:bg-primary-purple/90 active:scale-95 focus:outline-none focus:ring-4 focus:ring-primary-purple/50" onclick="nextQuestion()">Next Question</button>
-                <button class="submit-btn hidden px-6 py-3 bg-accent-green text-white font-bold rounded-full shadow-lg transition duration-200 hover:bg-accent-green/90 active:scale-95 focus:outline-none focus:ring-4 focus:ring-accent-green/50" onclick="submitQuiz()">Submit Quiz</button>
-            </div>
-        </div>
-        <!-- Restart button will show after results -->
-        <button id="restart-btn" class="hidden mt-6 px-6 py-3 bg-primary-purple text-white font-bold rounded-full shadow-lg transition duration-200 hover:bg-primary-purple/90 active:scale-95 focus:outline-none focus:ring-4 focus:ring-primary-purple/50" onclick="restartQuiz()">🔄 Restart Quiz</button>
-    </div>
-    
-   <script>
-const quizData = [
-    {
-        question : "Which of the following is a Noun?",
-        options : ["Quickly", "Happiness" , "Run" , "Green"],
-        answer : 1
-    },
-
-    {
-        question : "Which sentence is a question?",
-        options : ["I love ice cream.", "Where do you live?","The dog is barking.","She likes to read books."],
-        answer : 1
-    },
-
-    {
-        question : `Choose the correct homophone: "I need to ______ my homework."`,
-        options : ["Right","wright","Rite" , "write"],
-        answer : 3
-    },
-
-    {
-        question : `What does the word "gigantic" mean?`,
-        options : ["Small","Huge","Fast" , "Shiny"],
-        answer : 1
-    },
-
-    {
-        question : `Which word means "a person who writes books"?`,
-        options : ["Author","Artist"," Actor","Singer"],
-        answer : 0
-    },
-
-];
- 
-let currentQuestionIndex = 0;
-let score = 0;
-let timer;
-let totalTime = 30; // 30 seconds per question
-let timeLeft = totalTime;
-const quizCard = document.getElementById('quiz-card');
-
-function startTimer() {
-    clearInterval(timer); 
-    timeLeft = totalTime;
-    const timerText = document.getElementById("timer-text");
-    const progressBar = document.getElementById("timer-progress");
-    
-    // Reset progress bar
-    progressBar.style.width = '100%';
-    progressBar.classList.add('bg-accent-red');
-    progressBar.classList.remove('bg-red-700');
-    timerText.textContent = timeLeft;
-
-    timer = setInterval(() => {
-        timeLeft--;
-        timerText.textContent = timeLeft;
-        
-        // Update Progress Bar
-        const percentage = (timeLeft / totalTime) * 100;
-        progressBar.style.width = `${percentage}%`;
-        
-        // Change color when time is low
-        if (timeLeft < 10) {
-             progressBar.classList.remove('bg-accent-red');
-             progressBar.classList.add('bg-red-700');
-        }
-
+      </section>
+    </section>
+    <section class="result hidden" id="result-screen">
+      <h2>Quiz Complete</h2>
+      <p id="result-summary"></p>
+      <div class="actions" style="justify-content:center;">
+        <button type="button" class="btn primary" id="restart-btn">Play Again</button>
+        <a class="link-btn" href="./../../../../account.html">Open Profile</a>
+      </div>
+    </section>
+  </main>
+  <script>
+    const quizData = [{"question":"Which word is a noun?","options":["Quickly","Happiness","Run","Green"],"answer":1},{"question":"Which sentence is a question?","options":["I love books.","Where do you live?","The dog barked.","She reads daily."],"answer":1},{"question":"Choose the correct word: I need to ___ my homework.","options":["right","rite","write","wright"],"answer":2},{"question":"What does gigantic mean?","options":["Tiny","Huge","Slow","Quiet"],"answer":1},{"question":"What do we call a person who writes books?","options":["Author","Artist","Singer","Actor"],"answer":0}];
+    const quizMeta = {
+      id: 'basic-english-quiz',
+      title: 'English Quiz',
+      category: 'Secondary Education'
+    };
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let timeLeft = 30;
+    let timerInterval = null;
+    let hasSavedScore = false;
+    const playArea = document.getElementById('play-area');
+    const resultScreen = document.getElementById('result-screen');
+    const questionText = document.getElementById('question-text');
+    const questionCount = document.getElementById('question-count');
+    const scoreCount = document.getElementById('score-count');
+    const timerCount = document.getElementById('timer-count');
+    const options = document.getElementById('options');
+    const nextBtn = document.getElementById('next-btn');
+    const messageBox = document.getElementById('message-box');
+    const resultSummary = document.getElementById('result-summary');
+    const restartBtn = document.getElementById('restart-btn');
+    function startTimer() {
+      clearInterval(timerInterval);
+      timeLeft = 30;
+      timerCount.textContent = timeLeft + 's';
+      timerInterval = setInterval(function () {
+        timeLeft -= 1;
+        timerCount.textContent = timeLeft + 's';
         if (timeLeft <= 0) {
-            clearInterval(timer);
-            // Time up logic: simulate choosing the wrong answer and move next
-            const options = document.querySelectorAll(".option");
-            if (options.length > 0 && !options[0].disabled) {
-                // If the user hasn't selected anything, lock options
-                options.forEach(btn => btn.disabled = true);
-                if (currentQuestionIndex < quizData.length - 1) {
-                    document.querySelector(".next-btn").style.display = "inline-block";
-                } else {
-                    document.querySelector(".submit-btn").style.display = "inline-block";
-                }
-            }
-            // Add the flip animation before moving to the next question
-            applyFlipAnimation(nextQuestion);
+          clearInterval(timerInterval);
+          lockOptions();
+          messageBox.textContent = 'Time is up for this question.';
+          nextBtn.style.display = 'inline-flex';
         }
-    }, 1000);
-}
-
-function loadQuestion() {
-    // Remove animation class after transition
-    quizCard.classList.remove('card-animate');
-    
-    const questionEl = document.getElementById("question");
-    const optionsEl = document.getElementById("options");
-    const nextBtn = document.querySelector(".next-btn");
-    const submitBtn = document.querySelector(".submit-btn");
-    const restartBtn = document.getElementById("restart-btn");
-
-    // Hide buttons initially
-    nextBtn.style.display = "none";
-    submitBtn.style.display = "none";
-    restartBtn.style.display = "none";
-
-    // Load question content
-    const currentQuestion = quizData[currentQuestionIndex];
-    questionEl.innerHTML = `<span class="text-primary-purple font-extrabold mr-2">${currentQuestionIndex + 1}.</span> ${currentQuestion.question}`;
-    optionsEl.innerHTML = "";
-
-    currentQuestion.options.forEach((option, index) => {
-        const button = document.createElement("button");
-        button.innerText = option.trim(); 
-        // Tailwind classes for options
-        button.classList.add("option", "block", "w-full", "p-4", "border-2", "border-primary-purple/50", "bg-light-purple", "text-gray-800", "font-medium", "cursor-pointer", "rounded-xl", "text-left", "transition", "duration-300", "hover:bg-primary-purple/10", "hover:shadow-md");
-        button.onclick = () => {
-            checkAnswer(button, index);
-            // Trigger flip animation upon selection
-            applyFlipAnimation(null); 
-        };
-        optionsEl.appendChild(button);
-    });
-
-    startTimer();
-}
-
-// Function to apply the 3D flip animation
-function applyFlipAnimation(callback) {
-    // Only apply animation if we are advancing the question
-    if (callback === nextQuestion || callback === loadQuestion) {
-        quizCard.classList.add('card-animate');
+      }, 1000);
     }
-    
-    setTimeout(() => {
-        if (callback) {
-            callback();
-        }
-    }, 700); // Duration matches the CSS animation time
-}
-
-function checkAnswer(button, selectedIndex) {
-    clearInterval(timer);
-    // Update progress bar to final time when selection is made
-    document.getElementById("timer-progress").style.width = `${(timeLeft / totalTime) * 100}%`;
-
-    const correctIndex = quizData[currentQuestionIndex].answer;
-    const options = document.querySelectorAll(".option");
-
-    options.forEach(btn => {
-        btn.disabled = true;
-        btn.classList.remove("hover:bg-primary-purple/10", "hover:shadow-md");
-        btn.classList.add("opacity-75");
-    });
-
-    // Display correct/wrong result
-    if (selectedIndex === correctIndex) {
-        button.classList.remove("bg-light-purple", "opacity-75");
-        button.classList.add("bg-accent-green", "text-white", "shadow-xl", "opacity-100");
-        score++;
-    } else {
-        button.classList.remove("bg-light-purple", "opacity-75");
-        button.classList.add("bg-accent-red", "text-white", "shadow-xl", "opacity-100");
-        
-        // Highlight correct answer in green
-        options[correctIndex].classList.remove("bg-light-purple", "opacity-75");
-        options[correctIndex].classList.add("bg-accent-green", "text-white", "shadow-xl", "opacity-100");
+    function lockOptions() {
+      document.querySelectorAll('.option').forEach(function (button) {
+        button.disabled = true;
+      });
     }
-
-    // Show next button
-    if (currentQuestionIndex < quizData.length - 1) {
-        document.querySelector(".next-btn").style.display = "inline-block";
-    } else {
-        document.querySelector(".submit-btn").style.display = "inline-block";
+    function loadQuestion() {
+      const current = quizData[currentQuestionIndex];
+      questionText.textContent = current.question;
+      questionCount.textContent = (currentQuestionIndex + 1) + ' / ' + quizData.length;
+      scoreCount.textContent = score;
+      options.innerHTML = '';
+      nextBtn.style.display = 'none';
+      messageBox.textContent = '';
+      current.options.forEach(function (option, index) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'option';
+        button.textContent = option;
+        button.addEventListener('click', function () {
+          handleAnswer(button, index);
+        });
+        options.appendChild(button);
+      });
+      startTimer();
     }
-}
-
-function nextQuestion() {
-    currentQuestionIndex++;
-    if (currentQuestionIndex < quizData.length) {
+    function handleAnswer(button, index) {
+      clearInterval(timerInterval);
+      const correctIndex = quizData[currentQuestionIndex].answer;
+      lockOptions();
+      if (index === correctIndex) {
+        score += 1;
+        button.classList.add('correct');
+        messageBox.textContent = 'Correct answer.';
+      } else {
+        button.classList.add('incorrect');
+        document.querySelectorAll('.option')[correctIndex].classList.add('correct');
+        messageBox.textContent = 'Review the highlighted correct answer.';
+      }
+      scoreCount.textContent = score;
+      nextBtn.style.display = 'inline-flex';
+    }
+    function finishQuiz() {
+      clearInterval(timerInterval);
+      playArea.classList.add('hidden');
+      resultScreen.classList.remove('hidden');
+      resultSummary.textContent = 'Your final score is ' + score + ' / ' + quizData.length + '.';
+      if (!hasSavedScore && window.EduFunScores) {
+        window.EduFunScores.saveScore({
+          id: quizMeta.id,
+          title: quizMeta.title,
+          category: quizMeta.category,
+          score: score,
+          total: quizData.length,
+          path: window.location.pathname
+        });
+        hasSavedScore = true;
+      }
+    }
+    function nextQuestion() {
+      currentQuestionIndex += 1;
+      if (currentQuestionIndex < quizData.length) {
         loadQuestion();
-    } else {
-        submitQuiz(); 
+      } else {
+        finishQuiz();
+      }
     }
-}
-
-function submitQuiz() {
-    clearInterval(timer);
-    const quizContent = document.querySelector(".quiz-content");
-    const totalQuestions = quizData.length;
-    let resultMessage;
-    
-    if (score === totalQuestions) {
-        resultMessage = "Excellent! You got all the answers correct. 🎉";
-    } else if (score >= totalQuestions / 2) {
-        resultMessage = "Great job! You passed. Keep practicing to improve.";
-    } else {
-        resultMessage = "Nice try. Review the English concepts and try again!";
+    function restartQuiz() {
+      currentQuestionIndex = 0;
+      score = 0;
+      hasSavedScore = false;
+      playArea.classList.remove('hidden');
+      resultScreen.classList.add('hidden');
+      loadQuestion();
     }
-    
-    // Update HTML to show results
-    quizContent.innerHTML = `
-        <div class="result-box p-4">
-            <h2 class="text-4xl font-extrabold text-primary-purple mb-4">Quiz Complete!</h2>
-            <p class="text-xl font-medium text-gray-700 mb-6">${resultMessage}</p>
-            <p class="text-2xl font-bold text-gray-800 mb-6">Your Score: <span class="text-accent-green text-3xl">${score}</span> / ${totalQuestions}</p>
-            <div class="flex justify-center">
-                 <button class="px-6 py-3 bg-primary-purple text-white font-bold rounded-full shadow-lg transition duration-200 hover:bg-primary-purple/90 active:scale-95 focus:outline-none focus:ring-4 focus:ring-primary-purple/50" onclick="restartQuiz()">🔄 Restart Quiz</button>
-            </div>
-        </div>
-    `;
-    // Hide timer elements
-    document.querySelector('.timer').style.display = 'none';
-    document.querySelector('.timer-bar').style.display = 'none';
-    document.querySelector('.quiz-heading').style.borderBottom = 'none';
-}
-
-function restartQuiz() {
-    currentQuestionIndex = 0;
-    score = 0;
-    
-    // Reset the quiz content structure
-    const quizContent = document.querySelector(".quiz-content");
-    quizContent.innerHTML = `
-        <h2 id="question" class="text-xl sm:text-2xl font-semibold text-gray-800 mb-6"></h2>
-        <div class="options space-y-3" id="options"></div>
-        <div class="mt-8 flex justify-center space-x-4">
-            <button class="next-btn hidden px-6 py-3 bg-primary-purple text-white font-bold rounded-full shadow-lg transition duration-200 hover:bg-primary-purple/90 active:scale-95 focus:outline-none focus:ring-4 focus:ring-primary-purple/50" onclick="nextQuestion()">Next Question</button>
-            <button class="submit-btn hidden px-6 py-3 bg-accent-green text-white font-bold rounded-full shadow-lg transition duration-200 hover:bg-accent-green/90 active:scale-95 focus:outline-none focus:ring-4 focus:ring-accent-green/50" onclick="submitQuiz()">Submit Quiz</button>
-        </div>
-    `;
-    
-    // Show timer elements again
-    document.querySelector('.timer').style.display = 'block';
-    document.querySelector('.timer-bar').style.display = 'block';
-    document.querySelector('.quiz-heading').style.borderBottom = '1px solid #C4B5FD';
-    
-    // Load the first question with animation
-    applyFlipAnimation(loadQuestion);
-}
-
-document.addEventListener("DOMContentLoaded", loadQuestion);
+    nextBtn.addEventListener('click', nextQuestion);
+    restartBtn.addEventListener('click', restartQuiz);
+    document.addEventListener('DOMContentLoaded', loadQuestion);
   </script>
 </body>
 </html>
+

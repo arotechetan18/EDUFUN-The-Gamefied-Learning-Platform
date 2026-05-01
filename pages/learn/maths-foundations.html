@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Math Foundations | EduFun</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #0f766e; --secondary: #14b8a6; --surface: rgba(255,255,255,0.96); --text: #134e4a; --border: rgba(45, 212, 191, 0.35); }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Poppins", sans-serif; }
+        body { background: linear-gradient(135deg, #f0fdfa, #ecfeff, #f8fafc); color: var(--text); min-height: 100vh; }
+        .page { max-width: 1100px; margin: 0 auto; padding: 88px 20px 40px; }
+        .back-link { display: inline-flex; padding: 10px 16px; border-radius: 999px; background: rgba(15,118,110,0.1); color: var(--primary); text-decoration: none; font-weight: 600; margin-bottom: 18px; }
+        .hero, .section, .card { border-radius: 24px; border: 1px solid var(--border); box-shadow: 0 12px 28px rgba(20, 184, 166, 0.12); }
+        .hero { background: linear-gradient(135deg, rgba(15,118,110,0.96), rgba(20,184,166,0.9)); color: #fff; padding: 32px; }
+        .hero h1 { font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: 12px; }
+        .hero p, .section li, .section p, .card p { line-height: 1.8; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin: 24px 0; }
+        .card, .section { background: var(--surface); padding: 22px; }
+        .card h2, .section h2 { color: var(--primary); margin-bottom: 10px; }
+        .section { margin-bottom: 18px; }
+        .section ul { padding-left: 18px; }
+        .cta { display: inline-block; margin-top: 14px; padding: 11px 18px; border-radius: 999px; text-decoration: none; font-weight: 600; background: var(--primary); color: #fff; }
+    </style>
+    <script>
+      (function () {
+        const marker = "/pages/";
+        const path = window.location.pathname;
+        const root = path.includes(marker) ? path.split(marker)[0] + "/" : path.substring(0, path.lastIndexOf("/") + 1);
+        const script = document.createElement("script");
+        script.src = root + "js/site-navigation.js";
+        script.defer = true;
+        document.head.appendChild(script);
+      })();
+    </script>
+</head>
+<body>
+    <main class="page">
+        <a class="back-link" href="./../notes.html">← Back to Notes Hub</a>
+        <section class="hero">
+            <h1>Math Foundations</h1>
+            <p>Math becomes easier when learners follow a process: understand the question, choose the correct method, solve carefully, and check the final answer.</p>
+        </section>
+        <section class="grid">
+            <article class="card"><h2>Fractions</h2><p>Fractions show parts of a whole. To compare fractions, make the denominators the same or convert them into decimals.</p></article>
+            <article class="card"><h2>Ratios</h2><p>A ratio compares two quantities. Always keep the units the same before simplifying.</p></article>
+            <article class="card"><h2>Algebra</h2><p>In algebra, letters stand for numbers. Solve equations by keeping both sides balanced.</p></article>
+        </section>
+        <section class="section">
+            <h2>Problem Solving Steps</h2>
+            <ul>
+                <li>Read the question slowly and underline the important values.</li>
+                <li>Decide whether the problem needs addition, subtraction, multiplication, division, or an equation.</li>
+                <li>Show the steps clearly so mistakes are easier to spot.</li>
+                <li>Check if the answer makes sense in real life.</li>
+            </ul>
+        </section>
+        <section class="section">
+            <h2>Accuracy Habits</h2>
+            <ul>
+                <li>Write numbers neatly and line them up correctly.</li>
+                <li>Recheck signs such as plus, minus, multiplication, and division.</li>
+                <li>Estimate the answer first to see if the final result is reasonable.</li>
+                <li>Practice tables and mental math for faster solving.</li>
+            </ul>
+        </section>
+        <section class="section">
+            <h2>Revision Tip</h2>
+            <p>Solve a small set of mixed questions every day. Daily practice is more powerful than solving many questions once a week.</p>
+            <a class="cta" href="./../secondary_education_quize/basic_education/maths_quiz/maths_quiz.html">Try a Maths Quiz</a>
+        </section>
+    </main>
+</body>
+</html>

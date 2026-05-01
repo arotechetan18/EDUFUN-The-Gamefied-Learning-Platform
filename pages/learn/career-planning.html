@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Career Planning | EduFun</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #166534; --secondary: #22c55e; --surface: rgba(255,255,255,0.96); --text: #14532d; --border: rgba(134, 239, 172, 0.55); }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Poppins", sans-serif; }
+        body { background: linear-gradient(135deg, #f0fdf4, #ecfccb, #f8fafc); color: var(--text); min-height: 100vh; }
+        .page { max-width: 1100px; margin: 0 auto; padding: 88px 20px 40px; }
+        .back-link { display: inline-flex; padding: 10px 16px; border-radius: 999px; background: rgba(22,101,52,0.1); color: var(--primary); text-decoration: none; font-weight: 600; margin-bottom: 18px; }
+        .hero, .section, .card { border-radius: 24px; border: 1px solid var(--border); box-shadow: 0 12px 28px rgba(34, 197, 94, 0.12); }
+        .hero { background: linear-gradient(135deg, rgba(22,101,52,0.96), rgba(34,197,94,0.88)); color: #fff; padding: 32px; }
+        .hero h1 { font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: 12px; }
+        .hero p, .section li, .section p, .card p { line-height: 1.8; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin: 24px 0; }
+        .card, .section { background: var(--surface); padding: 22px; }
+        .card h2, .section h2 { color: var(--primary); margin-bottom: 10px; }
+        .section { margin-bottom: 18px; }
+        .section ul { padding-left: 18px; }
+        .cta { display: inline-block; margin-top: 14px; padding: 11px 18px; border-radius: 999px; text-decoration: none; font-weight: 600; background: var(--primary); color: #fff; }
+    </style>
+    <script>
+      (function () {
+        const marker = "/pages/";
+        const path = window.location.pathname;
+        const root = path.includes(marker) ? path.split(marker)[0] + "/" : path.substring(0, path.lastIndexOf("/") + 1);
+        const script = document.createElement("script");
+        script.src = root + "js/site-navigation.js";
+        script.defer = true;
+        document.head.appendChild(script);
+      })();
+    </script>
+</head>
+<body>
+    <main class="page">
+        <a class="back-link" href="./../notes.html">← Back to Notes Hub</a>
+        <section class="hero">
+            <h1>Career Planning</h1>
+            <p>Career planning means understanding your interests, building useful skills, and moving step by step toward a long-term goal. A good plan is flexible and realistic.</p>
+        </section>
+        <section class="grid">
+            <article class="card"><h2>Know Yourself</h2><p>Think about what subjects you enjoy, what work you are curious about, and what strengths you already have.</p></article>
+            <article class="card"><h2>Build Skills</h2><p>Choose one practical skill to improve every few months. Communication, digital skills, and problem solving are valuable in many careers.</p></article>
+            <article class="card"><h2>Track Progress</h2><p>Use projects, certificates, notes, and score history to see how you are improving over time.</p></article>
+        </section>
+        <section class="section">
+            <h2>Simple Career Roadmap</h2>
+            <ul>
+                <li>Choose a goal based on interest and ability.</li>
+                <li>Find out what knowledge and skills that goal needs.</li>
+                <li>Make a weekly learning plan.</li>
+                <li>Practice, review, and improve using feedback.</li>
+            </ul>
+        </section>
+        <section class="section">
+            <h2>Professional Habits For Learners</h2>
+            <ul>
+                <li>Be consistent even when progress feels slow.</li>
+                <li>Finish small tasks instead of starting too many.</li>
+                <li>Keep a portfolio of your work and achievements.</li>
+                <li>Ask questions and learn from mentors, teachers, and examples.</li>
+            </ul>
+        </section>
+        <section class="section">
+            <h2>Next Step</h2>
+            <p>Use your profile page to watch your performance grow. Scores, notes, and practice history together give a clearer picture of progress.</p>
+            <a class="cta" href="./../account.html">Open Learning Profile</a>
+        </section>
+    </main>
+</body>
+</html>

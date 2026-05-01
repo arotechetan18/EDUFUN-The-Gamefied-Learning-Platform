@@ -257,6 +257,66 @@
         box-shadow: 0 8px 25px rgba(106, 17, 203, 0.2);
       }
 
+      .activity-section {
+        padding: 30px 20px 70px;
+      }
+
+      .activity-section h2 {
+        text-align: center;
+        color: #4b0082;
+        font-size: 2.2rem;
+        margin-bottom: 12px;
+      }
+
+      .activity-section p {
+        text-align: center;
+        max-width: 760px;
+        margin: 0 auto 28px;
+        color: #5b3b8a;
+        line-height: 1.7;
+      }
+
+      .activity-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 24px;
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+
+      .activity-card {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 18px;
+        padding: 22px;
+        box-shadow: 0 8px 24px rgba(106, 17, 203, 0.15);
+        border: 1px solid rgba(180, 145, 249, 0.35);
+      }
+
+      .activity-card h3 {
+        color: #5a189a;
+        margin-bottom: 10px;
+      }
+
+      .activity-card p {
+        text-align: left;
+        margin: 0 0 16px;
+        font-size: 0.96rem;
+      }
+
+      .activity-card a {
+        display: inline-block;
+        padding: 10px 16px;
+        border-radius: 999px;
+        background: #6a11cb;
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .activity-card a:hover {
+        background: #8b5cf6;
+      }
+
       .bx-1 {
         flex: 0 0 150px; 
         padding-right: 20px;
@@ -453,7 +513,18 @@
           }
       }
     </style>
-  </head>
+      <script>
+      (function () {
+        const marker = "/pages/";
+        const path = window.location.pathname;
+        const root = path.includes(marker) ? path.split(marker)[0] + "/" : path.substring(0, path.lastIndexOf("/") + 1);
+        const script = document.createElement("script");
+        script.src = root + "js/site-navigation.js";
+        script.defer = true;
+        document.head.appendChild(script);
+      })();
+    </script>
+</head>
   <body>
     <nav class="navbar" id="navbar">
       <div class="edufun-logo">
@@ -465,11 +536,11 @@
         />
       </div>
       <ul>
-        <a href="./../../index.html"><li>Home</li></a>
-        <a href="./../../pages/notes.html"><li>Spaceship</li></a>
-        <a href="./../../pages/about_us.html"><li>About</li></a>
-        <a href="./../../pages/contact.html"><li>contact</li></a>
-        <a href="./../../pages/login.html" id="account-page"><li id="pn-UserlogIn">Log In</li></a>
+        <a href="./index.html"><li>Home</li></a>
+        <a href="./pages/edunotes.html"><li>EduNotes</li></a>
+        <a href="./pages/about_us.html"><li>About</li></a>
+        <a href="./pages/contact.html"><li>contact</li></a>
+        <a href="./pages/login.html" id="account-page"><li id="pn-UserlogIn">Log In</li></a>
       </ul>
       <div class="hamburger">
         <button type="button" id="hamburger-btn" onclick="hamburgerMenu()">
@@ -479,11 +550,11 @@
     </nav>
     <nav class="ham-nav" id="ham-nav">
       <ul>
-        <a href="./../../index.html"><li>Home</li></a>
-        <a href="./../../pages/notes.html"><li>Spaceship</li></a>
-        <a href="./../../pages/about_us.html"><li>About</li></a>
-        <a href="./../../pages/contact.html"><li>contact</li></a>
-        <a href="./../../pages/login.html" id="account-page-phn"><li id="UserlogIn">Log In</li></a>
+        <a href="./index.html"><li>Home</li></a>
+        <a href="./pages/edunotes.html"><li>EduNotes</li></a>
+        <a href="./pages/about_us.html"><li>About</li></a>
+        <a href="./pages/contact.html"><li>contact</li></a>
+        <a href="./pages/login.html" id="account-page-phn"><li id="UserlogIn">Log In</li></a>
       </ul>
     </nav>
     <div class="main-container">
@@ -556,6 +627,49 @@
         </div>
       </div>
     </div>
+    <section class="activity-section">
+      <h2>Interactive Learning Zone</h2>
+      <p>
+        Jump straight into playful learning activities. These quick paths make it easier for students to move between quizzes, games, and revision pages without getting lost.
+      </p>
+      <div class="activity-grid">
+        <div class="activity-card">
+          <h3>Kindergarten Fun Quiz</h3>
+          <p>Practice simple picture-based learning with a fast fruit and vegetable quiz for early learners.</p>
+          <a href="./pages/primary-education/kindergarten/funquiz.html">Start Quiz</a>
+        </div>
+        <div class="activity-card">
+          <h3>Math Challenge</h3>
+          <p>Open the junior secondary maths game to solve questions and revise formulas in one place.</p>
+          <a href="./pages/secondary_education_quize/junior_secondary_studies/math/math_game.html">Play Now</a>
+        </div>
+        <div class="activity-card">
+          <h3>Science Quiz</h3>
+          <p>Use the science practice page for quick question rounds and better topic recall.</p>
+          <a href="./pages/secondary_education_quize/basic_education/science_quiz/science.html">Explore Science</a>
+        </div>
+        <div class="activity-card">
+          <h3>EduNotes Library</h3>
+          <p>Open the organized higher-education notes space for Civil Services, Finance, IT, Law, and Pharmacy subjects.</p>
+          <a href="./pages/edunotes.html">Open EduNotes</a>
+        </div>
+        <div class="activity-card">
+          <h3>Word Scramble Game</h3>
+          <p>Play a new spelling and memory challenge built for phones, tablets, and desktop screens.</p>
+          <a href="./pages/games/word-scramble.html">Play Game</a>
+        </div>
+        <div class="activity-card">
+          <h3>Math Sprint</h3>
+          <p>Race through quick arithmetic rounds and build speed, focus, and confidence with short practice sessions.</p>
+          <a href="./pages/games/math-sprint.html">Start Sprint</a>
+        </div>
+        <div class="activity-card">
+          <h3>Memory Match</h3>
+          <p>Flip cards, find study pairs, and turn revision into a fast visual memory challenge.</p>
+          <a href="./pages/games/memory-match.html">Play Match</a>
+        </div>
+      </div>
+    </section>
     <div class="mini-cards">
       <div
         class="cards"
@@ -679,7 +793,7 @@
           <ul>
             <li><a href="index.html">Home</a></li>
             <li><a href="./pages/higher-education-quize/">Quizzes</a></li>
-            <li><a href="./pages/notes.html">Notes</a></li>
+            <li><a href="./pages/edunotes.html">EduNotes</a></li>
             <li><a href="./pages/contact.html">Contact Us</a></li>
           </ul>
         </div>
@@ -731,3 +845,4 @@
     </div>
   </body>
 </html> 
+

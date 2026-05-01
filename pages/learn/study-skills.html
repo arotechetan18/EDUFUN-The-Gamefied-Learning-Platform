@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Study Skills | EduFun</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #5b21b6;
+            --secondary: #7c3aed;
+            --surface: rgba(255, 255, 255, 0.96);
+            --text: #312e81;
+            --muted: #5b647d;
+            --border: rgba(196, 181, 253, 0.7);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Poppins", sans-serif; }
+        body { background: linear-gradient(135deg, #f5f3ff, #eef2ff, #eff6ff); color: var(--text); min-height: 100vh; }
+        .page { max-width: 1100px; margin: 0 auto; padding: 88px 20px 40px; }
+        .back-link { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 999px; background: rgba(91, 33, 182, 0.1); color: var(--primary); text-decoration: none; font-weight: 600; margin-bottom: 18px; }
+        .hero { background: linear-gradient(135deg, rgba(91, 33, 182, 0.96), rgba(124, 58, 237, 0.92)); color: #fff; border-radius: 28px; padding: 32px; box-shadow: 0 18px 42px rgba(91, 33, 182, 0.18); }
+        .hero h1 { font-size: clamp(2rem, 4vw, 2.9rem); margin-bottom: 12px; }
+        .hero p { line-height: 1.8; max-width: 720px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin: 24px 0; }
+        .card, .section { background: var(--surface); border: 1px solid var(--border); border-radius: 22px; box-shadow: 0 12px 28px rgba(99, 102, 241, 0.12); }
+        .card { padding: 22px; }
+        .card h2, .section h2 { color: var(--primary); margin-bottom: 10px; }
+        .card p, .section p, .section li { color: #433b72; line-height: 1.8; }
+        .section { padding: 26px; margin-bottom: 18px; }
+        .section ul { padding-left: 18px; margin-top: 10px; }
+        .steps { display: grid; gap: 12px; margin-top: 12px; }
+        .step { padding: 14px 16px; border-radius: 16px; background: rgba(124, 58, 237, 0.08); }
+        .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px; }
+        .cta { display: inline-block; padding: 11px 18px; border-radius: 999px; text-decoration: none; font-weight: 600; }
+        .cta.primary { background: var(--primary); color: #fff; }
+        .cta.secondary { background: rgba(91, 33, 182, 0.1); color: var(--primary); }
+    </style>
+    <script>
+      (function () {
+        const marker = "/pages/";
+        const path = window.location.pathname;
+        const root = path.includes(marker) ? path.split(marker)[0] + "/" : path.substring(0, path.lastIndexOf("/") + 1);
+        const script = document.createElement("script");
+        script.src = root + "js/site-navigation.js";
+        script.defer = true;
+        document.head.appendChild(script);
+      })();
+    </script>
+</head>
+<body>
+    <main class="page">
+        <a class="back-link" href="./../notes.html">← Back to Notes Hub</a>
+        <section class="hero">
+            <h1>Study Skills</h1>
+            <p>Strong study habits help learners remember more, feel less stressed, and perform better in tests. Use these notes to build a routine that is calm, practical, and easy to follow every day.</p>
+        </section>
+        <section class="grid">
+            <article class="card">
+                <h2>Focus Rule</h2>
+                <p>Study in short blocks of 25 to 35 minutes, then take a small break. Short sessions improve concentration better than long distracted sessions.</p>
+            </article>
+            <article class="card">
+                <h2>Recall Rule</h2>
+                <p>Close the book and say the answer from memory. If you can explain it without looking, you are learning it properly.</p>
+            </article>
+            <article class="card">
+                <h2>Revision Rule</h2>
+                <p>Review on the same day, then again after a few days. Spaced revision helps facts stay in long-term memory.</p>
+            </article>
+        </section>
+        <section class="section">
+            <h2>How To Study Better</h2>
+            <div class="steps">
+                <div class="step">1. Read the topic once for understanding.</div>
+                <div class="step">2. Write three key points in your own words.</div>
+                <div class="step">3. Practice one quiz, worksheet, or example question.</div>
+                <div class="step">4. Check mistakes and note what needs revision.</div>
+            </div>
+        </section>
+        <section class="section">
+            <h2>Exam Preparation Notes</h2>
+            <ul>
+                <li>Start with topics you find difficult, not only the easy ones.</li>
+                <li>Use a checklist so you can see what is complete and what is pending.</li>
+                <li>Practice writing answers within a time limit.</li>
+                <li>Sleep well before an exam because tired revision is less effective.</li>
+            </ul>
+        </section>
+        <section class="section">
+            <h2>Common Mistakes To Avoid</h2>
+            <ul>
+                <li>Reading without testing yourself.</li>
+                <li>Studying many subjects at once without a plan.</li>
+                <li>Skipping revision after learning a new topic.</li>
+                <li>Ignoring mistakes instead of understanding them.</li>
+            </ul>
+            <div class="cta-row">
+                <a class="cta primary" href="./../games/word-scramble.html">Play a Learning Game</a>
+                <a class="cta secondary" href="./../account.html">Open Profile</a>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

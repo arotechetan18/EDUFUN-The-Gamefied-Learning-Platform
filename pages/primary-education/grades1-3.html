@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grades 1-3 | EduFun</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f0e6ff, #d6c0ff, #e9ddff);
+            color: #3d0066;
+            min-height: 100vh;
+            padding: 40px 20px 80px;
+        }
+
+        .page {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 34px;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            color: #4b0082;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            max-width: 720px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 18px;
+            padding: 22px;
+            box-shadow: 0 12px 28px rgba(106, 17, 203, 0.16);
+        }
+
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 14px;
+        }
+
+        .card h2 {
+            color: #5a189a;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            line-height: 1.6;
+            margin-bottom: 14px;
+        }
+
+        .card a {
+            display: inline-block;
+            text-decoration: none;
+            padding: 10px 16px;
+            border-radius: 999px;
+            background: #6a11cb;
+            color: #fff;
+            font-weight: 600;
+        }
+    </style>
+    <script>
+      (function () {
+        const marker = "/pages/";
+        const path = window.location.pathname;
+        const root = path.includes(marker) ? path.split(marker)[0] + "/" : path.substring(0, path.lastIndexOf("/") + 1);
+        const script = document.createElement("script");
+        script.src = root + "js/site-navigation.js";
+        script.defer = true;
+        document.head.appendChild(script);
+      })();
+    </script>
+</head>
+<body>
+    <main class="page">
+        <section class="hero">
+            <h1>Grades 1-3 Learning Corner</h1>
+            <p>These activities help young learners build confidence with words, colors, and everyday objects while keeping navigation simple and familiar.</p>
+        </section>
+
+        <section class="grid">
+            <article class="card">
+                <img src="./../../images/alphabets.webp" alt="Alphabet learning">
+                <h2>Alphabet Practice</h2>
+                <p>Revise letters and sounds with the existing alphabet activity.</p>
+                <a href="./kindergarten/alphabets.html">Open Activity</a>
+            </article>
+            <article class="card">
+                <img src="./../../images/color.webp" alt="Color learning">
+                <h2>Color Explorer</h2>
+                <p>Strengthen recognition skills through colorful visuals and simple interactions.</p>
+                <a href="./kindergarten/color.html">Learn Colors</a>
+            </article>
+            <article class="card">
+                <img src="./../../images/animal.webp" alt="Animal learning">
+                <h2>Animal World</h2>
+                <p>Use picture-based learning to identify animals and remember new words.</p>
+                <a href="./kindergarten/animal.html">Meet Animals</a>
+            </article>
+            <article class="card">
+                <img src="./../../images/flashcard.jpg" alt="Quiz practice">
+                <h2>Fun Revision Quiz</h2>
+                <p>Finish with a short quiz for quick recall and playful revision.</p>
+                <a href="./kindergarten/funquiz.html">Start Quiz</a>
+            </article>
+        </section>
+    </main>
+</body>
+</html>

@@ -3,24 +3,23 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>User Account - Simple Purple Animated</title>
+    <title>User Account - EduFun Profile</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/bf520e6492.js" crossorigin="anonymous"></script>
 
     <style>
-        /* 💜 Simple Purple Theme - Animated */
         :root {
-            --primary-purple: #9c27b0; /* Medium Purple for main accents */
-            --light-purple: #e1bee7; /* Very light purple background */
-            --dark-text: #4a148c; /* Deep purple text */
-            --shadow-color: rgba(156, 39, 176, 0.4);
-            --bg-body: #f3e5f5; /* Lightest purple body background */
+            --primary-purple: #9c27b0;
+            --light-purple: #e1bee7;
+            --dark-text: #4a148c;
+            --shadow-color: rgba(156, 39, 176, 0.25);
+            --bg-body: #f3e5f5;
         }
 
         body {
             background-color: var(--bg-body);
             margin: 0;
-            padding: 0;
+            padding: 20px 0 40px;
             text-align: center;
             color: var(--dark-text);
             font-family: 'Roboto', sans-serif;
@@ -28,7 +27,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
         }
 
         h1 {
@@ -38,32 +37,42 @@
             margin-bottom: 20px;
         }
 
-        /* 🌟 UPDATED: Card Size and Animation */
         .account-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 90%;
-            max-width: 450px; /* Increased max-width */
-            padding: 50px 30px; /* Increased padding */
+            display: grid;
+            grid-template-columns: minmax(260px, 340px) minmax(0, 1fr);
+            gap: 24px;
+            align-items: stretch;
+            width: min(92%, 1100px);
+            padding: 28px;
             background-color: white;
-            border-radius: 20px; /* Softer corners */
-            box-shadow: 0 10px 30px var(--shadow-color); /* Deeper shadow */
+            border-radius: 20px;
+            box-shadow: 0 10px 30px var(--shadow-color);
             border-top: 5px solid var(--primary-purple);
-            
-            /* Add animation transition */
             transition: transform 0.4s ease, box-shadow 0.4s ease;
         }
-        
-        /* 🚀 Animation: Lift the card on hover */
+
         .account-container:hover {
             transform: translateY(-8px);
             box-shadow: 0 15px 40px var(--shadow-color);
         }
 
-        /* Profile Image Container */
+        .account-info,
+        .profile-details {
+            background: linear-gradient(180deg, #ffffff 0%, #faf5ff 100%);
+            border: 1px solid #edd5ff;
+            border-radius: 18px;
+            padding: 24px;
+        }
+
+        .account-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
         .ac-img {
-            width: 170px; /* Increased image size */
+            width: 170px;
             height: 170px;
             background: var(--light-purple);
             border-radius: 50%;
@@ -72,12 +81,12 @@
             justify-content: center;
             overflow: hidden;
             border: 4px solid var(--primary-purple);
-            margin-bottom: 20px; /* Increased margin */
+            margin-bottom: 20px;
             transition: transform 0.3s;
         }
-        
+
         .ac-img:hover {
-            transform: scale(1.08); /* Slightly more aggressive zoom on image */
+            transform: scale(1.08);
         }
 
         .ac-img img {
@@ -87,65 +96,309 @@
             border-radius: 50%;
         }
 
-        /* Username Display */
         #userName {
-            font-size: 2rem; /* Increased font size for prominence */
+            font-size: 2rem;
             color: var(--dark-text);
             font-weight: 500;
             margin-top: 10px;
-            margin-bottom: 35px; /* Increased margin */
+            margin-bottom: 12px;
         }
 
-        /* File Upload Styling (Hidden and Custom Button) */
+        .subheading {
+            color: #6b7280;
+            margin: 0 0 20px;
+            font-size: 0.98rem;
+        }
+
         input[type="file"] {
             display: none;
         }
 
-        /* Custom Label/Button for file input */
         .upload-label {
             display: inline-flex;
             align-items: center;
             gap: 8px;
             background-color: var(--primary-purple);
             color: white;
-            padding: 12px 25px; /* Increased button size */
+            padding: 12px 25px;
             border-radius: 30px;
             cursor: pointer;
             font-weight: 500;
-            font-size: 1rem; /* Increased font size */
+            font-size: 1rem;
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
             transition: background-color 0.3s, transform 0.2s;
         }
 
         .upload-label:hover {
             background-color: var(--dark-text);
-            transform: translateY(-2px); /* Button lift animation */
+            transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
-        
+
         .upload-label i {
             font-size: 1.1rem;
         }
-        
-        /* Media query for smaller screens */
-        @media (max-width: 480px) {
-            .account-container {
-                max-width: 95%;
-                padding: 30px 15px;
+
+        .profile-meta,
+        .quick-links,
+        .profile-fields,
+        .history-list,
+        .recommendation-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .profile-meta,
+        .quick-links {
+            width: 100%;
+            margin-top: 18px;
+            text-align: left;
+        }
+
+        .profile-summary-card,
+        .detail-card,
+        .stat-card,
+        .score-card,
+        .history-card {
+            background: #faf5ff;
+            border: 1px solid #e9d5ff;
+            border-radius: 18px;
+            padding: 16px;
+        }
+
+        .profile-summary-card strong,
+        .detail-card strong {
+            display: block;
+            margin-bottom: 4px;
+            color: var(--dark-text);
+        }
+
+        .quick-link {
+            display: inline-flex;
+            justify-content: center;
+            text-decoration: none;
+            padding: 12px 18px;
+            border-radius: 30px;
+            background: #f3e8ff;
+            color: var(--dark-text);
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+        }
+
+        .profile-details-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 18px;
+            text-align: left;
+        }
+
+        .profile-details-header h2,
+        .profile-details-header p,
+        .section-title {
+            margin: 0;
+        }
+
+        .profile-details-header p {
+            margin-top: 6px;
+            color: #6b7280;
+        }
+
+        .profile-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            border: none;
+            border-radius: 999px;
+            padding: 10px 18px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(156, 39, 176, 0.2);
+        }
+
+        .action-btn.primary {
+            background: var(--primary-purple);
+            color: white;
+        }
+
+        .action-btn.secondary {
+            background: #f3e8ff;
+            color: var(--dark-text);
+        }
+
+        .profile-fields {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .detail-card.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .profile-label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #6b7280;
+            margin-bottom: 6px;
+            text-align: left;
+        }
+
+        .profile-value {
+            font-size: 1rem;
+            color: var(--dark-text);
+            word-break: break-word;
+            text-align: left;
+        }
+
+        .profile-input,
+        .profile-textarea {
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid #d8b4fe;
+            border-radius: 12px;
+            padding: 11px 12px;
+            font-size: 0.98rem;
+            color: var(--dark-text);
+            background: white;
+            font-family: inherit;
+        }
+
+        .profile-textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .dashboard {
+            width: min(92%, 1100px);
+            max-width: 1100px;
+            margin: 24px auto 0;
+            display: grid;
+            gap: 18px;
+            padding: 0 0 24px;
+        }
+
+        .panel {
+            background: white;
+            border-radius: 22px;
+            box-shadow: 0 10px 28px var(--shadow-color);
+            padding: 24px;
+            text-align: left;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--primary-purple);
+            margin-bottom: 14px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+
+        .stat-card span,
+        .muted {
+            color: #6b7280;
+            font-size: 0.92rem;
+        }
+
+        .stat-card strong {
+            display: block;
+            font-size: 1.6rem;
+            color: var(--primary-purple);
+            margin-top: 8px;
+        }
+
+        .score-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 14px;
+        }
+
+        .score-card h3 {
+            margin: 0 0 10px;
+            color: var(--dark-text);
+            font-size: 1rem;
+        }
+
+        .empty-state {
+            padding: 18px;
+            border-radius: 18px;
+            background: #faf5ff;
+            border: 1px dashed #d8b4fe;
+            color: #6b7280;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                justify-content: flex-start;
+                padding: 18px 0 24px;
             }
+
+            .account-container {
+                grid-template-columns: 1fr;
+                width: min(95%, 1100px);
+                padding: 18px;
+            }
+
+            .profile-fields,
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
             .ac-img {
                 width: 130px;
                 height: 130px;
             }
+
             #userName {
                 font-size: 1.8rem;
             }
+
             .upload-label {
                 font-size: 0.9rem;
                 padding: 10px 20px;
             }
+
+            .profile-details-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
         }
     </style>
+    <script>
+      (function () {
+        const marker = "/pages/";
+        const path = window.location.pathname;
+        const root = path.includes(marker) ? path.split(marker)[0] + "/" : path.substring(0, path.lastIndexOf("/") + 1);
+        const scoreScript = document.createElement("script");
+        scoreScript.src = root + "js/score-manager.js";
+        scoreScript.defer = true;
+        document.head.appendChild(scoreScript);
+        const script = document.createElement("script");
+        script.src = root + "js/site-navigation.js";
+        script.defer = true;
+        document.head.appendChild(script);
+      })();
+    </script>
 </head>
 <body>
     <h1>User Profile</h1>
@@ -158,16 +411,107 @@
                     id="userAccountImage"
                 />
             </div>
-            <h1 id="userName">User Name</h1>
-            
+            <h1 id="userName">Guest User</h1>
+            <p class="subheading" id="welcomeText">Track your learning progress in one place.</p>
+
             <form id="profileForm">
                 <label for="userImage" class="upload-label">
                     <i class="fas fa-camera"></i>
                     Change Photo
                 </label>
-                
                 <input type="file" id="userImage" name="userImage" accept="image/*" />
             </form>
+
+            <div class="profile-meta">
+                <div class="profile-summary-card"><strong>Learner Status</strong><span id="memberStatusValue">Active Student</span></div>
+                <div class="profile-summary-card"><strong>Profile Mode</strong><span id="joinedInfoValue">Score tracking enabled</span></div>
+                <div class="profile-summary-card"><strong>Current Focus</strong><span id="focusInfoValue">Build consistency through notes and quizzes</span></div>
+            </div>
+
+            <div class="quick-links">
+                <a class="quick-link" href="./../index.html">Home</a>
+                <a class="quick-link" href="./edunotes.html">EduNotes</a>
+                <a class="quick-link" href="./games/word-scramble.html">Play Word Scramble</a>
+                <a class="quick-link" href="./secondary_education_quize/basic_education/science_quiz/science.html">Play Science Quiz</a>
+                <button class="quick-link" id="logoutBtn" type="button">Log Out</button>
+            </div>
+        </div>
+
+        <div class="profile-details">
+            <div class="profile-details-header">
+                <div>
+                    <h2>Profile Details</h2>
+                    <p>Keep your profile sections organized and update your details anytime.</p>
+                </div>
+                <div class="profile-actions">
+                    <button id="editProfileBtn" type="button" class="action-btn primary">Edit Profile</button>
+                    <button id="saveProfileBtn" type="button" class="action-btn primary hidden">Save</button>
+                    <button id="cancelProfileBtn" type="button" class="action-btn secondary hidden">Cancel</button>
+                </div>
+            </div>
+
+            <div class="profile-fields">
+                <div class="detail-card">
+                    <label class="profile-label" for="editDisplayName">Display Name</label>
+                    <div id="displayNameText" class="profile-value">Guest User</div>
+                    <input id="editDisplayName" class="profile-input hidden" type="text" maxlength="40" />
+                </div>
+
+                <div class="detail-card">
+                    <label class="profile-label" for="editStatus">Learner Status</label>
+                    <div id="statusText" class="profile-value">Active Student</div>
+                    <input id="editStatus" class="profile-input hidden" type="text" maxlength="50" />
+                </div>
+
+                <div class="detail-card">
+                    <label class="profile-label" for="editMode">Profile Mode</label>
+                    <div id="modeText" class="profile-value">Score tracking enabled</div>
+                    <input id="editMode" class="profile-input hidden" type="text" maxlength="60" />
+                </div>
+
+                <div class="detail-card">
+                    <label class="profile-label">Joined As</label>
+                    <div id="joinedAsText" class="profile-value">Guest learner</div>
+                </div>
+
+                <div class="detail-card full-width">
+                    <label class="profile-label" for="editFocus">Current Focus</label>
+                    <div id="focusText" class="profile-value">Build consistency through notes and quizzes</div>
+                    <textarea id="editFocus" class="profile-textarea hidden" maxlength="180"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard">
+        <div class="panel">
+            <h2 class="section-title">Performance Overview</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span>Games Played</span>
+                    <strong id="gamesPlayed">0</strong>
+                </div>
+                <div class="stat-card">
+                    <span>Total Attempts</span>
+                    <strong id="totalAttempts">0</strong>
+                </div>
+                <div class="stat-card">
+                    <span>Best Accuracy</span>
+                    <strong id="bestAccuracy">0%</strong>
+                </div>
+            </div>
+        </div>
+        <div class="panel">
+            <h2 class="section-title">Scores By Game</h2>
+            <div id="scoreGrid" class="score-grid"></div>
+        </div>
+        <div class="panel">
+            <h2 class="section-title">Recent Attempts</h2>
+            <div id="historyList" class="history-list"></div>
+        </div>
+        <div class="panel">
+            <h2 class="section-title">Recommended Next Steps</h2>
+            <div id="recommendationList" class="recommendation-list"></div>
         </div>
     </div>
 
@@ -175,8 +519,112 @@
         const primaryImage = document.getElementById("userAccountImage");
         const userImageInput = document.getElementById("userImage");
         const userNameElement = document.getElementById("userName");
+        const welcomeText = document.getElementById("welcomeText");
+        const displayNameText = document.getElementById("displayNameText");
+        const statusText = document.getElementById("statusText");
+        const modeText = document.getElementById("modeText");
+        const focusText = document.getElementById("focusText");
+        const joinedAsText = document.getElementById("joinedAsText");
+        const memberStatusValue = document.getElementById("memberStatusValue");
+        const joinedInfoValue = document.getElementById("joinedInfoValue");
+        const focusInfoValue = document.getElementById("focusInfoValue");
+        const editProfileBtn = document.getElementById("editProfileBtn");
+        const saveProfileBtn = document.getElementById("saveProfileBtn");
+        const cancelProfileBtn = document.getElementById("cancelProfileBtn");
+        const logoutBtn = document.getElementById("logoutBtn");
+        const editDisplayName = document.getElementById("editDisplayName");
+        const editStatus = document.getElementById("editStatus");
+        const editMode = document.getElementById("editMode");
+        const editFocus = document.getElementById("editFocus");
+        const profileStorageKey = "edufunProfileData";
 
-        // --- Image Handling ---
+        function getLoggedInUserKey() {
+            return localStorage.getItem("loggedInUser") || "guest";
+        }
+
+        function getAllProfiles() {
+            try {
+                return JSON.parse(localStorage.getItem(profileStorageKey)) || {};
+            } catch (error) {
+                return {};
+            }
+        }
+
+        function saveAllProfiles(profiles) {
+            localStorage.setItem(profileStorageKey, JSON.stringify(profiles));
+        }
+
+        function formatDisplayName(name) {
+            if (!name) {
+                return "Guest User";
+            }
+
+            return name
+                .split(" ")
+                .filter(Boolean)
+                .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+                .join(" ");
+        }
+
+        function buildDefaultProfile() {
+            const savedUsername = localStorage.getItem("loggedInUser");
+            return {
+                displayName: savedUsername ? formatDisplayName(savedUsername) : "Guest User",
+                learnerStatus: "Active Student",
+                profileMode: "Score tracking enabled",
+                currentFocus: "Build consistency through notes and quizzes",
+                joinedAs: savedUsername ? `${savedUsername} learner` : "Guest learner"
+            };
+        }
+
+        function getCurrentProfile() {
+            const allProfiles = getAllProfiles();
+            const key = getLoggedInUserKey();
+            return {
+                ...buildDefaultProfile(),
+                ...(allProfiles[key] || {})
+            };
+        }
+
+        function saveCurrentProfile(profileData) {
+            const allProfiles = getAllProfiles();
+            allProfiles[getLoggedInUserKey()] = profileData;
+            saveAllProfiles(allProfiles);
+        }
+
+        function setEditMode(isEditing) {
+            [displayNameText, statusText, modeText, focusText].forEach((element) => {
+                element.classList.toggle("hidden", isEditing);
+            });
+
+            [editDisplayName, editStatus, editMode, editFocus].forEach((element) => {
+                element.classList.toggle("hidden", !isEditing);
+            });
+
+            editProfileBtn.classList.toggle("hidden", isEditing);
+            saveProfileBtn.classList.toggle("hidden", !isEditing);
+            cancelProfileBtn.classList.toggle("hidden", !isEditing);
+        }
+
+        function renderProfileDetails(profileData) {
+            const displayName = profileData.displayName || "Guest User";
+            userNameElement.textContent = displayName;
+            displayNameText.textContent = displayName;
+            statusText.textContent = profileData.learnerStatus;
+            modeText.textContent = profileData.profileMode;
+            focusText.textContent = profileData.currentFocus;
+            joinedAsText.textContent = profileData.joinedAs;
+            memberStatusValue.textContent = profileData.learnerStatus;
+            joinedInfoValue.textContent = profileData.profileMode;
+            focusInfoValue.textContent = profileData.currentFocus;
+            welcomeText.textContent = `Welcome back, ${displayName}. Keep your progress moving.`;
+
+            editDisplayName.value = displayName;
+            editStatus.value = profileData.learnerStatus;
+            editMode.value = profileData.profileMode;
+            editFocus.value = profileData.currentFocus;
+        }
+
         function handleImageUpload(event) {
             const file = event.target.files[0];
             if (file) {
@@ -189,27 +637,125 @@
                 reader.readAsDataURL(file);
             }
         }
-        userImageInput.addEventListener('change', handleImageUpload);
 
+        userImageInput.addEventListener("change", handleImageUpload);
 
-        // --- Local Storage Loading ---
-        
-        // 1. Load Image
         const savedImage = localStorage.getItem("profileImage");
         if (savedImage) {
             primaryImage.src = savedImage;
         } else {
-             primaryImage.src = "./../images/account-black.png";
+            primaryImage.src = "./../images/account-black.png";
         }
 
-        // 2. Load Username
-        const savedUsername = localStorage.getItem("loggedInUser");
-        if (savedUsername) {
-            const formattedUsername = savedUsername.charAt(0).toUpperCase() + savedUsername.slice(1);
-            userNameElement.textContent = formattedUsername;
-        } else {
-            userNameElement.textContent = "Guest User";
+        let currentProfile = getCurrentProfile();
+        renderProfileDetails(currentProfile);
+        setEditMode(false);
+
+        editProfileBtn.addEventListener("click", function () {
+            currentProfile = getCurrentProfile();
+            renderProfileDetails(currentProfile);
+            setEditMode(true);
+        });
+
+        cancelProfileBtn.addEventListener("click", function () {
+            currentProfile = getCurrentProfile();
+            renderProfileDetails(currentProfile);
+            setEditMode(false);
+        });
+
+        saveProfileBtn.addEventListener("click", function () {
+            const savedUsername = localStorage.getItem("loggedInUser");
+            const updatedProfile = {
+                displayName: formatDisplayName(editDisplayName.value.trim() || "Guest User"),
+                learnerStatus: editStatus.value.trim() || "Active Student",
+                profileMode: editMode.value.trim() || "Score tracking enabled",
+                currentFocus: editFocus.value.trim() || "Build consistency through notes and quizzes",
+                joinedAs: savedUsername ? `${savedUsername} learner` : "Guest learner"
+            };
+
+            saveCurrentProfile(updatedProfile);
+            currentProfile = updatedProfile;
+            renderProfileDetails(currentProfile);
+            setEditMode(false);
+        });
+
+        logoutBtn.addEventListener("click", function () {
+            localStorage.removeItem("loggedInUser");
+            window.location.href = "./login.html";
+        });
+
+        function formatDate(dateString) {
+            return new Date(dateString).toLocaleString();
         }
+
+        function renderScores() {
+            const scoreGrid = document.getElementById("scoreGrid");
+            const historyList = document.getElementById("historyList");
+            const recommendationList = document.getElementById("recommendationList");
+            const gamesPlayed = document.getElementById("gamesPlayed");
+            const totalAttempts = document.getElementById("totalAttempts");
+            const bestAccuracy = document.getElementById("bestAccuracy");
+            const summary = window.EduFunScores ? window.EduFunScores.getScoreSummary() : [];
+            const history = window.EduFunScores ? window.EduFunScores.getUserScores().slice().reverse() : [];
+
+            gamesPlayed.textContent = summary.length;
+            totalAttempts.textContent = history.length;
+
+            const highest = summary.reduce((max, item) => {
+                if (!item.total) {
+                    return max;
+                }
+                const accuracy = Math.round((item.bestScore / item.total) * 100);
+                return Math.max(max, accuracy);
+            }, 0);
+            bestAccuracy.textContent = `${highest}%`;
+
+            if (!summary.length) {
+                scoreGrid.innerHTML = '<div class="empty-state">No saved scores yet. Play a game and your results will appear here automatically.</div>';
+            } else {
+                scoreGrid.innerHTML = summary.map((item) => {
+                    const accuracy = item.total ? Math.round((item.bestScore / item.total) * 100) : 0;
+                    return `<article class="score-card"><h3>${item.title}</h3><div><strong>Best:</strong> ${item.bestScore} / ${item.total}</div><div class="muted">Latest: ${item.lastScore} / ${item.total}</div><div class="muted">Accuracy: ${accuracy}%</div><div class="muted">Attempts: ${item.attempts}</div><div class="muted">Last Played: ${formatDate(item.lastPlayedAt)}</div></article>`;
+                }).join("");
+            }
+
+            if (!history.length) {
+                historyList.innerHTML = '<div class="empty-state">Your recent attempts will appear here after you play.</div>';
+            } else {
+                historyList.innerHTML = history.slice(0, 8).map((item) => {
+                    return `<article class="history-card"><div><strong>${item.title}</strong></div><div class="muted">Score: ${item.score} / ${item.total}</div><div class="muted">Category: ${item.category}</div><div class="muted">Played: ${formatDate(item.playedAt)}</div></article>`;
+                }).join("");
+            }
+
+            if (!summary.length) {
+                recommendationList.innerHTML = '<div class="empty-state">Start with <a href="./edunotes.html">EduNotes</a>, then try one quiz and come back to review your activity here.</div>';
+            } else {
+                const weakest = summary
+                    .map((item) => ({
+                        ...item,
+                        accuracy: item.total ? Math.round((item.bestScore / item.total) * 100) : 0
+                    }))
+                    .sort((a, b) => a.accuracy - b.accuracy)[0];
+
+                recommendationList.innerHTML = `
+                    <article class="history-card">
+                        <div><strong>Revision Priority</strong></div>
+                        <div class="muted">${weakest.title} currently has your lowest best accuracy at ${weakest.accuracy}%. Review notes, then retake that quiz.</div>
+                    </article>
+                    <article class="history-card">
+                        <div><strong>Balanced Workflow</strong></div>
+                        <div class="muted">Use <a href="./edunotes.html">EduNotes</a> for quick revision, then practice a quiz and check improvement in this profile dashboard.</div>
+                    </article>
+                    <article class="history-card">
+                        <div><strong>Consistency Goal</strong></div>
+                        <div class="muted">You have ${history.length} total attempts so far. Try one more focused practice session today to build steady progress.</div>
+                    </article>
+                `;
+            }
+        }
+
+        window.addEventListener("DOMContentLoaded", renderScores);
     </script>
 </body>
 </html>
+

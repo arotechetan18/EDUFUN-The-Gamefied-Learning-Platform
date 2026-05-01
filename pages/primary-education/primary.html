@@ -251,6 +251,17 @@
             }
         }
     </style>
+    <script>
+      (function () {
+        const marker = "/pages/";
+        const path = window.location.pathname;
+        const root = path.includes(marker) ? path.split(marker)[0] + "/" : path.substring(0, path.lastIndexOf("/") + 1);
+        const script = document.createElement("script");
+        script.src = root + "js/site-navigation.js";
+        script.defer = true;
+        document.head.appendChild(script);
+      })();
+    </script>
 </head>
 <body>
     <nav class="navbar" id="navbar">
@@ -264,7 +275,7 @@
         </div>
         <ul>
             <a href="./../../index.html"><li>Home</li></a>
-            <a href="./../../pages/notes.html"><li>Spaceship</li></a>
+            <a href="./../../pages/notes.html"><li>Notes Hub</li></a>
             <a href="./../../pages/about_us.html"><li>About</li></a>
             <a href="./../../pages/contact.html"><li>contact</li></a>
             <a href="./../../pages/login.html"><li id="UserlogIn">Log In</li></a>
@@ -279,7 +290,7 @@
     <nav class="ham-nav" id="ham-nav">
         <ul>
             <a href="./../../index.html"><li>Home</li></a>
-            <a href="./../../pages/notes.html"><li>Spaceship</li></a>
+            <a href="./../../pages/notes.html"><li>Notes Hub</li></a>
             <a href="./../../pages/about_us.html"><li>About</li></a>
             <a href="./../../pages/contact.html"><li>contact</li></a>
             <a href="./../../pages/login.html"><li id="UserlogIn">Log In</li></a>
@@ -324,3 +335,4 @@
     </script>
 </body>
 </html>
+

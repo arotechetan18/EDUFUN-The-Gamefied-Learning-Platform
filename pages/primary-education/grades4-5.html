@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grades 4-5 | EduFun</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f0e6ff, #d6c0ff, #e9ddff);
+            color: #3d0066;
+            min-height: 100vh;
+            padding: 40px 20px 80px;
+        }
+
+        .page {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 34px;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            color: #4b0082;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            max-width: 760px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 18px;
+            padding: 22px;
+            box-shadow: 0 12px 28px rgba(106, 17, 203, 0.16);
+        }
+
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 14px;
+        }
+
+        .card h2 {
+            color: #5a189a;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            line-height: 1.6;
+            margin-bottom: 14px;
+        }
+
+        .card a {
+            display: inline-block;
+            text-decoration: none;
+            padding: 10px 16px;
+            border-radius: 999px;
+            background: #6a11cb;
+            color: #fff;
+            font-weight: 600;
+        }
+    </style>
+    <script>
+      (function () {
+        const marker = "/pages/";
+        const path = window.location.pathname;
+        const root = path.includes(marker) ? path.split(marker)[0] + "/" : path.substring(0, path.lastIndexOf("/") + 1);
+        const script = document.createElement("script");
+        script.src = root + "js/site-navigation.js";
+        script.defer = true;
+        document.head.appendChild(script);
+      })();
+    </script>
+</head>
+<body>
+    <main class="page">
+        <section class="hero">
+            <h1>Grades 4-5 Learning Corner</h1>
+            <p>This stage blends revision and exploration. Students can move into quizzes, problem solving, and subject-based practice with clear next steps.</p>
+        </section>
+
+        <section class="grid">
+            <article class="card">
+                <img src="./../../images/grade4-5.jpg" alt="Math practice">
+                <h2>Math Readiness</h2>
+                <p>Step up to the secondary maths activity when learners are ready for extra practice.</p>
+                <a href="./../secondary_education_quize/basic_education/maths_quiz/maths_quiz.html">Practice Maths</a>
+            </article>
+            <article class="card">
+                <img src="./../../images/science_kit.jpg" alt="Science practice">
+                <h2>Science Starter</h2>
+                <p>Use the science quiz as a bridge from primary learning to subject-based revision.</p>
+                <a href="./../secondary_education_quize/basic_education/science_quiz/science.html">Open Science</a>
+            </article>
+            <article class="card">
+                <img src="./../../images/english.jpg" alt="English practice">
+                <h2>English Builder</h2>
+                <p>Read, think, and answer through a beginner-friendly English quiz page.</p>
+                <a href="./../secondary_education_quize/basic_education/english_quiz/english.html">Improve English</a>
+            </article>
+            <article class="card">
+                <img src="./../../images/general-knowledge.jpg" alt="General knowledge practice">
+                <h2>General Knowledge</h2>
+                <p>Explore a broader set of questions to build curiosity and revision habits.</p>
+                <a href="./../secondary_education_quize/basic_education/gk_quiz/gk.html">Start GK Quiz</a>
+            </article>
+        </section>
+    </main>
+</body>
+</html>

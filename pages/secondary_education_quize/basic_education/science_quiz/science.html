@@ -1,318 +1,210 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Science Quiz</title>
-    <!-- Load Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* Custom styles for appearance and smooth transitions */
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f0f4f8; /* Light gray background */
-        }
-        .quiz-container {
-            transition: all 0.3s ease-in-out;
-        }
-        .option {
-            transition: all 0.2s ease;
-        }
-        .correct {
-            background-color: #10b981 !important; /* Tailwind emerald-500 */
-            color: white !important;
-        }
-        .wrong {
-            background-color: #ef4444 !important; /* Tailwind red-500 */
-            color: white !important;
-        }
-        /* Crucial CSS for the smooth animation effect */
-        #timer-progress {
-            /* Ensures the width change happens smoothly over 1 second */
-            transition: width 1s linear; 
-        }
-    </style>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'primary-teal': '#0f766e',
-                        'secondary-blue': '#3b82f6',
-                    }
-                }
-            }
-        }
-    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Science Quiz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+    body { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 18px; background: linear-gradient(135deg, #eef2ff, #f5f3ff, #eff6ff); color: #312e81; }
+    .quiz-shell { width: min(100%, 860px); background: rgba(255,255,255,0.96); border-radius: 28px; box-shadow: 0 18px 42px rgba(99, 102, 241, 0.16); padding: 24px; }
+    .quiz-head { display: flex; justify-content: space-between; gap: 14px; align-items: center; margin-bottom: 18px; flex-wrap: wrap; }
+    .quiz-head h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); color: #5b21b6; }
+    .quiz-head p { color: #475569; line-height: 1.7; max-width: 560px; }
+    .status-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin: 18px 0; }
+    .status-card { background: #f8fafc; border: 1px solid #dbeafe; border-radius: 18px; padding: 14px; text-align: center; }
+    .status-card span { display: block; color: #64748b; font-size: 0.9rem; margin-bottom: 6px; }
+    .status-card strong { color: #312e81; font-size: 1.25rem; }
+    .question-card { background: #faf5ff; border: 1px solid #ddd6fe; border-radius: 20px; padding: 22px; }
+    .question-card h2 { font-size: 1.25rem; line-height: 1.7; color: #312e81; margin-bottom: 16px; }
+    .options { display: grid; gap: 12px; }
+    .option { width: 100%; text-align: left; padding: 14px 16px; border-radius: 14px; border: 2px solid #d8b4fe; background: white; color: #312e81; cursor: pointer; font-size: 1rem; }
+    .option:hover:not(:disabled) { background: #f5f3ff; }
+    .option.correct { background: #dcfce7; border-color: #16a34a; color: #166534; }
+    .option.incorrect { background: #fee2e2; border-color: #dc2626; color: #991b1b; }
+    .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+    .btn, .link-btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 18px; border-radius: 999px; font-weight: 600; text-decoration: none; border: none; cursor: pointer; }
+    .btn.primary { background: linear-gradient(90deg, #5b21b6, #7c3aed); color: white; }
+    .link-btn { background: #dcfce7; color: #166534; }
+    .message { min-height: 28px; margin-top: 14px; font-weight: 600; }
+    .result.hidden, .play-area.hidden { display: none; }
+    .result { text-align: center; padding: 28px 10px 12px; }
+    .result h2 { color: #5b21b6; font-size: 2rem; margin-bottom: 10px; }
+    .result p { color: #475569; margin-bottom: 16px; }
+    @media (max-width: 560px) { .quiz-shell { padding: 16px; border-radius: 20px; } }
+  </style>
+  <script>
+    (function () {
+      const marker = '/pages/';
+      const path = window.location.pathname;
+      const root = path.includes(marker) ? path.split(marker)[0] + '/' : path.substring(0, path.lastIndexOf('/') + 1);
+      const scoreScript = document.createElement('script');
+      scoreScript.src = root + 'js/score-manager.js';
+      scoreScript.defer = true;
+      document.head.appendChild(scoreScript);
+      const navScript = document.createElement('script');
+      navScript.src = root + 'js/site-navigation.js';
+      navScript.defer = true;
+      document.head.appendChild(navScript);
+    })();
+  </script>
 </head>
-<body class="flex justify-center items-center min-h-screen p-4">
-    <div id="main-quiz-container" class="quiz-container bg-white shadow-2xl rounded-xl p-6 w-full max-w-lg">
-
-        <!-- Quiz Heading -->
-        <div class="quiz-heading flex items-center justify-start mb-4 border-b pb-4">
-            <div class="flex items-center space-x-3">
-                <!-- Science Flask Icon (Inline SVG for reliability) -->
-                <div class="text-primary-teal transition-transform duration-200 hover:scale-110">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-flask-conical">
-                        <path d="M10 2v7.31L4.37 17A2 2 0 0 0 5.63 20l.4.4c.73.73 1.7.73 2.42 0L12 16.59l3.55 3.55c.72.73 1.7.73 2.42 0l.4-.4a2 2 0 0 0 1.26-3l-5.63-7.69V2"/>
-                        <path d="M14 2v7.31L19.63 17A2 2 0 0 1 18.37 20l-.4.4c-.73.73-1.7.73-2.42 0L12 16.59l-3.55 3.55c-.72.73-1.7.73-2.42 0l-.4-.4a2 2 0 0 1-1.26-3l5.63-7.69V2"/>
-                    </svg>
-                </div>
-                <span class="text-3xl font-extrabold text-gray-800">Science Quiz</span>
-            </div>
+<body>
+  <main class="quiz-shell">
+    <section class="play-area" id="play-area">
+      <div class="quiz-head">
+        <div>
+          <h1>Science Quiz</h1>
+          <p>Explore simple science questions with the same smooth timer, total-score result, and play-again flow used across Brain Boosters.</p>
         </div>
-
-        <!-- ANIMATED TIMER SECTION -->
-        <div class="timer-section mb-6">
-            <!-- Progress Bar Container -->
-            <div class="w-full h-3 bg-gray-200 rounded-full overflow-hidden">
-                <!-- Animated Progress Bar -->
-                <div id="timer-progress" class="h-full bg-red-600" style="width: 100%;"></div>
-            </div>
-            <!-- Timer Text -->
-            <div id="timer-display" class="text-lg font-bold text-red-600 mt-2 text-right">
-                Time Left: <span id="timer">30</span>s
-            </div>
+      </div>
+      <div class="status-grid">
+        <div class="status-card"><span>Question</span><strong id="question-count">1 / 5</strong></div>
+        <div class="status-card"><span>Score</span><strong id="score-count">0</strong></div>
+        <div class="status-card"><span>Time Left</span><strong id="timer-count">30s</strong></div>
+      </div>
+      <section class="question-card">
+        <h2 id="question-text">Loading...</h2>
+        <div id="options" class="options"></div>
+        <div id="message-box" class="message"></div>
+        <div class="actions">
+          <button type="button" class="btn primary" id="next-btn" style="display:none;">Next</button>
+          <a class="link-btn" href="./../../../../account.html">View Profile</a>
         </div>
-
-        <!-- Quiz Content -->
-        <div class="quiz-content">
-            <h2 id="question" class="text-xl font-semibold mb-6 text-left text-gray-700 min-h-[60px] flex items-center"></h2>
-
-            <div class="options space-y-3" id="options">
-                <!-- Options will be dynamically inserted here -->
-            </div>
-
-            <div class="flex justify-center mt-8 space-x-4">
-                <button class="next-btn hidden px-6 py-2 bg-primary-teal text-white font-semibold rounded-full hover:bg-teal-700 transition-all duration-200 shadow-md" onclick="nextQuestion()">Next Question</button>
-                <button class="submit-btn hidden px-6 py-2 bg-secondary-blue text-white font-semibold rounded-full hover:bg-blue-600 transition-all duration-200 shadow-md" onclick="submitQuiz()">Finish Quiz</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Data for the quiz questions
-        const quizData = [
-            {
-                question : "Which gas do plants take in for photosynthesis?",
-                options: ["Oxygen", "Carbon dioxide", "Hydrogen", "Nitrogen"],
-                answer: 1
-            },
-            {
-                question: "Which part of the plant absorbs water and nutrients from the soil?",
-                options: ["Leaves", "Stems", "Roots", "Flowers"],
-                answer: 2
-            },
-            {
-                question: "What is the basic unit of life?",
-                options: ["Organ", "Tissue", "Atom", "Cell"],
-                answer: 3
-            },
-            {
-                question: "Which layer of the Earth is made up of molten rock?",
-                options: ["Crust", "Mantle", "Core", "Atmosphere"],
-                answer: 1
-            },
-            {
-                question: "What is the unit of measurement for force?",
-                options: ["Newton", "Joule", "Watt", "Pascal"],
-                answer: 0
-            }
-        ];
-
-        // State variables
-        let currentQuestionIndex = 0;
-        let score = 0;
-        let timer;
-        const totalTime = 30; // Time in seconds per question
-        let timeLeft = totalTime;
-
-        /**
-         * Starts or resets the timer and the animated progress bar.
-         */
-        function startTimer() {
-            timeLeft = totalTime;
-            const timerEl = document.getElementById("timer");
-            const timerDisplayEl = document.getElementById("timer-display");
-            const progressBar = document.getElementById("timer-progress");
-
-            // Reset UI
-            timerEl.textContent = timeLeft;
-            timerDisplayEl.classList.remove('text-red-800', 'animate-pulse');
-            progressBar.style.width = '100%';
-            progressBar.classList.remove('bg-red-800');
-            progressBar.classList.add('bg-red-600');
-
-            timer = setInterval(() => {
-                timeLeft--;
-                timerEl.textContent = timeLeft;
-
-                // **ANIMATED PROGRESS BAR LOGIC**
-                const percentage = (timeLeft / totalTime) * 100;
-                progressBar.style.width = `${percentage}%`;
-
-                // Low time warning visual change
-                if (timeLeft <= 10) {
-                    progressBar.classList.remove('bg-red-600');
-                    progressBar.classList.add('bg-red-800');
-                    timerDisplayEl.classList.add('animate-pulse');
-                } else {
-                    timerDisplayEl.classList.remove('animate-pulse');
-                }
-
-                if (timeLeft <= 0) {
-                    clearInterval(timer);
-                    // Automatically move to the next question if time runs out
-                    nextQuestion();
-                }
-            }, 1000);
+      </section>
+    </section>
+    <section class="result hidden" id="result-screen">
+      <h2>Quiz Complete</h2>
+      <p id="result-summary"></p>
+      <div class="actions" style="justify-content:center;">
+        <button type="button" class="btn primary" id="restart-btn">Play Again</button>
+        <a class="link-btn" href="./../../../../account.html">Open Profile</a>
+      </div>
+    </section>
+  </main>
+  <script>
+    const quizData = [
+      { question: 'Which gas do plants use to make food during photosynthesis?', options: ['Oxygen', 'Carbon dioxide', 'Helium', 'Nitrogen'], answer: 1 },
+      { question: 'Which organ pumps blood throughout the human body?', options: ['Lungs', 'Brain', 'Heart', 'Kidney'], answer: 2 },
+      { question: 'What is the boiling point of water at normal pressure?', options: ['50 C', '75 C', '100 C', '120 C'], answer: 2 },
+      { question: 'Which planet is known for its rings?', options: ['Mars', 'Saturn', 'Mercury', 'Venus'], answer: 1 },
+      { question: 'What force pulls objects toward the Earth?', options: ['Magnetism', 'Friction', 'Electricity', 'Gravity'], answer: 3 }
+    ];
+    const quizMeta = {
+      id: 'basic-science-quiz',
+      title: 'Science Quiz',
+      category: 'Secondary Education'
+    };
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let timeLeft = 30;
+    let timerInterval = null;
+    let hasSavedScore = false;
+    const playArea = document.getElementById('play-area');
+    const resultScreen = document.getElementById('result-screen');
+    const questionText = document.getElementById('question-text');
+    const questionCount = document.getElementById('question-count');
+    const scoreCount = document.getElementById('score-count');
+    const timerCount = document.getElementById('timer-count');
+    const options = document.getElementById('options');
+    const nextBtn = document.getElementById('next-btn');
+    const messageBox = document.getElementById('message-box');
+    const resultSummary = document.getElementById('result-summary');
+    const restartBtn = document.getElementById('restart-btn');
+    function startTimer() {
+      clearInterval(timerInterval);
+      timeLeft = 30;
+      timerCount.textContent = timeLeft + 's';
+      timerInterval = setInterval(function () {
+        timeLeft -= 1;
+        timerCount.textContent = timeLeft + 's';
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          lockOptions();
+          messageBox.textContent = 'Time is up for this question.';
+          nextBtn.style.display = 'inline-flex';
         }
-
-        /**
-         * Loads the current question and its options into the UI.
-         */
-        function loadQuestion() {
-            clearInterval(timer);
-            startTimer();
-
-            const questionEl = document.getElementById("question");
-            const optionsEl = document.getElementById("options");
-            const nextBtn = document.querySelector(".next-btn");
-            const submitBtn = document.querySelector(".submit-btn");
-
-            // Update question text
-            questionEl.innerHTML = `<span class="text-primary-teal font-extrabold mr-2">${currentQuestionIndex + 1}.</span> ${quizData[currentQuestionIndex].question}`;
-            optionsEl.innerHTML = "";
-
-            // Create option buttons
-            quizData[currentQuestionIndex].options.forEach((option, index) => {
-                const button = document.createElement("button");
-                button.innerText = option;
-                // Tailwind classes for options
-                button.className = "option block w-full text-left px-4 py-3 bg-gray-100 text-gray-800 border border-gray-200 rounded-lg hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-secondary-blue shadow-sm";
-                button.onclick = () => checkAnswer(button, index);
-                optionsEl.appendChild(button);
-            });
-
-            nextBtn.classList.add("hidden");
-            submitBtn.classList.add("hidden");
-            // The restart button is dynamically created/removed in submitQuiz/restartQuiz, no need to hide it here.
-        }
-
-        /**
-         * Checks the selected answer against the correct answer.
-         */
-        function checkAnswer(button, selectedIndex) {
-            clearInterval(timer); // Stop the timer once an answer is selected
-            document.getElementById("timer-display").classList.remove('animate-pulse');
-
-            const correctIndex = quizData[currentQuestionIndex].answer;
-            const options = document.querySelectorAll(".option");
-
-            // Disable all options
-            options.forEach(btn => btn.disabled = true);
-
-            // Apply correct/wrong styling
-            if (selectedIndex === correctIndex) {
-                button.classList.add("correct");
-                score++;
-            } else {
-                button.classList.add("wrong");
-                // Also highlight the correct answer
-                options[correctIndex].classList.add("correct");
-            }
-
-            // Show the appropriate navigation button
-            if (currentQuestionIndex < quizData.length - 1) {
-                document.querySelector(".next-btn").classList.remove("hidden");
-            } else {
-                document.querySelector(".submit-btn").classList.remove("hidden");
-            }
-        }
-
-        /**
-         * Moves to the next question.
-         */
-        function nextQuestion() {
-            currentQuestionIndex++;
-            if (currentQuestionIndex < quizData.length) {
-                loadQuestion();
-            } else {
-                submitQuiz();
-            }
-        }
-
-        /**
-         * Displays the final quiz results.
-         */
-        function submitQuiz() {
-            clearInterval(timer); // Stop the final timer
-            const quizContainer = document.getElementById("main-quiz-container");
-
-            // Generate the result box HTML with Tailwind styling
-            quizContainer.innerHTML = `
-                <div class="result-box text-center p-8">
-                    <div class="result-header flex justify-center items-center mb-6">
-                        <h2 class="text-3xl font-extrabold text-primary-teal flex items-center space-x-2">
-                            <span>🎉 Quiz Completed!</span>
-                        </h2>
-                    </div>
-                    <hr class="border-t border-gray-200 mb-6" />
-                    <p class="text-2xl font-bold mb-4 text-gray-700">Your Score:</p>
-                    <p class="text-5xl font-extrabold text-secondary-blue">${score} / ${quizData.length}</p>
-                    <p class="mt-4 text-lg text-gray-500">${score === quizData.length ? 'Perfect score! You are a science whiz!' : 'Great effort! Review the topics and try again.'}</p>
-                    <button class="restart mt-8 px-6 py-3 bg-primary-teal text-white font-semibold rounded-full hover:bg-teal-700 transition-all duration-200 shadow-lg" onclick="restartQuiz()">🔄 Restart Quiz</button>
-                </div>
-            `;
-        }
-
-        /**
-         * Resets the quiz to the starting state and reloads the first question.
-         */
-        function restartQuiz() {
-            currentQuestionIndex = 0;
-            score = 0;
-            // Reconstruct the main quiz HTML structure using the initial template
-            document.getElementById("main-quiz-container").innerHTML = `
-                <div class="quiz-heading flex items-center justify-start mb-4 border-b pb-4">
-                    <div class="flex items-center space-x-3">
-                        <div class="text-primary-teal transition-transform duration-200 hover:scale-110">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-flask-conical">
-                                <path d="M10 2v7.31L4.37 17A2 2 0 0 0 5.63 20l.4.4c.73.73 1.7.73 2.42 0L12 16.59l3.55 3.55c.72.73 1.7.73 2.42 0l.4-.4a2 2 0 0 0 1.26-3l-5.63-7.69V2"/>
-                                <path d="M14 2v7.31L19.63 17A2 2 0 0 1 18.37 20l-.4.4c-.73.73-1.7.73-2.42 0L12 16.59l-3.55 3.55c-.72.73-1.7.73-2.42 0l-.4-.4a2 2 0 0 1-1.26-3l5.63-7.69V2"/>
-                            </svg>
-                        </div>
-                        <span class="text-3xl font-extrabold text-gray-800">Science Quiz</span>
-                    </div>
-                </div>
-
-                <div class="timer-section mb-6">
-                    <div class="w-full h-3 bg-gray-200 rounded-full overflow-hidden">
-                        <div id="timer-progress" class="h-full bg-red-600" style="width: 100%;"></div>
-                    </div>
-                    <div id="timer-display" class="text-lg font-bold text-red-600 mt-2 text-right">
-                        Time Left: <span id="timer">30</span>s
-                    </div>
-                </div>
-                
-                <div class="quiz-content">
-                    <h2 id="question" class="text-xl font-semibold mb-6 text-left text-gray-700 min-h-[60px] flex items-center"></h2>
-
-                    <div class="options space-y-3" id="options">
-                        <!-- Options will be dynamically inserted here -->
-                    </div>
-
-                    <div class="flex justify-center mt-8 space-x-4">
-                        <button class="next-btn hidden px-6 py-2 bg-primary-teal text-white font-semibold rounded-full hover:bg-teal-700 transition-all duration-200 shadow-md" onclick="nextQuestion()">Next Question</button>
-                        <button class="submit-btn hidden px-6 py-2 bg-secondary-blue text-white font-semibold rounded-full hover:bg-blue-600 transition-all duration-200 shadow-md" onclick="submitQuiz()">Finish Quiz</button>
-                    </div>
-                </div>
-            `;
-            loadQuestion();
-        }
-
-        // Initialize the first question when the page loads
-        document.addEventListener("DOMContentLoaded", loadQuestion);
-    </script>
+      }, 1000);
+    }
+    function lockOptions() {
+      document.querySelectorAll('.option').forEach(function (button) {
+        button.disabled = true;
+      });
+    }
+    function loadQuestion() {
+      const current = quizData[currentQuestionIndex];
+      questionText.textContent = current.question;
+      questionCount.textContent = (currentQuestionIndex + 1) + ' / ' + quizData.length;
+      scoreCount.textContent = score;
+      options.innerHTML = '';
+      nextBtn.style.display = 'none';
+      messageBox.textContent = '';
+      current.options.forEach(function (option, index) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'option';
+        button.textContent = option;
+        button.addEventListener('click', function () {
+          handleAnswer(button, index);
+        });
+        options.appendChild(button);
+      });
+      startTimer();
+    }
+    function handleAnswer(button, index) {
+      clearInterval(timerInterval);
+      const correctIndex = quizData[currentQuestionIndex].answer;
+      lockOptions();
+      if (index === correctIndex) {
+        score += 1;
+        button.classList.add('correct');
+        messageBox.textContent = 'Correct answer.';
+      } else {
+        button.classList.add('incorrect');
+        document.querySelectorAll('.option')[correctIndex].classList.add('correct');
+        messageBox.textContent = 'Review the highlighted correct answer.';
+      }
+      scoreCount.textContent = score;
+      nextBtn.style.display = 'inline-flex';
+    }
+    function finishQuiz() {
+      clearInterval(timerInterval);
+      playArea.classList.add('hidden');
+      resultScreen.classList.remove('hidden');
+      resultSummary.textContent = 'Your total score is ' + score + ' / ' + quizData.length + '.';
+      if (!hasSavedScore && window.EduFunScores) {
+        window.EduFunScores.saveScore({
+          id: quizMeta.id,
+          title: quizMeta.title,
+          category: quizMeta.category,
+          score: score,
+          total: quizData.length,
+          path: window.location.pathname
+        });
+        hasSavedScore = true;
+      }
+    }
+    function nextQuestion() {
+      currentQuestionIndex += 1;
+      if (currentQuestionIndex < quizData.length) {
+        loadQuestion();
+      } else {
+        finishQuiz();
+      }
+    }
+    function restartQuiz() {
+      currentQuestionIndex = 0;
+      score = 0;
+      hasSavedScore = false;
+      playArea.classList.remove('hidden');
+      resultScreen.classList.add('hidden');
+      loadQuestion();
+    }
+    nextBtn.addEventListener('click', nextQuestion);
+    restartBtn.addEventListener('click', restartQuiz);
+    document.addEventListener('DOMContentLoaded', loadQuestion);
+  </script>
 </body>
 </html>
+

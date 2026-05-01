@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EduFun Note</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #5b21b6;
+            --secondary: #7c3aed;
+            --surface: rgba(255,255,255,0.96);
+            --border: rgba(196,181,253,0.6);
+            --text: #312e81;
+            --muted: #5b647d;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Poppins", sans-serif; }
+        body { min-height: 100vh; background: linear-gradient(135deg, #f5f3ff, #eef2ff, #eff6ff); color: var(--text); }
+        .page { max-width: 1080px; margin: 0 auto; padding: 92px 20px 42px; }
+        .back-link { display: inline-flex; padding: 10px 16px; border-radius: 999px; text-decoration: none; font-weight: 600; background: rgba(91,33,182,0.1); color: var(--primary); margin-bottom: 18px; }
+        .hero, .section-card { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; box-shadow: 0 14px 32px rgba(99,102,241,0.12); }
+        .hero { padding: 30px; margin-bottom: 20px; background: linear-gradient(135deg, rgba(91,33,182,0.96), rgba(124,58,237,0.9)); color: #fff; }
+        .eyebrow { display: inline-block; padding: 7px 12px; border-radius: 999px; background: rgba(255,255,255,0.18); margin-bottom: 12px; font-size: 0.9rem; font-weight: 600; }
+        .hero h1 { font-size: clamp(2rem, 4vw, 2.9rem); margin-bottom: 10px; }
+        .hero p { max-width: 760px; line-height: 1.8; }
+        .grid { display: grid; gap: 18px; }
+        .section-card { padding: 24px; }
+        .section-card h2 { color: var(--primary); margin-bottom: 10px; }
+        .section-card ul { padding-left: 20px; }
+        .section-card li, .empty-state { color: #433b72; line-height: 1.85; }
+        .meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+        .meta span { padding: 8px 12px; border-radius: 999px; background: rgba(91,33,182,0.08); color: var(--primary); font-weight: 600; font-size: 0.92rem; }
+        .custom-notes { margin-top: 20px; }
+        .custom-item { background: #faf5ff; border: 1px solid #e9d5ff; border-radius: 18px; padding: 18px; margin-top: 12px; }
+        .custom-item h3 { color: var(--primary); margin-bottom: 8px; }
+    </style>
+    <script>
+      (function () {
+        const marker = "/pages/";
+        const path = window.location.pathname;
+        const root = path.includes(marker) ? path.split(marker)[0] + "/" : path.substring(0, path.lastIndexOf("/") + 1);
+        const navScript = document.createElement("script");
+        navScript.src = root + "js/site-navigation.js";
+        navScript.defer = true;
+        document.head.appendChild(navScript);
+        const notesScript = document.createElement("script");
+        notesScript.src = root + "js/notes-library.js";
+        notesScript.defer = true;
+        document.head.appendChild(notesScript);
+      })();
+    </script>
+</head>
+<body>
+    <main class="page">
+        <a class="back-link" href="./notes.html">← Back to Notes Hub</a>
+        <section id="note-hero" class="hero"></section>
+        <section id="note-sections" class="grid"></section>
+        <section id="custom-notes" class="section-card custom-notes"></section>
+    </main>
+    <script>
+        function getCustomNotes() {
+            try {
+                return JSON.parse(localStorage.getItem("edufunCustomNotes")) || [];
+            } catch (error) {
+                return [];
+            }
+        }
+
+        function renderDetail() {
+            const params = new URLSearchParams(window.location.search);
+            const noteId = params.get("id");
+            const notes = window.EduFunNotesLibrary || [];
+            const note = notes.find(function (entry) { return entry.id === noteId; });
+            const hero = document.getElementById("note-hero");
+            const sections = document.getElementById("note-sections");
+            const customNotes = document.getElementById("custom-notes");
+            const backLink = document.querySelector(".back-link");
+
+            if (!note) {
+                hero.innerHTML = "<div class='eyebrow'>Notes</div><h1>Note not found</h1><p>The requested topic could not be loaded. Return to the Notes Hub to choose another section.</p>";
+                sections.innerHTML = "";
+                customNotes.innerHTML = "<h2>Custom Notes</h2><p class='empty-state'>No matching note was found for this page.</p>";
+                return;
+            }
+
+            document.title = note.title + " | EduFun";
+            if (note.section === "Higher Education" && backLink) {
+                backLink.href = "./edunotes.html";
+                backLink.textContent = "Back to EduNotes";
+            }
+            hero.innerHTML = "<div class='eyebrow'>" + note.section + "</div><h1>" + note.title + "</h1><p>" + note.summary + "</p><div class='meta'><span>" + note.level + "</span><span>Topic-wise revision</span></div>";
+            sections.innerHTML = note.topics.map(function (topic) {
+                return "<article class='section-card'><h2>" + topic.heading + "</h2><ul>" + topic.points.map(function (point) { return "<li>" + point + "</li>"; }).join("") + "</ul></article>";
+            }).join("");
+
+            const matchingCustom = getCustomNotes().filter(function (entry) {
+                return entry.section === note.section;
+            });
+
+            customNotes.innerHTML = "<h2>Notes Added By You</h2>" + (
+                matchingCustom.length
+                    ? matchingCustom.map(function (entry) {
+                        return "<article class='custom-item'><h3>" + entry.title + "</h3><p class='empty-state'>" + entry.body.replace(/\n/g, "<br>") + "</p></article>";
+                      }).join("")
+                    : "<p class='empty-state'>No custom notes saved for this section yet. Use the Notes Hub form to add one.</p>"
+            );
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            if (window.EduFunNotesLibrary) {
+                renderDetail();
+            } else {
+                window.addEventListener("load", renderDetail);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Science Basics | EduFun</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #1d4ed8; --secondary: #3b82f6; --surface: rgba(255,255,255,0.96); --text: #1e3a8a; --border: rgba(147, 197, 253, 0.6); }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Poppins", sans-serif; }
+        body { background: linear-gradient(135deg, #eff6ff, #ecfeff, #f8fafc); color: var(--text); min-height: 100vh; }
+        .page { max-width: 1100px; margin: 0 auto; padding: 88px 20px 40px; }
+        .back-link { display: inline-flex; padding: 10px 16px; border-radius: 999px; background: rgba(29,78,216,0.1); color: var(--primary); text-decoration: none; font-weight: 600; margin-bottom: 18px; }
+        .hero, .section, .card { border-radius: 24px; border: 1px solid var(--border); box-shadow: 0 12px 28px rgba(59, 130, 246, 0.12); }
+        .hero { background: linear-gradient(135deg, rgba(29,78,216,0.96), rgba(59,130,246,0.9)); color: #fff; padding: 32px; }
+        .hero h1 { font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: 12px; }
+        .hero p, .section li, .section p, .card p { line-height: 1.8; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin: 24px 0; }
+        .card, .section { background: var(--surface); padding: 22px; }
+        .card h2, .section h2 { color: var(--primary); margin-bottom: 10px; }
+        .section { margin-bottom: 18px; }
+        .section ul { padding-left: 18px; }
+        .cta { display: inline-block; margin-top: 14px; padding: 11px 18px; border-radius: 999px; text-decoration: none; font-weight: 600; background: var(--primary); color: #fff; }
+    </style>
+    <script>
+      (function () {
+        const marker = "/pages/";
+        const path = window.location.pathname;
+        const root = path.includes(marker) ? path.split(marker)[0] + "/" : path.substring(0, path.lastIndexOf("/") + 1);
+        const script = document.createElement("script");
+        script.src = root + "js/site-navigation.js";
+        script.defer = true;
+        document.head.appendChild(script);
+      })();
+    </script>
+</head>
+<body>
+    <main class="page">
+        <a class="back-link" href="./../notes.html">← Back to Notes Hub</a>
+        <section class="hero">
+            <h1>Science Basics</h1>
+            <p>Science helps us understand how the world works. Good science learning starts with observation, asking questions, testing ideas, and using evidence before making conclusions.</p>
+        </section>
+        <section class="grid">
+            <article class="card"><h2>Matter</h2><p>Matter is anything that has mass and occupies space. Solids, liquids, and gases are the common states of matter.</p></article>
+            <article class="card"><h2>Force</h2><p>A force is a push or a pull. Forces can change the speed, shape, or direction of an object.</p></article>
+            <article class="card"><h2>Energy</h2><p>Energy is the ability to do work. It can change form, such as heat to light or electrical energy to sound.</p></article>
+        </section>
+        <section class="section">
+            <h2>Scientific Method</h2>
+            <ul>
+                <li>Observe something carefully.</li>
+                <li>Ask a question about what you noticed.</li>
+                <li>Make a simple prediction.</li>
+                <li>Test the prediction with an experiment.</li>
+                <li>Record the result and explain what it means.</li>
+            </ul>
+        </section>
+        <section class="section">
+            <h2>Everyday Science Examples</h2>
+            <ul>
+                <li>Ice melts because heat changes a solid into a liquid.</li>
+                <li>A ball rolls farther on a smooth surface because there is less friction.</li>
+                <li>Plants need sunlight, water, air, and nutrients to grow well.</li>
+                <li>Magnets attract some metals and show invisible force in action.</li>
+            </ul>
+        </section>
+        <section class="section">
+            <h2>Science Learning Tip</h2>
+            <p>When learning science, connect the topic to a real example. Understanding improves faster when the idea is linked to something you can see or do.</p>
+            <a class="cta" href="./../secondary_education_quize/basic_education/science_quiz/science.html">Take a Science Quiz</a>
+        </section>
+    </main>
+</body>
+</html>

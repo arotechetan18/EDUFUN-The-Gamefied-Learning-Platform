@@ -1,297 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>12th Standard Biology Quiz</title>
-    <!-- Load Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* Custom styles for smooth timer animation and hover effects */
-        .option-btn {
-            transition: all 0.3s ease;
-        }
-        
-        /* The timer bar transition for smooth visual countdown */
-        #timer-bar {
-            transition: width 1s linear, background-color 0.5s ease;
-        }
-        
-        /* Pulse animation for timer text when time is low */
-        @keyframes pulse-red {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.05); opacity: 0.9; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        .timer-low-animation {
-            animation: pulse-red 0.5s infinite alternate ease-in-out;
-            color: #ef4444; /* Force red text color when pulsing */
-            display: inline-block; /* Required for transform to work */
-        }
-        
-        /* Exit Button Style */
-        .exit-btn {
-            background-color: #ef4444; /* Red color */
-            border: 2px solid white;
-            outline: 2px solid #ef4444;
-            transition: all 0.3s;
-        }
-        .exit-btn:hover {
-            background-color: #b91c1c; /* Dark Red */
-            transform: scale(1.05);
-        }
-
-        /* Responsive quiz container width */
-        .quiz-container {
-            width: 95%;
-            max-width: 700px;
-            /* Added transition for hover effect */
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-        }
-
-        /* New Hover Effect for the Quiz Card */
-        .quiz-container:hover {
-            transform: translateY(-5px) scale(1.01); /* Lift up slightly */
-            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.6), 0 6px 6px rgba(0, 0, 0, 0.1); /* Add primary accent shadow */
-            border: 2px solid #4f46e5; /* Primary accent border on hover */
-        }
-    </style>
-    <script>
-        // Tailwind configuration for purple and light shades
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        // Light purple and bluish background
-                        'bg-start': '#d8b4fe', /* Lavender 300 - Light Purple */
-                        'bg-end': '#a78bfa', /* Violet 400 - Medium Purple */
-                        'primary-accent': '#4f46e5', /* Indigo 600 - Main Accent */
-                        'secondary-color': '#fcd34d', /* Amber 300 - Secondary Color (Timer) */
-                        'option-bg': '#7c3aed', /* Violet 600 - Button Background */
-                        'text-color': '#1f2937', /* Dark Gray - Main Text Color */
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                }
-            }
-        }
-    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Biology Quiz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+    body { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 18px; background: linear-gradient(135deg, #e0e7ff, #ede9fe, #eff6ff); color: #312e81; }
+    .quiz-shell { width: min(100%, 860px); background: rgba(255,255,255,0.96); border-radius: 28px; box-shadow: 0 18px 42px rgba(99, 102, 241, 0.16); padding: 24px; }
+    .quiz-head { margin-bottom: 18px; }
+    .quiz-head h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); color: #5b21b6; margin-bottom: 8px; }
+    .quiz-head p { color: #475569; line-height: 1.7; }
+    .status-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin: 18px 0; }
+    .status-card { background: #f8fafc; border: 1px solid #dbeafe; border-radius: 18px; padding: 14px; text-align: center; }
+    .status-card span { display: block; color: #64748b; font-size: 0.9rem; margin-bottom: 6px; }
+    .status-card strong { color: #312e81; font-size: 1.25rem; }
+    .question-card { background: #faf5ff; border: 1px solid #ddd6fe; border-radius: 20px; padding: 22px; }
+    .question-card h2 { font-size: 1.25rem; line-height: 1.7; color: #312e81; margin-bottom: 16px; }
+    .options { display: grid; gap: 12px; }
+    .option { width: 100%; text-align: left; padding: 14px 16px; border-radius: 14px; border: 2px solid #d8b4fe; background: white; color: #312e81; cursor: pointer; font-size: 1rem; }
+    .option:hover:not(:disabled) { background: #f5f3ff; }
+    .option.correct { background: #dcfce7; border-color: #16a34a; color: #166534; }
+    .option.incorrect { background: #fee2e2; border-color: #dc2626; color: #991b1b; }
+    .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+    .btn, .link-btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 18px; border-radius: 999px; font-weight: 600; text-decoration: none; border: none; cursor: pointer; }
+    .btn.primary { background: linear-gradient(90deg, #5b21b6, #7c3aed); color: white; }
+    .link-btn { background: #dcfce7; color: #166534; }
+    .message { min-height: 28px; margin-top: 14px; font-weight: 600; }
+    .result.hidden, .play-area.hidden { display: none; }
+    .result { text-align: center; padding: 28px 10px 12px; }
+    .result h2 { color: #5b21b6; font-size: 2rem; margin-bottom: 10px; }
+    .result p { color: #475569; margin-bottom: 16px; }
+  </style>
+  <script>
+    (function () {
+      const marker = '/pages/';
+      const path = window.location.pathname;
+      const root = path.includes(marker) ? path.split(marker)[0] + '/' : path.substring(0, path.lastIndexOf('/') + 1);
+      const scoreScript = document.createElement('script');
+      scoreScript.src = root + 'js/score-manager.js';
+      scoreScript.defer = true;
+      document.head.appendChild(scoreScript);
+      const navScript = document.createElement('script');
+      navScript.src = root + 'js/site-navigation.js';
+      navScript.defer = true;
+      document.head.appendChild(navScript);
+    })();
+  </script>
 </head>
-<body class="min-h-screen flex flex-col items-center p-4" 
-      style="background: linear-gradient(135deg, var(--tw-bg-start), var(--tw-bg-end));">
-
-    <!-- Exit Button -->
-    <a href="./../secondary_education.html"
-       class="exit-btn absolute top-5 left-5 h-10 w-20 text-lg font-semibold text-white rounded-xl cursor-pointer 
-              flex items-center justify-center shadow-lg">
-        Exit
-    </a>
-
-    <!-- Quiz Container - Added new styles for visual appeal -->
-    <div class="quiz-container mx-auto mt-12 bg-white/90 backdrop-blur-sm p-6 sm:p-10 rounded-2xl shadow-2xl text-text-color border-4 border-white/50">
-        <h2 class="text-3xl font-extrabold mb-8 drop-shadow-lg text-primary-accent">12th Standard Biology Quiz</h2>
-        
-        <div id="quiz" class="space-y-6">
-            <!-- Timer Display with Animated Bar -->
-            <div class="mb-6">
-                <p id="timer" class="text-xl font-bold mb-2 text-primary-accent drop-shadow-md">
-                    Time Remaining: <span id="timer-text">30s</span>
-                </p>
-                <div class="w-full bg-gray-200 rounded-full h-2.5 overflow-hidden">
-                    <div id="timer-bar" class="h-full bg-primary-accent rounded-full" style="width: 100%;"></div>
-                </div>
-            </div>
-
-            <!-- Question Text: Font color changed -->
-            <p class="question text-2xl font-semibold mb-6 text-text-color" id="question-text"></p>
-            
-            <!-- Options Container -->
-            <div class="options space-y-3" id="options">
-                <!-- Options will be dynamically inserted here -->
-            </div>
-            
-            <!-- Result Feedback -->
-            <p id="result" class="text-xl font-bold pt-4 min-h-[3rem]"></p>
-            
-            <!-- Next Button -->
-            <button onclick="nextQuestion()" style="display:none;" id="next-btn"
-                    class="mt-4 px-6 py-3 bg-primary-accent text-white font-bold rounded-lg shadow-lg 
-                           hover:bg-indigo-700 transition duration-300">
-                Next Question
-            </button>
+<body>  <main class="quiz-shell">
+    <section class="play-area" id="play-area">
+      <div class="quiz-head">
+        <h1>Biology Quiz</h1>
+        <p>Revise cells, genetics, ecology, and human biology with clear timing and stable score tracking.</p>
+      </div>
+      <div class="status-grid">
+        <div class="status-card"><span>Question</span><strong id="question-count">1 / 5</strong></div>
+        <div class="status-card"><span>Score</span><strong id="score-count">0</strong></div>
+        <div class="status-card"><span>Time Left</span><strong id="timer-count">30s</strong></div>
+      </div>
+      <section class="question-card">
+        <h2 id="question-text">Loading...</h2>
+        <div id="options" class="options"></div>
+        <div id="message-box" class="message"></div>
+        <div class="actions">
+          <button type="button" class="btn primary" id="next-btn" style="display:none;">Next</button>
+          <a class="link-btn" href="./../../../../account.html">View Profile</a>
         </div>
-    </div>
-
-    <script>
-        // Array of quiz questions
-        const questions = [
-            // Note: Formulas and terms are kept in English as they are universally used this way.
-            { question: "What is the formula for Photosynthesis?", options: ["6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂", "C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O", "H₂O + CO₂ → H₂CO₃", "ATP + H₂O → ADP + Pᵢ"], correct: "6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂" },
-            { question: "What is the formula for Aerobic Respiration?", options: ["C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O", "6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂", "H₂O + CO₂ → H₂CO₃", "ATP + H₂O → ADP + Pᵢ"], correct: "C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O" },
-            { question: "What is the molecular formula for Glucose?", options: ["C₆H₁₂O₆", "C₁₂H₂₂O₁₁", "C₅H₁₀O₅", "CH₄"], correct: "C₆H₁₂O₆" },
-            { question: "What is the formula for ATP Hydrolysis?", options: ["ATP + H₂O → ADP + Pᵢ", "ADP + Pᵢ → ATP + H₂O", "C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O", "6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂"], correct: "ATP + H₂O → ADP + Pᵢ" },
-            { question: "Which of the following nitrogenous bases is found in DNA?", options: ["Adenine", "Cytosine", "Guanine", "All of the above"], correct: "All of the above" }
-        ];
-        
-        let currentQuestionIndex = 0;
-        const initialTime = 30;
-        let timeLeft = initialTime;
-        let timer;
-
-        /**
-         * Starts or restarts the 30-second countdown timer and the animated bar.
-         */
-        function startTimer() {
-            timeLeft = initialTime;
-            const timerText = document.getElementById("timer-text");
-            const timerBar = document.getElementById("timer-bar");
-
-            // Clear any existing timer
-            clearInterval(timer);
-            
-            // Reset bar appearance, width, and remove animation
-            timerText.innerText = `${timeLeft}s`;
-            timerBar.classList.remove('bg-red-500', 'bg-yellow-500');
-            timerBar.classList.add('bg-primary-accent');
-            timerBar.style.width = '100%';
-            timerText.classList.remove('timer-low-animation');
-
-            timer = setInterval(() => {
-                timeLeft--;
-                timerText.innerText = `${timeLeft}s`;
-                
-                // Update the bar width based on percentage of time left
-                const percent = (timeLeft / initialTime) * 100;
-                timerBar.style.width = `${percent}%`;
-
-                // Add pulsing animation when time is low (<= 10 seconds)
-                if (timeLeft <= 10) {
-                    timerText.classList.add('timer-low-animation');
-                } else {
-                    timerText.classList.remove('timer-low-animation');
-                }
-
-                // Change color warning on the bar
-                if (timeLeft <= 10 && timeLeft > 5) {
-                    timerBar.classList.remove('bg-primary-accent');
-                    timerBar.classList.add('bg-yellow-500'); // Yellow color
-                } else if (timeLeft <= 5) {
-                    timerBar.classList.remove('bg-yellow-500');
-                    timerBar.classList.add('bg-red-500'); // Red color
-                } else {
-                    // Reset to primary color if time is high again (only happens if the user restarts the quiz)
-                    timerBar.classList.remove('bg-yellow-500', 'bg-red-500');
-                    timerBar.classList.add('bg-primary-accent');
-                }
-
-
-                if (timeLeft === 0) {
-                    clearInterval(timer);
-                    checkAnswer(null); // Time's up, check as wrong
-                }
-            }, 1000);
+      </section>
+    </section>
+    <section class="result hidden" id="result-screen">
+      <h2>Quiz Complete</h2>
+      <p id="result-summary"></p>
+      <div class="actions" style="justify-content:center;">
+        <button type="button" class="btn primary" id="restart-btn">Play Again</button>
+        <a class="link-btn" href="./../../../../account.html">Open Profile</a>
+      </div>
+    </section>
+  </main>
+  <script>
+    const quizData = [{"question":"What is the basic unit of life?","options":["Atom","Cell","Organ","Tissue"],"answer":1},{"question":"Where does photosynthesis mainly occur in plant cells?","options":["Nucleus","Mitochondria","Chloroplast","Ribosome"],"answer":2},{"question":"What carries genetic information?","options":["DNA","Glucose","Protein","Water"],"answer":0},{"question":"Which system transports blood in the body?","options":["Digestive system","Respiratory system","Circulatory system","Nervous system"],"answer":2},{"question":"What is ecology?","options":["Study of stars","Study of rocks","Study of interactions among organisms and environment","Study of machines"],"answer":2}];
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let timeLeft = 30;
+    let timerInterval = null;
+    let hasSavedScore = false;
+    const playArea = document.getElementById('play-area');
+    const resultScreen = document.getElementById('result-screen');
+    const questionText = document.getElementById('question-text');
+    const questionCount = document.getElementById('question-count');
+    const scoreCount = document.getElementById('score-count');
+    const timerCount = document.getElementById('timer-count');
+    const options = document.getElementById('options');
+    const nextBtn = document.getElementById('next-btn');
+    const messageBox = document.getElementById('message-box');
+    const resultSummary = document.getElementById('result-summary');
+    const restartBtn = document.getElementById('restart-btn');
+    function startTimer() {
+      clearInterval(timerInterval);
+      timeLeft = 30;
+      timerCount.textContent = timeLeft + 's';
+      timerInterval = setInterval(function () {
+        timeLeft -= 1;
+        timerCount.textContent = timeLeft + 's';
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          document.querySelectorAll('.option').forEach(function (button) { button.disabled = true; });
+          messageBox.textContent = 'Time is up for this question.';
+          nextBtn.style.display = 'inline-flex';
         }
-
-        /**
-         * Loads the current question and its options into the quiz container.
-         */
-        function loadQuestion() {
-            startTimer();
-            let q = questions[currentQuestionIndex];
-            
-            document.getElementById("question-text").innerHTML = q.question;
-            let optionsDiv = document.getElementById("options");
-            optionsDiv.innerHTML = "";
-            
-            q.options.forEach(option => {
-                let btn = document.createElement("button");
-                btn.innerHTML = option;
-                btn.className = 'option-btn w-full py-3 px-4 font-medium text-lg rounded-xl shadow-lg ' +
-                                'bg-option-bg text-white hover:bg-violet-700 focus:outline-none focus:ring-4 focus:ring-primary-accent/50';
-                btn.onclick = (e) => checkAnswer(option, e.target);
-                optionsDiv.appendChild(btn);
-            });
-        }
-
-        /**
-         * Checks the user's selected answer against the correct answer.
-         * @param {string|null} selected - The selected option text, or null if time expired.
-         * @param {HTMLElement|null} selectedButton - The button element that was clicked.
-         */
-        function checkAnswer(selected, selectedButton) {
-            clearInterval(timer);
-            // Stop the pulsing animation immediately
-            document.getElementById("timer-text").classList.remove('timer-low-animation'); 
-
-            let resultText = document.getElementById("result");
-            let nextBtn = document.getElementById("next-btn");
-            let isCorrect = selected === questions[currentQuestionIndex].correct;
-            let correctOption = questions[currentQuestionIndex].correct;
-            
-            // Disable all buttons to prevent multiple clicks
-            document.querySelectorAll('.option-btn').forEach(btn => {
-                btn.disabled = true;
-                btn.classList.remove('hover:bg-violet-700');
-                
-                // Highlight correct answer
-                if (btn.innerHTML === correctOption) {
-                    btn.classList.remove('bg-option-bg');
-                    btn.classList.add('bg-green-600', 'ring-4', 'ring-green-400');
-                }
-                
-                // Highlight selected wrong answer
-                if (selectedButton && btn === selectedButton && !isCorrect) {
-                    btn.classList.remove('bg-option-bg');
-                    btn.classList.add('bg-red-600', 'ring-4', 'ring-red-400');
-                }
-            });
-
-            if (isCorrect) {
-                resultText.innerHTML = "Correct! ✅ Your answer is accurate.";
-                resultText.classList.remove('text-red-500');
-                resultText.classList.add('text-green-600');
-            } else if (selected === null) {
-                resultText.innerHTML = `Time's up! ⏰ The correct answer was: <span class="font-extrabold">${correctOption}</span>`;
-                resultText.classList.remove('text-green-600');
-                resultText.classList.add('text-red-600');
-            } else {
-                resultText.innerHTML = `Wrong! ❌ The correct answer was: <span class="font-extrabold">${correctOption}</span>`;
-                resultText.classList.remove('text-green-600');
-                resultText.classList.add('text-red-600');
-            }
-            
-            nextBtn.style.display = "block";
-        }
-
-        /**
-         * Advances to the next question or finishes the quiz.
-         */
-        function nextQuestion() {
-            currentQuestionIndex++;
-            let resultText = document.getElementById("result");
-            let nextBtn = document.getElementById("next-btn");
-            
-            if (currentQuestionIndex < questions.length) {
-                resultText.innerHTML = "";
-                nextBtn.style.display = "none";
-                loadQuestion();
-            } else {
-                document.getElementById("quiz").innerHTML = `
-                    <h3 class="text-4xl font-extrabold text-primary-accent">Quiz Complete! 🎉</h3>
-                    <p class="text-2xl mt-4 text-text-color">Congratulations on completing the 12th Standard Biology Quiz!</p>
-                    <a href="./../secondary_education.html" 
-                       class="inline-block mt-8 px-6 py-3 bg-primary-accent text-white font-bold rounded-lg shadow-lg 
-                              hover:bg-indigo-700 transition duration-300">
-                       Go back to Advanced Studies
-                    </a>
-                `;
-            }
-        }
-
-        // Initialize the first question on load
+      }, 1000);
+    }
+    function loadQuestion() {
+      const current = quizData[currentQuestionIndex];
+      questionText.textContent = current.question;
+      questionCount.textContent = (currentQuestionIndex + 1) + ' / ' + quizData.length;
+      scoreCount.textContent = score;
+      options.innerHTML = '';
+      nextBtn.style.display = 'none';
+      messageBox.textContent = '';
+      current.options.forEach(function (option, index) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'option';
+        button.textContent = option;
+        button.addEventListener('click', function () {
+          handleAnswer(button, index);
+        });
+        options.appendChild(button);
+      });
+      startTimer();
+    }
+    function handleAnswer(button, index) {
+      clearInterval(timerInterval);
+      const correctIndex = quizData[currentQuestionIndex].answer;
+      document.querySelectorAll('.option').forEach(function (item) { item.disabled = true; });
+      if (index === correctIndex) {
+        score += 1;
+        button.classList.add('correct');
+        messageBox.textContent = 'Correct answer.';
+      } else {
+        button.classList.add('incorrect');
+        document.querySelectorAll('.option')[correctIndex].classList.add('correct');
+        messageBox.textContent = 'Review the highlighted correct answer.';
+      }
+      scoreCount.textContent = score;
+      nextBtn.style.display = 'inline-flex';
+    }
+    function finishQuiz() {
+      clearInterval(timerInterval);
+      playArea.classList.add('hidden');
+      resultScreen.classList.remove('hidden');
+      resultSummary.textContent = 'Your final score is ' + score + ' / ' + quizData.length + '.';
+      if (!hasSavedScore && window.EduFunScores) {
+        window.EduFunScores.saveScore({
+          id: 'advanced-biology-quiz',
+          title: 'Biology Quiz',
+          category: 'Advanced Studies',
+          score: score,
+          total: quizData.length,
+          path: window.location.pathname
+        });
+        hasSavedScore = true;
+      }
+    }
+    function nextQuestion() {
+      currentQuestionIndex += 1;
+      if (currentQuestionIndex < quizData.length) {
         loadQuestion();
-    </script>
+      } else {
+        finishQuiz();
+      }
+    }
+    function restartQuiz() {
+      currentQuestionIndex = 0;
+      score = 0;
+      hasSavedScore = false;
+      playArea.classList.remove('hidden');
+      resultScreen.classList.add('hidden');
+      loadQuestion();
+    }
+    nextBtn.addEventListener('click', nextQuestion);
+    restartBtn.addEventListener('click', restartQuiz);
+    document.addEventListener('DOMContentLoaded', loadQuestion);
+  </script>
 </body>
 </html>
+

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EduFun Study Guides</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6a11cb;
+            --secondary: #8b5cf6;
+            --text: #312e81;
+            --muted: #64748b;
+            --surface: rgba(255, 255, 255, 0.95);
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f5f3ff, #e0e7ff, #eff6ff);
+            color: var(--text);
+            padding: 20px;
+        }
+
+        .page {
+            max-width: 1180px;
+            margin: 0 auto;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, rgba(106, 17, 203, 0.95), rgba(139, 92, 246, 0.92));
+            color: white;
+            border-radius: 28px;
+            padding: 34px;
+            box-shadow: 0 20px 45px rgba(106, 17, 203, 0.18);
+            margin-bottom: 22px;
+        }
+
+        .hero h1 {
+            margin: 0 0 12px;
+            font-size: clamp(2rem, 5vw, 3.2rem);
+        }
+
+        .hero p {
+            line-height: 1.8;
+            max-width: 780px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
+        }
+
+        .guide {
+            background: var(--surface);
+            border-radius: 22px;
+            padding: 22px;
+            box-shadow: 0 14px 36px rgba(99, 102, 241, 0.12);
+            border: 1px solid rgba(196, 181, 253, 0.65);
+        }
+
+        .guide h2 {
+            color: var(--primary);
+            margin: 0 0 10px;
+            font-size: 1.35rem;
+        }
+
+        .guide p {
+            color: #433b72;
+            line-height: 1.7;
+        }
+
+        .guide ul {
+            color: #433b72;
+            line-height: 1.8;
+            padding-left: 18px;
+        }
+
+        .tip-box {
+            margin-top: 14px;
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 14px;
+            color: var(--muted);
+            font-size: 0.94rem;
+        }
+    </style>
+    <script>
+      (function () {
+        const marker = "/pages/";
+        const path = window.location.pathname;
+        const root = path.includes(marker) ? path.split(marker)[0] + "/" : path.substring(0, path.lastIndexOf("/") + 1);
+        const script = document.createElement("script");
+        script.src = root + "js/site-navigation.js";
+        script.defer = true;
+        document.head.appendChild(script);
+      })();
+    </script>
+</head>
+<body>
+    <main class="page">
+        <section class="hero">
+            <h1>EduFun Study Guides</h1>
+            <p>These notes are written to help learners revise faster, understand key ideas clearly, and build confidence before quizzes. Each guide focuses on the essentials first, then gives a practical way to use the topic in real learning.</p>
+        </section>
+
+        <section class="grid">
+            <article class="guide">
+                <h2>How To Study Better</h2>
+                <p>Strong learning comes from short focused sessions, active recall, and revision over time instead of one long reading session.</p>
+                <ul>
+                    <li>Read a topic once for understanding.</li>
+                    <li>Close the page and explain it in your own words.</li>
+                    <li>Practice with 5-10 quick questions.</li>
+                    <li>Review the same topic again after one day and one week.</li>
+                </ul>
+                <div class="tip-box">Quick tip: If you cannot explain a topic simply, revise the basics again before moving ahead.</div>
+            </article>
+
+            <article class="guide">
+                <h2>Math Problem Solving</h2>
+                <p>Most maths mistakes happen because students rush into calculation before understanding the question.</p>
+                <ul>
+                    <li>Underline what is given.</li>
+                    <li>Identify what must be found.</li>
+                    <li>Choose the formula or concept first.</li>
+                    <li>Check the unit and sign in the final answer.</li>
+                </ul>
+                <div class="tip-box">Remember: Accuracy grows when you solve slowly first and then increase speed later.</div>
+            </article>
+
+            <article class="guide">
+                <h2>Science Revision Method</h2>
+                <p>Science becomes easier when you revise with cause and effect. Ask what happens, why it happens, and where it is used.</p>
+                <ul>
+                    <li>Write one-line definitions.</li>
+                    <li>List important formulas or laws.</li>
+                    <li>Draw the process in a simple diagram.</li>
+                    <li>Connect the idea to daily life examples.</li>
+                </ul>
+                <div class="tip-box">Best practice: Turn every science chapter into definitions, diagrams, and examples.</div>
+            </article>
+
+            <article class="guide">
+                <h2>English And Communication</h2>
+                <p>Language skill improves through reading, vocabulary building, and short writing practice every day.</p>
+                <ul>
+                    <li>Learn 3-5 new words daily.</li>
+                    <li>Read one short paragraph aloud.</li>
+                    <li>Write a 5-line summary in simple English.</li>
+                    <li>Notice sentence structure and punctuation.</li>
+                </ul>
+                <div class="tip-box">Simple rule: Clear communication is better than difficult words used incorrectly.</div>
+            </article>
+
+            <article class="guide">
+                <h2>Coding Roadmap Basics</h2>
+                <p>Programming is easier when learners build from logic to syntax and from syntax to projects.</p>
+                <ul>
+                    <li>Start with variables, conditions, and loops.</li>
+                    <li>Practice small problems daily.</li>
+                    <li>Learn functions and reusable logic.</li>
+                    <li>Build tiny projects such as calculators or quiz apps.</li>
+                </ul>
+                <div class="tip-box">Focus on writing and testing code yourself. Watching tutorials alone is not enough.</div>
+            </article>
+
+            <article class="guide">
+                <h2>Exam Preparation Workflow</h2>
+                <p>Good exam preparation is organized, measurable, and realistic. A strong plan always includes revision and testing.</p>
+                <ul>
+                    <li>Break subjects into small topics.</li>
+                    <li>Set daily goals with one revision target.</li>
+                    <li>Take short self-tests after every study block.</li>
+                    <li>Keep the last phase for weak areas only.</li>
+                </ul>
+                <div class="tip-box">A clear plan reduces stress because it shows what is finished and what still needs attention.</div>
+            </article>
+        </section>
+    </main>
+</body>
+</html>

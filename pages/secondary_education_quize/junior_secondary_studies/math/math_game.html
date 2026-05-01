@@ -59,11 +59,26 @@
             border-left: 4px solid #8b5cf6; /* violet-500 */
         }
     </style>
+    <script>
+      (function () {
+        const marker = "/pages/";
+        const path = window.location.pathname;
+        const root = path.includes(marker) ? path.split(marker)[0] + "/" : path.substring(0, path.lastIndexOf("/") + 1);
+        const scoreScript = document.createElement("script");
+        scoreScript.src = root + "js/score-manager.js";
+        scoreScript.defer = true;
+        document.head.appendChild(scoreScript);
+        const script = document.createElement("script");
+        script.src = root + "js/site-navigation.js";
+        script.defer = true;
+        document.head.appendChild(script);
+      })();
+    </script>
 </head>
 <body class="flex flex-col items-center">
 
     <!-- Exit Button (Stylized and positioned using Tailwind) -->
-    <a href="./../secondary_education.html" class="absolute top-4 left-4">
+        <a href="./../junior_secondary_studies.html" class="absolute top-4 left-4">
         <button class="exit-btn px-4 py-2 text-white font-semibold rounded-lg shadow-xl hover:shadow-2xl">
             Exit
         </button>
@@ -279,6 +294,16 @@
             } else {
                 // Quiz finished - display final score
                 quizInProgress = false;
+                if (window.EduFunScores) {
+                    window.EduFunScores.saveScore({
+                        id: "advanced-math-quiz",
+                        title: "Advanced Math Quiz",
+                        category: "Junior Secondary Studies",
+                        score: score,
+                        total: mathQuizData.length * 10,
+                        path: window.location.pathname
+                    });
+                }
                 const questionElement = document.getElementById("question");
                 questionElement.innerHTML = `<span class="text-primary-purple font-extrabold">Quiz Over!</span> Your Final Score: ${score}/${mathQuizData.length * 10}`;
                 questionElement.classList.remove('question-text');
@@ -371,3 +396,4 @@
     </script>
 </body>
 </html>
+

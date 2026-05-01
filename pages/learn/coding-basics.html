@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coding Basics | EduFun</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #b45309; --secondary: #f59e0b; --surface: rgba(255,255,255,0.96); --text: #78350f; --border: rgba(251, 191, 36, 0.45); }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Poppins", sans-serif; }
+        body { background: linear-gradient(135deg, #fffbeb, #fef3c7, #fff7ed); color: var(--text); min-height: 100vh; }
+        .page { max-width: 1100px; margin: 0 auto; padding: 88px 20px 40px; }
+        .back-link { display: inline-flex; padding: 10px 16px; border-radius: 999px; background: rgba(180,83,9,0.1); color: var(--primary); text-decoration: none; font-weight: 600; margin-bottom: 18px; }
+        .hero, .section, .card { border-radius: 24px; border: 1px solid var(--border); box-shadow: 0 12px 28px rgba(245, 158, 11, 0.12); }
+        .hero { background: linear-gradient(135deg, rgba(180,83,9,0.96), rgba(245,158,11,0.92)); color: #fff; padding: 32px; }
+        .hero h1 { font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: 12px; }
+        .hero p, .section li, .section p, .card p { line-height: 1.8; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin: 24px 0; }
+        .card, .section { background: var(--surface); padding: 22px; }
+        .card h2, .section h2 { color: var(--primary); margin-bottom: 10px; }
+        .section { margin-bottom: 18px; }
+        .section ul { padding-left: 18px; }
+        .cta { display: inline-block; margin-top: 14px; padding: 11px 18px; border-radius: 999px; text-decoration: none; font-weight: 600; background: var(--primary); color: #fff; }
+    </style>
+    <script>
+      (function () {
+        const marker = "/pages/";
+        const path = window.location.pathname;
+        const root = path.includes(marker) ? path.split(marker)[0] + "/" : path.substring(0, path.lastIndexOf("/") + 1);
+        const script = document.createElement("script");
+        script.src = root + "js/site-navigation.js";
+        script.defer = true;
+        document.head.appendChild(script);
+      })();
+    </script>
+</head>
+<body>
+    <main class="page">
+        <a class="back-link" href="./../notes.html">← Back to Notes Hub</a>
+        <section class="hero">
+            <h1>Coding Basics</h1>
+            <p>Coding is the process of giving clear instructions to a computer. Good coding starts with logic, step-by-step thinking, and careful testing.</p>
+        </section>
+        <section class="grid">
+            <article class="card"><h2>Variables</h2><p>Variables store values like names, numbers, or true and false answers. They help programs remember information.</p></article>
+            <article class="card"><h2>Conditions</h2><p>Conditions help programs make decisions. A program can do one thing if a statement is true and another if it is false.</p></article>
+            <article class="card"><h2>Loops</h2><p>Loops repeat instructions. They are useful when the same task must happen many times.</p></article>
+        </section>
+        <section class="section">
+            <h2>Algorithm Thinking</h2>
+            <ul>
+                <li>Break the task into small steps.</li>
+                <li>Write the steps in the correct order.</li>
+                <li>Test with a simple example.</li>
+                <li>Improve the steps if the result is wrong.</li>
+            </ul>
+        </section>
+        <section class="section">
+            <h2>Debugging Notes</h2>
+            <ul>
+                <li>Read the error carefully before changing code.</li>
+                <li>Check one part at a time instead of changing everything.</li>
+                <li>Use small test cases to find where the logic breaks.</li>
+                <li>Keep code neat so problems are easier to spot.</li>
+            </ul>
+        </section>
+        <section class="section">
+            <h2>Beginner Advice</h2>
+            <p>Small working projects teach more than large unfinished ideas. Build one feature, test it, and then add the next step.</p>
+            <a class="cta" href="./../notes.html">Open More Coding Notes</a>
+        </section>
+    </main>
+</body>
+</html>
+
+

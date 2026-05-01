@@ -211,6 +211,17 @@
             }
         }
     </style>
+    <script>
+      (function () {
+        const marker = "/pages/";
+        const path = window.location.pathname;
+        const root = path.includes(marker) ? path.split(marker)[0] + "/" : path.substring(0, path.lastIndexOf("/") + 1);
+        const script = document.createElement("script");
+        script.src = root + "js/site-navigation.js";
+        script.defer = true;
+        document.head.appendChild(script);
+      })();
+    </script>
 </head>
 <body>
     <a href="./../.././primary-education/kindergarten/kindergarden.html">
@@ -315,8 +326,7 @@
         }
 
         function confirmExit() {
-            let exitConfirm = confirm("Are you sure you want to exit?");
-            return exitConfirm; // Return result to the button's href to control navigation
+            return true;
         }
 
         // Initialize the game
@@ -324,3 +334,5 @@
     </script>
 </body>
 </html>
+
+

@@ -305,7 +305,18 @@
         }
       }
     </style>
-  </head>
+      <script>
+      (function () {
+        const marker = "/pages/";
+        const path = window.location.pathname;
+        const root = path.includes(marker) ? path.split(marker)[0] + "/" : path.substring(0, path.lastIndexOf("/") + 1);
+        const script = document.createElement("script");
+        script.src = root + "js/site-navigation.js";
+        script.defer = true;
+        document.head.appendChild(script);
+      })();
+    </script>
+</head>
   <body>
     <nav class="navbar" id="navbar">
       <div class="edufun-logo">
@@ -318,7 +329,7 @@
       </div>
       <ul>
         <a href="./../../index.html"><li>Home</li></a>
-        <a href="./../../pages/notes.html"><li>Spaceship</li></a>
+        <a href="./../../pages/edunotes.html"><li>EduNotes</li></a>
         <a href="./../../pages/about_us.html"><li>About</li></a>
         <a href="./../../pages/contact.html"><li>contact</li></a>
         <a href="./../../pages/login.html"><li id="UserlogIn">Log In</li></a>
@@ -333,7 +344,7 @@
     <nav class="ham-nav" id="ham-nav">
       <ul>
         <a href="./../../index.html"><li>Home</li></a>
-        <a href="./../../pages/notes.html"><li>Spaceship</li></a>
+        <a href="./../../pages/edunotes.html"><li>EduNotes</li></a>
         <a href="./../../pages/about_us.html"><li>About</li></a>
         <a href="./../../pages/contact.html"><li>contact</li></a>
         <a href="./../../pages/login.html"><li id="UserlogIn">Log In</li></a>
@@ -373,7 +384,7 @@
             <h3>Time: 10:00 <br />Questions 10</h3>
           </div>
           <div class="higher-edu-btn">
-            <a href="./../../pages/notes.html" target="new"
+          <a href="./../../pages/edunotes.html" target="new"
               ><button class="get-started" type="button">Notes</button></a
             >
             <a href="./IT/IT_questions.html"
@@ -407,7 +418,7 @@
             <h3>Time: 10:00 <br />Questions 10</h3>
           </div>
           <div class="higher-edu-btn">
-            <a href="./../../pages/notes.html" target="new"
+          <a href="./../../pages/edunotes.html" target="new"
               ><button class="get-started" type="button">Notes</button></a
             >
             <a href="./Finance/finance_questions.html"
@@ -441,7 +452,7 @@
             <h3>Time: 10:00 <br />Questions 10</h3>
           </div>
           <div class="higher-edu-btn">
-            <a href="./../../pages/notes.html" target="new"
+          <a href="./../../pages/edunotes.html" target="new"
               ><button class="get-started" type="button">Notes</button></a
             >
             <a href="./Law/law_questions.html"
@@ -475,7 +486,7 @@
             <h3>Time: 10:00 <br />Questions 10</h3>
           </div>
           <div class="higher-edu-btn">
-            <a href="./../../pages/notes.html" target="new"
+          <a href="./../../pages/edunotes.html" target="new"
               ><button class="get-started" type="button">Notes</button></a
             >
             <a href="./Civil-services/civil_questions.html"
@@ -509,7 +520,7 @@
             <h3>Time: 10:00 <br />Questions 10</h3>
           </div>
           <div class="higher-edu-btn">
-            <a href="./../../pages/notes.html" target="new"
+          <a href="./../../pages/edunotes.html" target="new"
               ><button class="get-started" type="button">Notes</button></a
             >
             <a href="./pharma/pharma_questions.html"
@@ -554,3 +565,4 @@
     <script src="./../../js/login_and_signin.js"></script>
   </body>
 </html>
+

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EduFun Order Confirmed</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./../css/storefront.css" />
+    <script>
+      (function () {
+        const marker = "/pages/";
+        const path = window.location.pathname;
+        const root = path.includes(marker) ? path.split(marker)[0] + "/" : path.substring(0, path.lastIndexOf("/") + 1);
+
+        const navScript = document.createElement("script");
+        navScript.src = root + "js/site-navigation.js";
+        navScript.defer = true;
+        document.head.appendChild(navScript);
+
+        const storeScript = document.createElement("script");
+        storeScript.src = root + "js/storefront.js";
+        storeScript.defer = true;
+        document.head.appendChild(storeScript);
+      })();
+    </script>
+</head>
+<body class="order-success-page">
+    <main class="store-shell">
+        <section class="success-hero">
+            <div class="success-badge">OK</div>
+            <h1>Payment complete and order confirmed.</h1>
+            <p>Your EduFun order has been placed successfully. The cart has been cleared, and the latest order summary is shown below so the full browse-to-payment flow feels complete for the user.</p>
+        </section>
+
+        <div class="button-row" style="justify-content: center; margin-bottom: 20px;">
+            <a class="sf-btn" href="./../index.html">Return To Home</a>
+            <a class="sf-btn-secondary" href="./edunotes.html">Open EduNotes</a>
+            <a class="sf-btn-ghost" href="./games/word-scramble.html">Play A Game</a>
+        </div>
+
+        <p class="success-copy">A clean confirmation page is part of the completed checkout flow, so users are no longer left at an unfinished placeholder after pressing checkout.</p>
+
+        <section class="success-grid" data-order-success></section>
+    </main>
+</body>
+</html>

@@ -1,511 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Civil Services Quiz</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-    />
-
-    <style>
-      /* --- सामान्य स्टाईल (General Styles) --- */
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: "Poppins", sans-serif;
-      }
-      body {
-        /* Higher Education Page च्या Background प्रमाणे */
-        background: linear-gradient(135deg, #f0e6ff, #d6c0ff, #e9ddff);
-      }
-      .app {
-        background: #fff;
-        width: 90%;
-        max-width: 650px;
-        /* वरच्या बाजूला जागा दिली, जेणेकरून टाइमर दिसेल */
-        margin: 100px auto 0;
-        border-radius: 15px;
-        padding: 40px;
-        position: relative;
-        box-shadow: 0 8px 30px rgba(106, 17, 203, 0.5);
-      }
-      .app h1 {
-        font-size: 30px;
-        color: #4b0082;
-        font-weight: 700;
-        border-bottom: 3px solid #b491f9;
-        padding-bottom: 20px;
-        margin-bottom: 20px;
-        text-align: center;
-      }
-      .quiz {
-        padding: 20px 0;
-      }
-      .quiz h2 {
-        font-size: 20px;
-        color: #001e4d;
-        font-weight: 600;
-        margin-bottom: 20px;
-        line-height: 1.5;
-      }
-      .btn {
-        background: #fff;
-        color: #4b0082;
-        font-weight: 500;
-        width: 100%;
-        border: 2px solid #b491f9;
-        padding: 12px;
-        margin: 10px 0;
-        text-align: left;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: all 0.3s;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      }
-      .btn:hover:not([disabled]) {
-        background-color: #6a11cb;
-        color: #fff;
-        border-color: #6a11cb;
-        transform: translateY(-2px);
-      }
-      .btn:disabled {
-        cursor: not-allowed;
-      }
-      #next-btn {
-        background-color: #6a11cb;
-        color: #fff;
-        font-weight: 600;
-        width: 180px;
-        border: 0;
-        padding: 12px;
-        margin: 30px auto 0;
-        border-radius: 30px;
-        cursor: pointer;
-        display: none;
-        transition: background-color 0.3s, transform 0.3s;
-        box-shadow: 0 4px 10px rgba(106, 17, 203, 0.4);
-      }
-      #next-btn:hover {
-        background-color: #4b0082;
-        transform: scale(1.05);
-      }
-      .correct {
-        background-color: #9aeabc;
-        color: #1a4d00;
-        border-color: #1a4d00;
-      }
-      .incorrect {
-        background-color: #ff9393;
-        color: #8b0000;
-        border-color: #8b0000;
-      }
-
-      /* --- EXIT BUTTON सुधारणा (Attractive Exit Button) --- */
-      .exit {
-        background-color: #4b0082; /* जांभळा रंग */
-        border: 2px solid #ff007f;
-        height: 40px;
-        /* Exit मजकूर आणि आयकॉनसाठी रुंदी वाढवली */
-        width: 100px; 
-        font-size: 16px; /* Exit मजकूर पुन्हा दिसण्यासाठी */
-        font-weight: 600;
-        position: absolute;
-        right: 15px;
-        top: 15px;
-        color: white;
-        border-radius: 20px;
-        cursor: pointer;
-        transition: all 0.3s;
-        outline: 2px solid #4b0082;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 5px;
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-        box-shadow: 0 4px 10px rgba(106, 17, 203, 0.5);
-      }
-      .exit:hover {
-        background-color: #6a11cb;
-        border-color: #fff;
-        transform: scale(1.05);
-      }
-      .exit .material-symbols-outlined {
-        font-size: 22px;
-        color: white;
-      }
-      .exit img {
-        display: none; 
-      }
-
-      /* --- TIMER सुधारणा (Timer Position and Animation) --- */
-
-      /* 1. Timer Position */
-      .timer {
-        position: absolute;
-        top: 60px;
-        left: 50%;
-        transform: translate(-50%, 0);
-        z-index: 10;
-      }
-
-      /* 2. Timer Styling & Animation Setup */
-      #timer {
-        background-color: #28a745;
-        width: 100px;
-        height: 45px;
-        text-align: center;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 25px;
-        font-size: 24px;
-        color: white;
-        font-weight: 700;
-        transition: background-color 0.5s;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        animation: pulse 1.8s infinite alternate;
-        gap: 0px; 
-      }
-
-      /* CSS Keyframes for Pulsating Glow */
-      @keyframes pulse {
-        0% {
-          box-shadow: 0 0 8px rgba(40, 167, 69, 0.6), 0 0 12px rgba(40, 167, 69, 0.3);
-        }
-        100% {
-          box-shadow: 0 0 15px rgba(40, 167, 69, 1), 0 0 20px rgba(40, 167, 69, 0.7);
-        }
-      }
-      
-      .low-time-pulse {
-          animation: redPulse 1s infinite alternate;
-      }
-
-      @keyframes redPulse {
-        0% {
-          box-shadow: 0 0 8px rgba(255, 99, 71, 0.8), 0 0 12px rgba(255, 99, 71, 0.4);
-        }
-        100% {
-          box-shadow: 0 0 15px rgba(255, 99, 71, 1), 0 0 20px rgba(255, 99, 71, 0.7);
-        }
-      }
-
-      /* Responsive Design */
-      @media (max-width: 600px) {
-        .app {
-          margin: 80px auto 0;
-          padding: 20px;
-        }
-        .app h1 {
-          font-size: 24px;
-        }
-        .exit {
-          /* मोबाईलसाठी रुंदी कमी केली, पण मजकूर आणि आयकॉनसाठी पुरेशी जागा */
-          width: 80px; 
-          height: 35px;
-          font-size: 14px; /* मोबाईलसाठी फॉन्ट साईज लहान */
-          right: 10px;
-          top: 10px;
-        }
-        .exit .material-symbols-outlined {
-            font-size: 18px; /* मोबाईलसाठी आयकॉन लहान */
-        }
-        .timer {
-          top: 35px;
-        }
-        #timer {
-          width: 80px;
-          height: 35px;
-          font-size: 20px;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    
-    <div class="timer">
-      <h2 id="timer">
-        10:00
-      </h2>
-    </div>
-
-    <div class="app">
-      <h1>📚 Civil Services Quiz 👮🏻</h1>
-      <a href="./../higher_education.html">
-        <button class="exit">
-        
-          Exit<img src="./../../../images/exit.png" />
-        </button>
-      </a>
-      <div class="quiz">
-        <h2 id="question">questions goes here</h2>
-        <div id="answer-buttons">
-          <button class="btn">Answer 1</button>
-          <button class="btn">Answer 2</button>
-          <button class="btn">Answer 3</button>
-          <button class="btn">Answer 4</button>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Civil Services Quiz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+    body { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 18px; background: linear-gradient(135deg, #eef2ff, #f5f3ff, #eff6ff); color: #312e81; }
+    .quiz-shell { width: min(100%, 860px); background: rgba(255,255,255,0.96); border-radius: 28px; box-shadow: 0 18px 42px rgba(99, 102, 241, 0.16); padding: 24px; }
+    .quiz-head { display: flex; justify-content: space-between; gap: 14px; align-items: center; margin-bottom: 18px; flex-wrap: wrap; }
+    .quiz-head h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); color: #5b21b6; }
+    .quiz-head p { color: #475569; line-height: 1.7; max-width: 560px; }
+    .status-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin: 18px 0; }
+    .status-card { background: #f8fafc; border: 1px solid #dbeafe; border-radius: 18px; padding: 14px; text-align: center; }
+    .status-card span { display: block; color: #64748b; font-size: 0.9rem; margin-bottom: 6px; }
+    .status-card strong { color: #312e81; font-size: 1.25rem; }
+    .question-card { background: #faf5ff; border: 1px solid #ddd6fe; border-radius: 20px; padding: 22px; }
+    .question-card h2 { font-size: 1.25rem; line-height: 1.7; color: #312e81; margin-bottom: 16px; }
+    .options { display: grid; gap: 12px; }
+    .option { width: 100%; text-align: left; padding: 14px 16px; border-radius: 14px; border: 2px solid #d8b4fe; background: white; color: #312e81; cursor: pointer; font-size: 1rem; }
+    .option:hover:not(:disabled) { background: #f5f3ff; }
+    .option.correct { background: #dcfce7; border-color: #16a34a; color: #166534; }
+    .option.incorrect { background: #fee2e2; border-color: #dc2626; color: #991b1b; }
+    .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+    .btn, .link-btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 18px; border-radius: 999px; font-weight: 600; text-decoration: none; border: none; cursor: pointer; }
+    .btn.primary { background: linear-gradient(90deg, #5b21b6, #7c3aed); color: white; }
+    .btn.secondary { background: #e9d5ff; color: #5b21b6; }
+    .link-btn { background: #dcfce7; color: #166534; }
+    .message { min-height: 28px; margin-top: 14px; font-weight: 600; }
+    .result.hidden, .play-area.hidden { display: none; }
+    .result { text-align: center; padding: 28px 10px 12px; }
+    .result h2 { color: #5b21b6; font-size: 2rem; margin-bottom: 10px; }
+    .result p { color: #475569; margin-bottom: 16px; }
+    @media (max-width: 560px) { .quiz-shell { padding: 16px; border-radius: 20px; } }
+  </style>
+  <script>
+    (function () {
+      const marker = '/pages/';
+      const path = window.location.pathname;
+      const root = path.includes(marker) ? path.split(marker)[0] + '/' : path.substring(0, path.lastIndexOf('/') + 1);
+      const scoreScript = document.createElement('script');
+      scoreScript.src = root + 'js/score-manager.js';
+      scoreScript.defer = true;
+      document.head.appendChild(scoreScript);
+      const navScript = document.createElement('script');
+      navScript.src = root + 'js/site-navigation.js';
+      navScript.defer = true;
+      document.head.appendChild(navScript);
+    })();
+  </script>
+</head>
+<body>  <main class="quiz-shell">
+    <section class="play-area" id="play-area">
+      <div class="quiz-head">
+        <div>
+          <h1>Civil Services Quiz</h1>
+          <p>Revise polity, geography, institutions, and public administration basics with a dependable quiz flow.</p>
         </div>
-        <button id="next-btn">Next</button>
       </div>
-    </div>
-
-    <script>
-      // DOM Elements
-      const comeDownTimer = document.getElementById("timer");
-      const questionElement = document.getElementById("question");
-      const answerButton = document.getElementById("answer-buttons");
-      const nextButton = document.getElementById("next-btn");
-
-      // Quiz Data
-      const questions = [
-        {
-          question: "Who was the first Prime Minister of independent India?",
-          answers: [
-            { text: "Mahatma Gandhi", correct: false },
-            { text: "Jawaharlal Nehru", correct: true },
-            { text: "Sardar Patel", correct: false },
-            { text: "Dr. B.R. Ambedkar", correct: false },
-          ],
-        },
-        {
-          question: "Which is the longest river in India?",
-          answers: [
-            { text: "Ganga", correct: true },
-            { text: "Yamuna", correct: false },
-            { text: "Brahmaputra", correct: false },
-            { text: "Godavari", correct: false },
-          ],
-        },
-        {
-          question:
-            "What is the primary function of the Reserve Bank of India (RBI)?",
-          answers: [
-            { text: "Printing school textbooks", correct: false },
-            { text: "Regulating the banking system", correct: true },
-            { text: "Collecting income tax", correct: false },
-            { text: "Issuing driving licenses", correct: false },
-          ],
-        },
-        {
-          question: "Who is the current President of India?",
-          answers: [
-            { text: "Narendra Modi", correct: false },
-            { text: "Droupadi Murmu", correct: true },
-            { text: "Amit Shah", correct: false },
-            { text: "Rajnath Singh", correct: false },
-          ],
-        },
-        {
-          question:
-            "Which Article of the Indian Constitution deals with the Fundamental Rights?",
-          answers: [
-            { text: "Article 32", correct: false },
-            { text: "Article 14", correct: false },
-            { text: "Article 21", correct: false },
-            { text: "Article 12-35", correct: true },
-          ],
-        },
-        {
-          question: "What is the capital of Maharashtra?",
-          answers: [
-            { text: "Pune", correct: false },
-            { text: "Nagpur", correct: false },
-            { text: "Mumbai", correct: true },
-            { text: "Nashik", correct: false },
-          ],
-        },
-        {
-          question:
-            "Which body is responsible for the preparation of the Union Budget in India?",
-          answers: [
-            { text: "RBI", correct: false },
-            { text: "Finance Ministry", correct: true },
-            { text: "NITI Aayog", correct: false },
-            { text: "SEBI", correct: false },
-          ],
-        },
-        {
-          question: "Which country shares the longest border with India?",
-          answers: [
-            { text: "Bangladesh", correct: true },
-            { text: "China", correct: false },
-            { text: "Pakistan", correct: false },
-            { text: "Nepal", correct: false },
-          ],
-        },
-        {
-          question:
-            "What is the name of the lower house of the Indian Parliament?",
-          answers: [
-            { text: "Rajya Sabha", correct: false },
-            { text: "Lok Sabha", correct: true },
-            { text: "Vidhan Sabha", correct: false },
-            { text: "Gram Sabha", correct: false },
-          ],
-        },
-        {
-          question:
-            "Which Indian city is known as the ‘Silicon Valley of India’?",
-          answers: [
-            { text: "Hyderabad", correct: false },
-            { text: "Bengaluru", correct: true },
-            { text: "Pune", correct: false },
-            { text: "Chennai", correct: false },
-          ],
-        },
-      ];
-
-      // Quiz State Variables
-      let currentquestionIndex = 0;
-      let score = 0;
-      let timerInterval;
-
-      // --- Timer Logic ---
-      let startingMin = 10;
-      let totalTime = startingMin * 60;
-
-      function updateComedown() {
-        const min = Math.floor(totalTime / 60);
-        const sec = totalTime % 60;
-
-        const minText = min < 10 ? `0${min}` : min;
-        const secText = sec < 10 ? `0${sec}` : sec;
-
-        // फक्त वेळ अपडेट करणे
-        comeDownTimer.innerHTML = `${minText}:${secText}`;
-
-        // Color change logic (Time threshold) आणि ॲनिमेशन क्लास बदलणे
-        if (totalTime <= 180) { // 3 minutes or less
-          comeDownTimer.style.backgroundColor = "tomato";
-          comeDownTimer.classList.add('low-time-pulse');
-        } else if (totalTime <= 300) { // 5 minutes or less
-          comeDownTimer.style.backgroundColor = "gold";
-          comeDownTimer.classList.remove('low-time-pulse'); // लाल पल्स काढणे
-          comeDownTimer.style.animation = 'pulse 1.8s infinite alternate'; // डिफॉल्ट पल्स
-        } else {
-          comeDownTimer.style.backgroundColor = "#28a745";
-          comeDownTimer.classList.remove('low-time-pulse');
-          comeDownTimer.style.animation = 'pulse 1.8s infinite alternate';
-        }
-
-        if (totalTime > 0) {
-          totalTime--;
-        } else {
+      <div class="status-grid">
+        <div class="status-card"><span>Question</span><strong id="question-count">1 / 5</strong></div>
+        <div class="status-card"><span>Score</span><strong id="score-count">0</strong></div>
+        <div class="status-card"><span>Time Left</span><strong id="timer-count">30s</strong></div>
+      </div>
+      <section class="question-card">
+        <h2 id="question-text">Loading...</h2>
+        <div id="options" class="options"></div>
+        <div id="message-box" class="message"></div>
+        <div class="actions">
+          <button type="button" class="btn primary" id="next-btn" style="display:none;">Next</button>
+          <a class="link-btn" href="./../../account.html">View Profile</a>
+        </div>
+      </section>
+    </section>
+    <section class="result hidden" id="result-screen">
+      <h2>Quiz Complete</h2>
+      <p id="result-summary"></p>
+      <div class="actions" style="justify-content:center;">
+        <button type="button" class="btn primary" id="restart-btn">Play Again</button>
+        <a class="link-btn" href="./../../account.html">Open Profile</a>
+      </div>
+    </section>
+  </main>
+  <script>
+    const quizData = [{"question":"Who was the first Prime Minister of independent India?","options":["Mahatma Gandhi","Jawaharlal Nehru","Sardar Patel","B. R. Ambedkar"],"answer":1},{"question":"Which body prepares the Union Budget in India?","options":["RBI","Finance Ministry","NITI Aayog","SEBI"],"answer":1},{"question":"Which country shares the longest border with India?","options":["Bangladesh","China","Pakistan","Nepal"],"answer":0},{"question":"What is the lower house of the Indian Parliament called?","options":["Rajya Sabha","Lok Sabha","Vidhan Sabha","Gram Sabha"],"answer":1},{"question":"Which city is often called the Silicon Valley of India?","options":["Hyderabad","Bengaluru","Pune","Chennai"],"answer":1}];
+    const quizMeta = {
+      id: 'civil-services-quiz',
+      title: 'Civil Services Quiz',
+      category: 'Higher Education'
+    };
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let timeLeft = 30;
+    let timerInterval = null;
+    let hasSavedScore = false;
+    const playArea = document.getElementById('play-area');
+    const resultScreen = document.getElementById('result-screen');
+    const questionText = document.getElementById('question-text');
+    const questionCount = document.getElementById('question-count');
+    const scoreCount = document.getElementById('score-count');
+    const timerCount = document.getElementById('timer-count');
+    const options = document.getElementById('options');
+    const nextBtn = document.getElementById('next-btn');
+    const messageBox = document.getElementById('message-box');
+    const resultSummary = document.getElementById('result-summary');
+    const restartBtn = document.getElementById('restart-btn');
+    function startTimer() {
+      clearInterval(timerInterval);
+      timeLeft = 30;
+      timerCount.textContent = timeLeft + 's';
+      timerInterval = setInterval(function () {
+        timeLeft -= 1;
+        timerCount.textContent = timeLeft + 's';
+        if (timeLeft <= 0) {
           clearInterval(timerInterval);
-          alert("वेळ संपली! तुमचे निकाल पहा.");
-          showScore(true);
+          lockOptions();
+          messageBox.textContent = 'Time is up for this question.';
+          nextBtn.style.display = 'inline-flex';
         }
-      }
-
-      function startTimer() {
-        if (timerInterval) {
-          clearInterval(timerInterval);
-        }
-        totalTime = startingMin * 60;
-        updateComedown();
-        timerInterval = setInterval(updateComedown, 1000);
-      }
-
-      // --- Quiz Logic ---
-      function startQuiz() {
-        currentquestionIndex = 0;
-        score = 0;
-        nextButton.innerHTML = "Next";
-        startTimer();
-        showQuestion();
-      }
-
-      function showQuestion() {
-        resetState();
-
-        let currentQuestion = questions[currentquestionIndex];
-        let questionNo = currentquestionIndex + 1;
-
-        questionElement.innerHTML = `**Question ${questionNo}:** ${currentQuestion.question} `;
-
-        currentQuestion.answers.forEach((answers) => {
-          const button = document.createElement("button");
-          button.innerHTML = answers.text;
-          button.classList.add("btn");
-          answerButton.appendChild(button);
-          if (answers.correct) {
-            button.dataset.correct = answers.correct;
-          }
-          button.addEventListener("click", selectAnswer);
-        });
-      }
-
-      function resetState() {
-        nextButton.style.display = "none";
-        while (answerButton.firstChild) {
-          answerButton.removeChild(answerButton.firstChild);
-        }
-      }
-
-      function selectAnswer(e) {
-        const selectedBtn = e.target;
-        const isCorrect = selectedBtn.dataset.correct === "true";
-        if (isCorrect) {
-          selectedBtn.classList.add("correct");
-          score++;
-        } else {
-          selectedBtn.classList.add("incorrect");
-        }
-
-        Array.from(answerButton.children).forEach((button) => {
-          if (button.dataset.correct === "true") {
-            button.classList.add("correct");
-          }
-          button.disabled = true;
-        });
-        nextButton.style.display = "block";
-      }
-
-      function showScore(isTimeOut = false) {
-        clearInterval(timerInterval);
-        resetState();
-
-        let message = `तुम्ही ${questions.length} पैकी **${score}** प्रश्नांची योग्य उत्तरे दिली आहेत!`;
-        if (isTimeOut) {
-          message = `वेळ संपली! तुम्ही प्रयत्न केलेल्या ${currentquestionIndex} प्रश्नांपैकी **${score}** प्रश्नांची योग्य उत्तरे दिली आहेत.`;
-        }
-
-        questionElement.innerHTML = `**क्विझ पूर्ण झाली!** <br><br> ${message}`;
-        nextButton.innerHTML = "पुन्हा खेळा";
-        nextButton.style.display = "block";
-        
-        // स्कोअर दाखवताना टाइमर अपडेट करणे
-        comeDownTimer.innerHTML = 'DONE';
-        comeDownTimer.style.backgroundColor = "#6a11cb";
-        comeDownTimer.style.removeProperty('animation'); // ॲनिमेशन थांबवणे
-      }
-
-      function handleNextButton() {
-        currentquestionIndex++;
-        if (currentquestionIndex < questions.length) {
-          showQuestion();
-        } else {
-          showScore();
-        }
-      }
-
-      nextButton.addEventListener("click", () => {
-        if (currentquestionIndex < questions.length) {
-          handleNextButton();
-        } else {
-          startQuiz();
-        }
+      }, 1000);
+    }
+    function lockOptions() {
+      document.querySelectorAll('.option').forEach(function (button) {
+        button.disabled = true;
       });
-
-      // Start the quiz when the page loads
-      startQuiz();
-    </script>
-  </body>
+    }
+    function loadQuestion() {
+      const current = quizData[currentQuestionIndex];
+      questionText.textContent = current.question;
+      questionCount.textContent = (currentQuestionIndex + 1) + ' / ' + quizData.length;
+      scoreCount.textContent = score;
+      options.innerHTML = '';
+      nextBtn.style.display = 'none';
+      messageBox.textContent = '';
+      current.options.forEach(function (option, index) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'option';
+        button.textContent = option;
+        button.addEventListener('click', function () {
+          handleAnswer(button, index);
+        });
+        options.appendChild(button);
+      });
+      startTimer();
+    }
+    function handleAnswer(button, index) {
+      clearInterval(timerInterval);
+      const correctIndex = quizData[currentQuestionIndex].answer;
+      lockOptions();
+      if (index === correctIndex) {
+        score += 1;
+        button.classList.add('correct');
+        messageBox.textContent = 'Correct answer.';
+      } else {
+        button.classList.add('incorrect');
+        document.querySelectorAll('.option')[correctIndex].classList.add('correct');
+        messageBox.textContent = 'Review the highlighted correct answer.';
+      }
+      scoreCount.textContent = score;
+      nextBtn.style.display = 'inline-flex';
+    }
+    function finishQuiz() {
+      clearInterval(timerInterval);
+      playArea.classList.add('hidden');
+      resultScreen.classList.remove('hidden');
+      resultSummary.textContent = 'Your final score is ' + score + ' / ' + quizData.length + '.';
+      if (!hasSavedScore && window.EduFunScores) {
+        window.EduFunScores.saveScore({
+          id: quizMeta.id,
+          title: quizMeta.title,
+          category: quizMeta.category,
+          score: score,
+          total: quizData.length,
+          path: window.location.pathname
+        });
+        hasSavedScore = true;
+      }
+    }
+    function nextQuestion() {
+      currentQuestionIndex += 1;
+      if (currentQuestionIndex < quizData.length) {
+        loadQuestion();
+      } else {
+        finishQuiz();
+      }
+    }
+    function restartQuiz() {
+      currentQuestionIndex = 0;
+      score = 0;
+      hasSavedScore = false;
+      playArea.classList.remove('hidden');
+      resultScreen.classList.add('hidden');
+      loadQuestion();
+    }
+    nextBtn.addEventListener('click', nextQuestion);
+    restartBtn.addEventListener('click', restartQuiz);
+    document.addEventListener('DOMContentLoaded', loadQuestion);
+  </script>
+</body>
 </html>

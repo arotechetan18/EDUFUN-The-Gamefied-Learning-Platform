@@ -5,12 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>O X Game - Tic Tac Toe</title>
     <style>
-        /* General Setup */
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: Arial, sans-serif;
             text-align: center;
-            background-color: #334155; /* Dark Slate Background */
-            color: #f1f5f9; /* Light text */
+            background-color: #334155;
+            color: #f1f5f9;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -18,124 +17,91 @@
             min-height: 100vh;
             padding: 20px;
         }
-
         h1 {
-            color: #6ee7b7; /* Bright green title */
+            color: #6ee7b7;
             margin-bottom: 20px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
         }
-
-        /* Game Container Styling */
         #gameContainer {
-            background: #1e293b; /* Darker blue container */
+            background: #1e293b;
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(255, 255, 255, 0.1);
             width: 90%;
-            max-width: 400px;
+            max-width: 420px;
         }
-
-        /* Board Grid */
         .board {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 8px; /* Slightly smaller gap */
+            gap: 8px;
             margin: 20px auto;
             width: 100%;
         }
-
-        /* Cell Styling */
         .cell {
-            aspect-ratio: 1 / 1; /* Ensures cells are perfectly square */
-            background: #cbd5e1; /* Light gray cell background */
+            aspect-ratio: 1 / 1;
+            background: #cbd5e1;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 4rem; /* Large text for X/O */
+            font-size: 4rem;
             font-weight: 900;
             cursor: pointer;
             border-radius: 10px;
             box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
         }
-
         .cell:not([data-player]):hover {
-            background-color: #e2e8f0; /* Lighter hover color */
+            background-color: #e2e8f0;
             transform: scale(1.02);
         }
-        
-        /* Player Colors */
-        .player-X {
-            color: #ef4444; /* Bright Red */
-            text-shadow: 0 0 10px #f87171;
-        }
-        .player-O {
-            color: #3b82f6; /* Bright Blue */
-            text-shadow: 0 0 10px #60a5fa;
-        }
-
-        /* Winning Cell Highlight */
-        .winning-cell {
-            background-color: #6ee7b7 !important; /* Bright winning background */
-            animation: pulse-win 1s infinite alternate;
-        }
-
-        @keyframes pulse-win {
-            from { opacity: 1; }
-            to { opacity: 0.8; }
-        }
-
-        /* Status Text */
-        #status {
-            font-size: 1.25rem;
-            margin-top: 15px;
-            font-weight: bold;
-            color: #f8fafc; /* Very light gray */
-        }
-
-        /* Button Styling */
-        .game-button {
+        .player-X { color: #ef4444; text-shadow: 0 0 10px #f87171; }
+        .player-O { color: #3b82f6; text-shadow: 0 0 10px #60a5fa; }
+        .winning-cell { background-color: #6ee7b7 !important; animation: pulse-win 1s infinite alternate; }
+        @keyframes pulse-win { from { opacity: 1; } to { opacity: 0.8; } }
+        #status { font-size: 1.25rem; margin-top: 15px; font-weight: bold; color: #f8fafc; }
+        #scoreSummary { margin-top: 10px; color: #cbd5e1; line-height: 1.7; }
+        .actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
+        .game-button, .profile-link {
             padding: 12px 25px;
             font-size: 1rem;
             font-weight: bold;
             border: none;
-            border-radius: 50px; /* Pill shape */
+            border-radius: 50px;
             cursor: pointer;
-            margin-top: 20px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
-
-        .restart-button {
-            background: linear-gradient(135deg, #10b981, #059669); /* Emerald Gradient */
-            color: white;
-        }
-        .restart-button:hover {
-            background: linear-gradient(135deg, #059669, #047857);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Media Queries for Responsiveness */
+        .restart-button { background: linear-gradient(135deg, #10b981, #059669); color: white; }
+        .profile-link { background: #e2e8f0; color: #0f172a; }
         @media (max-width: 480px) {
-            .cell {
-                font-size: 3rem;
-            }
-            #gameContainer {
-                padding: 20px;
-            }
+            .cell { font-size: 3rem; }
+            #gameContainer { padding: 20px; }
         }
-
     </style>
+    <script>
+      (function () {
+        const marker = "/pages/";
+        const path = window.location.pathname;
+        const root = path.includes(marker) ? path.split(marker)[0] + "/" : path.substring(0, path.lastIndexOf("/") + 1);
+        const scoreScript = document.createElement("script");
+        scoreScript.src = root + "js/score-manager.js";
+        scoreScript.defer = true;
+        document.head.appendChild(scoreScript);
+        const script = document.createElement("script");
+        script.src = root + "js/site-navigation.js";
+        script.defer = true;
+        document.head.appendChild(script);
+      })();
+    </script>
 </head>
 <body>
-    
     <h1>O X Game - Tic Tac Toe</h1>
     <div id="gameContainer">
         <div class="board" id="board">
-            <!-- Cells will be generated by JS for cleaner code, but kept here for structure -->
             <div class="cell" data-index="0"></div>
             <div class="cell" data-index="1"></div>
             <div class="cell" data-index="2"></div>
@@ -146,75 +112,68 @@
             <div class="cell" data-index="7"></div>
             <div class="cell" data-index="8"></div>
         </div>
-        
         <p id="status">Player X's Turn</p>
-        <button class="game-button restart-button" onclick="resetGame()">Restart Game</button>
+        <p id="scoreSummary">Finish one match to save the final result in your profile.</p>
+        <div class="actions">
+            <button class="game-button restart-button" onclick="resetGame()">Restart Game</button>
+            <a class="profile-link" href="./../../../account.html">View Profile</a>
+        </div>
     </div>
 
     <script>
-        // Game State Variables
         const board = ["", "", "", "", "", "", "", "", ""];
         let currentPlayer = "X";
         let gameActive = true;
+        let hasSavedResult = false;
         const statusElement = document.getElementById("status");
-        const boardElement = document.getElementById("board");
+        const scoreSummaryElement = document.getElementById("scoreSummary");
         const cells = document.querySelectorAll('.cell');
 
-        // All possible winning patterns (rows, columns, diagonals)
         const winPatterns = [
             [0, 1, 2], [3, 4, 5], [6, 7, 8],
             [0, 3, 6], [1, 4, 7], [2, 5, 8],
             [0, 4, 8], [2, 4, 6]
         ];
 
-        // Attach event listeners to all cells
-        cells.forEach(cell => {
+        cells.forEach(function (cell) {
             cell.addEventListener('click', handleCellClick);
         });
 
-        /**
-         * Handles the click event on a game cell.
-         * @param {Event} event The click event object.
-         */
         function handleCellClick(event) {
             const clickedCell = event.target;
-            const index = parseInt(clickedCell.getAttribute('data-index'));
+            const index = parseInt(clickedCell.getAttribute('data-index'), 10);
 
-            // Check if the cell is already played or the game is over
             if (board[index] !== "" || !gameActive) {
                 return;
             }
 
-            // Update board state and cell UI
             board[index] = currentPlayer;
             clickedCell.innerText = currentPlayer;
             clickedCell.classList.add(`player-${currentPlayer}`);
             clickedCell.setAttribute('data-player', currentPlayer);
 
-            // Check for a winner or a draw
             const winnerPattern = checkWinner();
             if (winnerPattern) {
-                statusElement.innerText = `Player ${currentPlayer} Wins! 🎉`;
+                statusElement.innerText = `Player ${currentPlayer} Wins!`;
+                scoreSummaryElement.innerText = 'Final score: 1 / 1. The result has been saved to your profile.';
                 highlightWinner(winnerPattern);
                 gameActive = false;
+                saveResult(1, 1);
                 return;
             }
 
             if (!board.includes("")) {
-                statusElement.innerText = "It's a Draw! 🤝";
+                statusElement.innerText = "It's a Draw!";
+                scoreSummaryElement.innerText = 'Final score: 0 / 1. The draw has been saved to your profile.';
                 gameActive = false;
+                saveResult(0, 1);
                 return;
             }
 
-            // Switch players and update status
             currentPlayer = currentPlayer === "X" ? "O" : "X";
             statusElement.innerText = `Player ${currentPlayer}'s Turn`;
         }
 
-        /**
-         * Checks if the current board state contains a winning pattern.
-         * @returns {number[] | null} The winning pattern array, or null if no winner.
-         */
         function checkWinner() {
             for (const pattern of winPatterns) {
                 const [a, b, c] = pattern;
@@ -225,36 +184,42 @@
             return null;
         }
 
-        /**
-         * Applies the visual highlight to the winning cells.
-         * @param {number[]} pattern The indices of the winning cells.
-         */
         function highlightWinner(pattern) {
-            pattern.forEach(index => {
+            pattern.forEach(function (index) {
                 document.querySelector(`[data-index="${index}"]`).classList.add('winning-cell');
             });
         }
 
-        /**
-         * Resets the game state and board UI.
-         */
+        function saveResult(score, total) {
+            if (hasSavedResult || !window.EduFunScores) {
+                return;
+            }
+            window.EduFunScores.saveScore({
+                id: 'tic-tac-toe-game',
+                title: 'Tic Tac Toe',
+                category: 'Junior Secondary Studies',
+                score: score,
+                total: total,
+                path: window.location.pathname
+            });
+            hasSavedResult = true;
+        }
+
         function resetGame() {
             board.fill("");
             gameActive = true;
             currentPlayer = "X";
+            hasSavedResult = false;
             statusElement.innerText = `Player ${currentPlayer}'s Turn`;
-            
-            // Reset all cell styles and content
-            cells.forEach(cell => {
+            scoreSummaryElement.innerText = 'Finish one match to save the final result in your profile.';
+            cells.forEach(function (cell) {
                 cell.innerText = "";
                 cell.classList.remove('player-X', 'player-O', 'winning-cell');
                 cell.removeAttribute('data-player');
             });
         }
 
-        // Initialize the game
-        // We removed the original inline onclicks and rely solely on the JS listeners now
-        resetGame(); 
+        resetGame();
     </script>
 </body>
 </html>
